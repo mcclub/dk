@@ -1,0 +1,1451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="824de5dc-da66-4451-9922-be89a301ebc7" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/com.dk/target/" />
+    <ignored path="$PROJECT_DIR$/dk-parent/target/" />
+    <ignored path="$PROJECT_DIR$/dk-pro/target/" />
+    <ignored path="$PROJECT_DIR$/dk-parent/dk-provider/target/" />
+    <ignored path="$PROJECT_DIR$/dk-parent/dk-rest/target/" />
+    <ignored path="$PROJECT_DIR$/dk-parent/dk-common/target/" />
+    <ignored path="$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/target/" />
+    <ignored path="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/target/" />
+    <ignored path="$PROJECT_DIR$/dk-parent/dk-pro1/target/" />
+    <ignored path="$PROJECT_DIR$/dk-parent/dk-pro1/dk-common/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="958399155">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="9" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.3" value="3" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.6" value="3" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="9" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="0-SNAPSHOT" value="1" />
+          <entry key="class" value="1" />
+          <entry key="java" value="70" />
+          <entry key="jsp" value="1" />
+          <entry key="pom" value="4" />
+          <entry key="properties" value="55" />
+          <entry key="txt" value="2" />
+          <entry key="xml" value="85" />
+          <entry key="xsd" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CLASS" value="1" />
+          <entry key="JAVA" value="70" />
+          <entry key="JSP" value="1" />
+          <entry key="PLAIN_TEXT" value="2" />
+          <entry key="Properties" value="55" />
+          <entry key="UML" value="1" />
+          <entry key="XML" value="91" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="3240" />
+          <entry key="properties" value="43" />
+          <entry key="xml" value="360" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="3240" />
+          <entry key="Properties" value="43" />
+          <entry key="XML" value="360" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="-425412213">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="class" value="2" />
+          <entry key="java" value="60" />
+          <entry key="properties" value="37" />
+          <entry key="xml" value="17" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CLASS" value="2" />
+          <entry key="JAVA" value="60" />
+          <entry key="Properties" value="37" />
+          <entry key="XML" value="17" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="321" />
+          <entry key="properties" value="40" />
+          <entry key="xml" value="32" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="321" />
+          <entry key="Properties" value="40" />
+          <entry key="XML" value="32" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="36">
+              <caret line="2" column="23" lean-forward="true" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/generatorConfig.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="16" column="48" lean-forward="true" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-common/src/main/java/com/common/utils/AuthenUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="31" column="26" lean-forward="true" selection-start-line="29" selection-start-column="15" selection-end-line="31" selection-end-column="26" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#330#346#0" expanded="true" />
+                <element signature="e#673#689#0" expanded="true" />
+                <element signature="e#740#756#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-common/src/main/java/com/common/utils/HttpUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="474">
+              <caret line="294" lean-forward="true" selection-start-line="294" selection-end-line="294" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1867#1882#0" expanded="true" />
+                <element signature="e#9365#9366#0" expanded="true" />
+                <element signature="e#9416#9417#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>java</find>
+      <find>javax</find>
+    </findStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/com.dk/pom.xml" />
+        <option value="$PROJECT_DIR$/dk-pro/pom.xml" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-rest/pom.xml" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/pom.xml" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-common/pom.xml" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/logback-spring.xml" />
+        <option value="$PROJECT_DIR$/dk-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/application-dev.properties" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/pom.xml" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/pom.xml" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/java/com/dk/rest/common/HttpUtils.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/java/com/dk/rest/common/utils/HttpUtils.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/application-pro.properties" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/generatorConfig.xml" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/entity/Vedio.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/mapper/VedioMapper.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/controller/Test.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/service/VedioService.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/service/impl/VedioServiceImpl.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/utils/HttpUtils.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/controller/TestController.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/entity/InterfaceRecordEntity.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/basis/mapper/BaseMapper.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/service/InterfaceRecordService.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/basis/service/impl/BaseServiceImpl.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/com/dk/provider/mapper/test/InterfaceRecordMapper.xml" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/java/com/dk/rest/common/utils/MessageApi.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/mapper/InterfaceRecordMapper.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/application-local.properties" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/applicationContext-dubbox-provider.xml" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/resources/applicationContext-dubbox-consumer.xml" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/resources/application-pro.properties" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/resources/application-dev.properties" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/resources/application-local.properties" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/service/impl/InterfaceRecordServiceImpl.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/DkProviderApplication.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/java/com/dk/rest/DkRestApplication.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/java/com/dk/rest/common/test.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-common/src/main/java/com/common/utils/HttpUtils.java" />
+        <option value="$PROJECT_DIR$/dk-parent/dk-pro1/dk-common/src/main/java/com/common/utils/AuthenUtils.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\Software\dk-repository" />
+        <option name="mavenHome" value="$APPLICATION_HOME_DIR$/plugins/maven/lib/maven3" />
+        <option name="userSettingsFile" value="C:\Users\11360\.m2\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="dk-parent" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="dk-parent" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="dk-provider" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="dk-provider" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="dk-provider" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
+          <item name="mybatis-generator" type="36feed69:MavenProjectsStructure$PluginNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-12" />
+    <option name="y" value="-12" />
+    <option name="width" value="2184" />
+    <option name="height" value="1416" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>Android</id>
+          </State>
+          <State>
+            <id>IconsUsabilityLintAndroid</id>
+          </State>
+          <State>
+            <id>Internationalization</id>
+          </State>
+          <State>
+            <id>InternationalizationJava</id>
+          </State>
+          <State>
+            <id>InternationalizationLintAndroid</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>LintAndroid</id>
+          </State>
+          <State>
+            <id>UsabilityLintAndroid</id>
+          </State>
+          <State>
+            <id>WebSocket</id>
+          </State>
+        </expanded-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="provider" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="provider" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="provider" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="provider" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="provider" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="provider" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="provider" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-provider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="provider" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-rest" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-rest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-rest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-rest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-rest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-rest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-rest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="rest" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-rest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="rest" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-rest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="rest" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dk" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-pro1" type="462c0819:PsiDirectoryNode" />
+              <item name="dk-rest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556185765480" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../zgrcjt-petiot" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\project\dk\dk-parent\dk-pro1\dk-provider\src\main\resources\com\dk\provider\mapper\test" />
+      <recent name="E:\project\dk\dk-parent\dk-pro1\dk-provider\src\main\java\com\dk\provider" />
+      <recent name="D:\workspace\Diankong\dk\dk-parent\dk-pro1\dk-rest\src\main\resources" />
+      <recent name="D:\workspace\Diankong\dk\dk-parent\dk-pro1\dk-provider\src\main\resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.dk.provider.test.service.impl" />
+      <recent name="com.dk.provider.test.mapper" />
+      <recent name="com.dk.provider.test.entity" />
+      <recent name="com.dk.provider.test.utils" />
+      <recent name="com.dk.rest" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workspace\Diankong\dk\dk-parent\dk-pro1" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.DkProviderApplication">
+    <configuration name="DkProviderApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.dk.provider.DkProviderApplication" />
+      <module name="dk-provider" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dk.provider.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HttpUtils (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.dk.provider.test.utils.HttpUtils" />
+      <module name="dk-provider" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dk.provider.test.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HttpUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.dk.rest.common.utils.HttpUtils" />
+      <module name="dk-rest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dk.rest.common.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MessageApi" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.dk.rest.common.utils.MessageApi" />
+      <module name="dk-rest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dk.rest.common.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.dk.provider.test.controller.Test" />
+      <module name="dk-provider" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dk.provider.test.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DkProviderApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="dk-provider" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.dk.provider.DkProviderApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DkRestApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="dk-rest" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.dk.rest.DkRestApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.DkProviderApplication" />
+      <item itemvalue="Spring Boot.DkRestApplication" />
+      <item itemvalue="Application.HttpUtils" />
+      <item itemvalue="Application.HttpUtils (1)" />
+      <item itemvalue="Application.DkProviderApplication" />
+      <item itemvalue="Application.Test" />
+      <item itemvalue="Application.MessageApi" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MessageApi" />
+        <item itemvalue="Application.DkProviderApplication" />
+        <item itemvalue="Application.HttpUtils (1)" />
+        <item itemvalue="Application.Test" />
+        <item itemvalue="Application.HttpUtils" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\11360\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="824de5dc-da66-4451-9922-be89a301ebc7" name="Default Changelist" comment="" />
+      <created>1554116626246</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1554116626246</updated>
+      <workItem from="1554116630250" duration="13049000" />
+      <workItem from="1554191496953" duration="2647000" />
+      <workItem from="1554194333610" duration="4514000" />
+      <workItem from="1554199653317" duration="8671000" />
+      <workItem from="1554282640175" duration="3706000" />
+      <workItem from="1555064401064" duration="1089000" />
+      <workItem from="1555136259271" duration="69924000" />
+      <workItem from="1555654888200" duration="1523000" />
+      <workItem from="1555920264726" duration="2775000" />
+      <workItem from="1555924167955" duration="20865000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="128763000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1455" height="944" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49807692" visible="true" weight="0.32068717" />
+      <window_info id="Structure" order="1" sideWeight="0.5019231" side_tool="true" weight="0.26413745" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32881773" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49892628" weight="0.32635468" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
+      <window_info anchor="bottom" id="Spring" order="5" weight="0.32881773" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Thumbnails" order="7" weight="0.32881773" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5010737" side_tool="true" weight="0.32635468" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.33004925" />
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.32881773" />
+      <window_info anchor="bottom" id="Debug" order="14" weight="0.42364532" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24982105" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
+      <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info anchor="right" id="Bean Validation" order="7" weight="0.32856122" />
+      <window_info anchor="right" id="Database" order="8" weight="0.32856122" />
+      <window_info anchor="right" id="Maven Projects" order="9" weight="0.32856122" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="jar://D:/soft/Jdk1.8/src.zip!/java/io/Writer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="144" column="27" lean-forward="true" selection-start-line="144" selection-start-column="27" selection-end-line="144" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/soft/Jdk1.8/src.zip!/java/io/PrintWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="55" column="24" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Software/dk-repository/org/springframework/spring-context/5.0.5.RELEASE/spring-context-5.0.5.RELEASE.jar!/org/springframework/context/config/spring-context.xsd">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="194" column="4" selection-start-line="194" selection-start-column="4" selection-end-line="194" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Software/dk-repository/org/springframework/boot/spring-boot/2.0.1.RELEASE/spring-boot-2.0.1.RELEASE-sources.jar!/org/springframework/boot/WebApplicationType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="13" column="25" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="185" column="21" lean-forward="true" selection-start-line="185" selection-start-column="21" selection-end-line="185" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Software/dk-repository/org/springframework/boot/spring-boot-autoconfigure/2.0.1.RELEASE/spring-boot-autoconfigure-2.0.1.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/jdbc/DataSourceAutoConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Software/dk-repository/org/springframework/spring-beans/5.0.5.RELEASE/spring-beans-5.0.5.RELEASE.jar!/org/springframework/beans/factory/xml/spring-beans.xsd">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="131" column="12" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/com/dk/provider/mapper/test/VedioMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="69" lean-forward="true" selection-start-line="3" selection-start-column="69" selection-end-line="3" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/controller/Test.java" />
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/controller/TestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="23" column="37" lean-forward="true" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/application-pro.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-182">
+          <caret line="9" column="48" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/mapper/VedioMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/service/VedioService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/service/impl/VedioServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/java/com/dk/rest/common/utils/HttpUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3474">
+          <caret line="193" column="44" selection-start-line="193" selection-start-column="44" selection-end-line="193" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/application-dev.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1008">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/entity/Vedio.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/utils/HttpUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-674">
+          <caret line="182" selection-start-line="182" selection-end-line="182" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/basis/mapper/BaseMapper.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/basis/service/impl/BaseServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#462#463#0" expanded="true" />
+            <element signature="e#506#507#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Software/dk-repository/org/springframework/spring-context/5.0.5.RELEASE/spring-context-5.0.5.RELEASE-sources.jar!/org/springframework/scheduling/annotation/Scheduled.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="54" column="18" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/workspace/Diankong/dk/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/DkProviderApplication.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://D:/workspace/Diankong/dk/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/mapper/VedioMapper.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://D:/workspace/Diankong/dk/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/service/impl/VedioServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="15" column="35" lean-forward="true" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/workspace/Diankong/dk/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/service/VedioService.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/com/dk/provider/mapper/test/InterfaceRecordMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1026">
+          <caret line="57" column="61" lean-forward="true" selection-start-line="57" selection-start-column="61" selection-end-line="57" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Software/dk-repository/com/alibaba/fastjson/1.2.57/fastjson-1.2.57.jar!/com/alibaba/fastjson/serializer/SerializerFeature.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Software/dk-repository/org/springframework/spring-web/5.0.5.RELEASE/spring-web-5.0.5.RELEASE-sources.jar!/org/springframework/http/MediaType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="96" column="7" lean-forward="true" selection-start-line="96" selection-start-column="7" selection-end-line="96" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/java/com/dk/rest/common/utils/MessageApi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1350">
+          <caret line="75" column="25" lean-forward="true" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2462#2463#0" expanded="true" />
+            <element signature="e#2488#2489#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Software/dk-repository/org/mybatis/spring/boot/mybatis-spring-boot-autoconfigure/1.3.0/mybatis-spring-boot-autoconfigure-1.3.0-sources.jar!/org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="741">
+          <caret line="116" column="27" selection-start-line="116" selection-start-column="27" selection-end-line="116" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Software/dk-repository/org/springframework/boot/spring-boot-autoconfigure/2.0.1.RELEASE/spring-boot-autoconfigure-2.0.1.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/SpringBootApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="54" column="18" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/entity/InterfaceRecordEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-244">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/application-local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="65" column="24" lean-forward="true" selection-start-line="65" selection-start-column="24" selection-end-line="65" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/applicationContext-dubbox-provider.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/resources/application-pro.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/mapper/InterfaceRecordMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/resources/application-local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="38" column="35" lean-forward="true" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/resources/applicationContext-dubbox-consumer.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="11" column="62" lean-forward="true" selection-start-line="11" selection-start-column="62" selection-end-line="11" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/java/com/dk/rest/DkRestApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="50" column="36" lean-forward="true" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
+          <folding>
+            <element signature="e#1981#1982#0" expanded="true" />
+            <element signature="e#2049#2050#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/DkProviderApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/service/InterfaceRecordService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/java/com/dk/provider/test/service/impl/InterfaceRecordServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/java/com/dk/rest/common/test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/resources/application-dev.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="12" lean-forward="true" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-rest/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="23" lean-forward="true" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-provider/src/main/resources/generatorConfig.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="48" lean-forward="true" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/soft/Jdk1.8/jre/lib/rt.jar!/javax/net/ssl/SSLSocketFactory.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-common/src/main/java/com/common/utils/HttpUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="294" lean-forward="true" selection-start-line="294" selection-end-line="294" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1867#1882#0" expanded="true" />
+            <element signature="e#9365#9366#0" expanded="true" />
+            <element signature="e#9416#9417#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-common/src/main/java/com/common/utils/AuthenUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="31" column="26" lean-forward="true" selection-start-line="29" selection-start-column="15" selection-end-line="31" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#330#346#0" expanded="true" />
+            <element signature="e#673#689#0" expanded="true" />
+            <element signature="e#740#756#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArquillianSettingsConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>com.dk:war</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>dk-provider</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: antlr:antlr:2.7.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.41724136" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+  <component name="mavenExecuteGoalHistory">
+    <option value="" />
+  </component>
+</project>
