@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="824de5dc-da66-4451-9922-be89a301ebc7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/com.dk/target/" />
@@ -169,8 +168,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-common/src/main/java/com/common/utils/AuthenUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="25" column="44" lean-forward="true" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
+            <state relative-caret-position="48">
+              <caret line="14" column="68" lean-forward="true" selection-start-line="14" selection-start-column="68" selection-end-line="14" selection-end-column="68" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -770,7 +769,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556210535741" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556210625196" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
     <property name="last_opened_file_path" value="D:/soft/Git/bin/git.exe" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -929,7 +928,7 @@
       <workItem from="1555654888200" duration="1523000" />
       <workItem from="1555920264726" duration="2775000" />
       <workItem from="1555924167955" duration="20865000" />
-      <workItem from="1556209916068" duration="457000" />
+      <workItem from="1556209916068" duration="701000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1556210196559</created>
@@ -945,11 +944,25 @@
       <option name="project" value="LOCAL" />
       <updated>1556210220138</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="test">
+      <created>1556210395842</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1556210395842</updated>
+    </task>
+    <task id="LOCAL-00004" summary="test">
+      <created>1556210606328</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1556210606328</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129220000" />
+    <option name="totallyTimeSpent" value="129464000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1455" height="944" extended-state="6" />
@@ -975,7 +988,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5010737" side_tool="true" weight="0.32552403" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.33004925" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="12" visible="true" weight="0.3292232" />
+      <window_info anchor="bottom" id="Version Control" order="12" weight="0.3292232" />
       <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.32881773" />
       <window_info anchor="bottom" id="Debug" order="14" weight="0.42364532" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -1335,8 +1348,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dk-parent/dk-pro1/dk-common/src/main/java/com/common/utils/AuthenUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="25" column="44" lean-forward="true" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
+        <state relative-caret-position="48">
+          <caret line="14" column="68" lean-forward="true" selection-start-line="14" selection-start-column="68" selection-end-line="14" selection-end-column="68" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
