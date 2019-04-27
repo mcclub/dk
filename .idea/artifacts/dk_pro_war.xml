@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="dk-pro:war">
-    <output-path>$PROJECT_DIR$/dk-pro/target</output-path>
-    <root id="archive" name="com.dk.war">
-      <element id="artifact" artifact-name="dk-pro:war exploded" />
-    </root>
-  </artifact>
-</component>
