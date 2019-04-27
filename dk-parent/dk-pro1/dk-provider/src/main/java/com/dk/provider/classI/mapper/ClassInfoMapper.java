@@ -1,9 +1,8 @@
 package com.dk.provider.classI.mapper;
 
-
 import com.dk.provider.classI.entity.ClassInfo;
 
-public interface ClassMapper {
+public interface ClassInfoMapper {
     int deleteByPrimaryKey(Long id);
 
     int insert(ClassInfo record);

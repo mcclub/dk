@@ -1,5 +1,7 @@
 package com.dk.provider.repay.entity;
 
+import java.util.Date;
+
 /**
  * 还款交易流水表
  */
@@ -22,9 +24,9 @@ public class RepayFlow {
 
     private String fee;
 
-    private String states;
+    private Long states;
 
-    private String createTime;
+    private Date createTime;
 
     public Long getId() {
         return id;
@@ -98,19 +100,19 @@ public class RepayFlow {
         this.fee = fee == null ? null : fee.trim();
     }
 
-    public String getStates() {
+    public Long getStates() {
         return states;
     }
 
-    public void setStates(String states) {
-        this.states = states == null ? null : states.trim();
+    public void setStates(Long states) {
+        this.states = states;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime == null ? null : createTime.trim();
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }
