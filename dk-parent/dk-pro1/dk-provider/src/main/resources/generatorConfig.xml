@@ -35,7 +35,7 @@
         </javaClientGenerator>
 
         <!-- 配置不生成Exmaple文件>  tableName表名   domainObjectName生成后的xml名(自动拼接 Mapper.xml)-->
-        <table tableName="t_user_account" domainObjectName="UserAccount"
+        <table tableName="t_cardinfo" domainObjectName="CardInfo"
                enableDeleteByExample="false" selectByExampleQueryId="false"
                enableCountByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>

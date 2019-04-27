@@ -1,20 +1,14 @@
-package com.dk.provider.user.entity;
+package com.dk.provider.oem.entity;
 
 import java.util.Date;
 
 /**
- * 用户账户信息
+ * OEM产品表
  */
-public class UserAccount {
+public class OemInfo {
     private Long id;
 
-    private Long userId;
-
-    private String balance;
-
-    private String rokeAmt;
-
-    private String password;
+    private String name;
 
     private Long states;
 
@@ -36,36 +30,12 @@ public class UserAccount {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getName() {
+        return name;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getBalance() {
-        return balance;
-    }
-
-    public void setBalance(String balance) {
-        this.balance = balance == null ? null : balance.trim();
-    }
-
-    public String getRokeAmt() {
-        return rokeAmt;
-    }
-
-    public void setRokeAmt(String rokeAmt) {
-        this.rokeAmt = rokeAmt == null ? null : rokeAmt.trim();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public Long getStates() {

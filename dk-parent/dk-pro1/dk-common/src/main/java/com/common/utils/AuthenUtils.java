@@ -6,6 +6,9 @@ import org.apache.http.util.EntityUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 银行卡四要素鉴权
+ */
 public class AuthenUtils {
     private static String host = "https://yunyidata.market.alicloudapi.com";
     private static String path = "/bankAuthenticate4";

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dk.provider.repay.mapper.RepayFlowMapper">
+  <resultMap id="BaseResultMap" type="com.dk.provider.repay.entity.RepayFlow">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="order_no" jdbcType="CHAR" property="orderNo" />
+    <result column="amount" jdbcType="CHAR" property="amount" />
+    <result column="cardcode_out" jdbcType="CHAR" property="cardcodeOut" />
+    <result column="cardcode_in" jdbcType="CHAR" property="cardcodeIn" />
+    <result column="route_id" jdbcType="CHAR" property="routeId" />
+    <result column="rate" jdbcType="CHAR" property="rate" />
+    <result column="fee" jdbcType="CHAR" property="fee" />
+    <result column="states" jdbcType="CHAR" property="states" />
+    <result column="create_time" jdbcType="CHAR" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, order_no, amount, cardcode_out, cardcode_in, route_id, rate, fee, states, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_repay_flow
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_repay_flow
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dk.provider.repay.entity.RepayFlow">
+    insert into t_repay_flow (id, user_id, order_no, 
+      amount, cardcode_out, cardcode_in, 
+      route_id, rate, fee, states, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{orderNo,jdbcType=CHAR}, 
+      #{amount,jdbcType=CHAR}, #{cardcodeOut,jdbcType=CHAR}, #{cardcodeIn,jdbcType=CHAR}, 
+      #{routeId,jdbcType=CHAR}, #{rate,jdbcType=CHAR}, #{fee,jdbcType=CHAR}, #{states,jdbcType=CHAR}, 
+      #{createTime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dk.provider.repay.entity.RepayFlow">
+    insert into t_repay_flow
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="cardcodeOut != null">
+        cardcode_out,
+      </if>
+      <if test="cardcodeIn != null">
+        cardcode_in,
+      </if>
+      <if test="routeId != null">
+        route_id,
+      </if>
+      <if test="rate != null">
+        rate,
+      </if>
+      <if test="fee != null">
+        fee,
+      </if>
+      <if test="states != null">
+        states,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=CHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=CHAR},
+      </if>
+      <if test="cardcodeOut != null">
+        #{cardcodeOut,jdbcType=CHAR},
+      </if>
+      <if test="cardcodeIn != null">
+        #{cardcodeIn,jdbcType=CHAR},
+      </if>
+      <if test="routeId != null">
+        #{routeId,jdbcType=CHAR},
+      </if>
+      <if test="rate != null">
+        #{rate,jdbcType=CHAR},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=CHAR},
+      </if>
+      <if test="states != null">
+        #{states,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dk.provider.repay.entity.RepayFlow">
+    update t_repay_flow
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=CHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=CHAR},
+      </if>
+      <if test="cardcodeOut != null">
+        cardcode_out = #{cardcodeOut,jdbcType=CHAR},
+      </if>
+      <if test="cardcodeIn != null">
+        cardcode_in = #{cardcodeIn,jdbcType=CHAR},
+      </if>
+      <if test="routeId != null">
+        route_id = #{routeId,jdbcType=CHAR},
+      </if>
+      <if test="rate != null">
+        rate = #{rate,jdbcType=CHAR},
+      </if>
+      <if test="fee != null">
+        fee = #{fee,jdbcType=CHAR},
+      </if>
+      <if test="states != null">
+        states = #{states,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dk.provider.repay.entity.RepayFlow">
+    update t_repay_flow
+    set user_id = #{userId,jdbcType=BIGINT},
+      order_no = #{orderNo,jdbcType=CHAR},
+      amount = #{amount,jdbcType=CHAR},
+      cardcode_out = #{cardcodeOut,jdbcType=CHAR},
+      cardcode_in = #{cardcodeIn,jdbcType=CHAR},
+      route_id = #{routeId,jdbcType=CHAR},
+      rate = #{rate,jdbcType=CHAR},
+      fee = #{fee,jdbcType=CHAR},
+      states = #{states,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

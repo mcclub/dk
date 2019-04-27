@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dk.provider.user.mapper.CardInfoMapper">
+  <resultMap id="BaseResultMap" type="com.dk.provider.user.entity.CardInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="card_code" jdbcType="VARCHAR" property="cardCode" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="bank_code" jdbcType="CHAR" property="bankCode" />
+    <result column="identity" jdbcType="VARCHAR" property="identity" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="valid" jdbcType="VARCHAR" property="valid" />
+    <result column="cvv" jdbcType="VARCHAR" property="cvv" />
+    <result column="bill_time" jdbcType="VARCHAR" property="billTime" />
+    <result column="rep_time" jdbcType="VARCHAR" property="repTime" />
+    <result column="isbind" jdbcType="BIGINT" property="isbind" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, card_code, real_name, bank_name, bank_code, `identity`, phone, `valid`, 
+    cvv, bill_time, rep_time, isbind, `type`, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_cardinfo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_cardinfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dk.provider.user.entity.CardInfo">
+    insert into t_cardinfo (id, user_id, card_code, 
+      real_name, bank_name, bank_code, 
+      `identity`, phone, `valid`, 
+      cvv, bill_time, rep_time, 
+      isbind, `type`, create_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{cardCode,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{bankCode,jdbcType=CHAR}, 
+      #{identity,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{valid,jdbcType=VARCHAR}, 
+      #{cvv,jdbcType=VARCHAR}, #{billTime,jdbcType=VARCHAR}, #{repTime,jdbcType=VARCHAR}, 
+      #{isbind,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dk.provider.user.entity.CardInfo">
+    insert into t_cardinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="cardCode != null">
+        card_code,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="bankName != null">
+        bank_name,
+      </if>
+      <if test="bankCode != null">
+        bank_code,
+      </if>
+      <if test="identity != null">
+        `identity`,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="valid != null">
+        `valid`,
+      </if>
+      <if test="cvv != null">
+        cvv,
+      </if>
+      <if test="billTime != null">
+        bill_time,
+      </if>
+      <if test="repTime != null">
+        rep_time,
+      </if>
+      <if test="isbind != null">
+        isbind,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="cardCode != null">
+        #{cardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null">
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null">
+        #{bankCode,jdbcType=CHAR},
+      </if>
+      <if test="identity != null">
+        #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=VARCHAR},
+      </if>
+      <if test="cvv != null">
+        #{cvv,jdbcType=VARCHAR},
+      </if>
+      <if test="billTime != null">
+        #{billTime,jdbcType=VARCHAR},
+      </if>
+      <if test="repTime != null">
+        #{repTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isbind != null">
+        #{isbind,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dk.provider.user.entity.CardInfo">
+    update t_cardinfo
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="cardCode != null">
+        card_code = #{cardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null">
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null">
+        bank_code = #{bankCode,jdbcType=CHAR},
+      </if>
+      <if test="identity != null">
+        `identity` = #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        `valid` = #{valid,jdbcType=VARCHAR},
+      </if>
+      <if test="cvv != null">
+        cvv = #{cvv,jdbcType=VARCHAR},
+      </if>
+      <if test="billTime != null">
+        bill_time = #{billTime,jdbcType=VARCHAR},
+      </if>
+      <if test="repTime != null">
+        rep_time = #{repTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isbind != null">
+        isbind = #{isbind,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dk.provider.user.entity.CardInfo">
+    update t_cardinfo
+    set user_id = #{userId,jdbcType=BIGINT},
+      card_code = #{cardCode,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      bank_code = #{bankCode,jdbcType=CHAR},
+      `identity` = #{identity,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      `valid` = #{valid,jdbcType=VARCHAR},
+      cvv = #{cvv,jdbcType=VARCHAR},
+      bill_time = #{billTime,jdbcType=VARCHAR},
+      rep_time = #{repTime,jdbcType=VARCHAR},
+      isbind = #{isbind,jdbcType=BIGINT},
+      `type` = #{type,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

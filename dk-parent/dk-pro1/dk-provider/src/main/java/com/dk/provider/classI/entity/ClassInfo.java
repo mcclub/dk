@@ -1,22 +1,16 @@
-package com.dk.provider.user.entity;
+package com.dk.provider.classI.entity;
 
 import java.util.Date;
 
 /**
- * 用户账户信息
+ * 等级表
  */
-public class UserAccount {
+public class ClassInfo {
     private Long id;
 
-    private Long userId;
+    private String name;
 
-    private String balance;
-
-    private String rokeAmt;
-
-    private String password;
-
-    private Long states;
+    private Long type;
 
     private Date createTime;
 
@@ -36,44 +30,20 @@ public class UserAccount {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getName() {
+        return name;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
-    public String getBalance() {
-        return balance;
+    public Long getType() {
+        return type;
     }
 
-    public void setBalance(String balance) {
-        this.balance = balance == null ? null : balance.trim();
-    }
-
-    public String getRokeAmt() {
-        return rokeAmt;
-    }
-
-    public void setRokeAmt(String rokeAmt) {
-        this.rokeAmt = rokeAmt == null ? null : rokeAmt.trim();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
-
-    public Long getStates() {
-        return states;
-    }
-
-    public void setStates(Long states) {
-        this.states = states;
+    public void setType(Long type) {
+        this.type = type;
     }
 
     public Date getCreateTime() {

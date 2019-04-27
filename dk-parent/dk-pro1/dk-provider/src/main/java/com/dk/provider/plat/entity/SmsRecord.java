@@ -1,20 +1,18 @@
-package com.dk.provider.user.entity;
+package com.dk.provider.plat.entity;
 
 import java.util.Date;
 
 /**
- * 用户账户信息
+ * 短信记录
  */
-public class UserAccount {
+public class SmsRecord {
     private Long id;
 
     private Long userId;
 
-    private String balance;
+    private String phone;
 
-    private String rokeAmt;
-
-    private String password;
+    private String content;
 
     private Long states;
 
@@ -44,28 +42,20 @@ public class UserAccount {
         this.userId = userId;
     }
 
-    public String getBalance() {
-        return balance;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setBalance(String balance) {
-        this.balance = balance == null ? null : balance.trim();
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
     }
 
-    public String getRokeAmt() {
-        return rokeAmt;
+    public String getContent() {
+        return content;
     }
 
-    public void setRokeAmt(String rokeAmt) {
-        this.rokeAmt = rokeAmt == null ? null : rokeAmt.trim();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 
     public Long getStates() {

@@ -2,6 +2,9 @@ package com.dk.provider.user.entity;
 
 import java.util.Date;
 
+/**
+ * 用户基本信息表
+ */
 public class User {
     private Long id;
 
