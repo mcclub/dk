@@ -1,11 +1,14 @@
 package com.dk.rest.common;
 import com.alibaba.fastjson.JSONObject;
 import com.common.utils.AuthenUtils;
+import com.common.utils.CommonUtils;
 import com.common.utils.SendMsgUtils;
+import com.dk.provider.basis.service.RedisCacheService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +20,13 @@ public class CommonController {
     private Logger logger = LoggerFactory.getLogger(CommonController.class);
 
     /**
-     * 发送短信验证码
+     * redis缓存service
+     */
+    @Resource
+    private RedisCacheService redisCacheService;
+
+    /**
+     * 发送短信验证码 并且记录平台短信记录
      * @param jsonObject
      * @throws Exception
      */
@@ -25,8 +34,14 @@ public class CommonController {
     @RequestMapping(value = {"/sendMsg"},method = RequestMethod.POST)
     public void sendMsg(@RequestBody JSONObject jsonObject) throws Exception{
         String phone = jsonObject.getString("phone");
-        String res = SendMsgUtils.sendMsgPost(phone,"");
+        String verfiCode = CommonUtils.getRandom(6);
+
+        //存redis  缓存时间5分钟
+        redisCacheService.set(phone,verfiCode,5L);
+
+        String res = SendMsgUtils.sendMsgPost(phone,verfiCode);
         logger.info("返回信息:{}",res);
+
     }
 
     /**

@@ -1,11 +1,12 @@
 package com.dk.provider.plat.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 通道信息表
  */
-public class RouteInfo {
+public class RouteInfo implements Serializable {
     private Long id;
 
     private String name;
@@ -18,9 +19,9 @@ public class RouteInfo {
 
     private String normMax;
 
-    private Date timeBegin;
+    private String timeBegin;
 
-    private Date timeEnd;
+    private String timeEnd;
 
     private Long states;
 
@@ -86,19 +87,19 @@ public class RouteInfo {
         this.normMax = normMax == null ? null : normMax.trim();
     }
 
-    public Date getTimeBegin() {
+    public String getTimeBegin() {
         return timeBegin;
     }
 
-    public void setTimeBegin(Date timeBegin) {
+    public void setTimeBegin(String timeBegin) {
         this.timeBegin = timeBegin;
     }
 
-    public Date getTimeEnd() {
+    public String getTimeEnd() {
         return timeEnd;
     }
 
-    public void setTimeEnd(Date timeEnd) {
+    public void setTimeEnd(String timeEnd) {
         this.timeEnd = timeEnd;
     }
 

@@ -8,8 +8,8 @@
     <result column="fee" jdbcType="VARCHAR" property="fee" />
     <result column="norm_min" jdbcType="VARCHAR" property="normMin" />
     <result column="norm_max" jdbcType="VARCHAR" property="normMax" />
-    <result column="time_begin" jdbcType="TIMESTAMP" property="timeBegin" />
-    <result column="time_end" jdbcType="TIMESTAMP" property="timeEnd" />
+    <result column="time_begin" jdbcType="VARCHAR" property="timeBegin" />
+    <result column="time_end" jdbcType="VARCHAR" property="timeEnd" />
     <result column="states" jdbcType="BIGINT" property="states" />
     <result column="type" jdbcType="BIGINT" property="type" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -23,6 +23,55 @@
     id, `name`, rate, fee, norm_min, norm_max, time_begin, time_end, states, `type`, 
     remark, create_time, update_time, create_by, update_by, is_delete
   </sql>
+
+  <sql id="table_name">
+    t_routeinfo
+  </sql>
+  <sql id="sqlWhere">
+    <where>
+      states = 1
+      <if test="id != null and id != ''">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+    </where>
+  </sql>
+  <sql id="sqlPage">
+    <choose>
+      <when test="orderby!=null and orderby!=''">
+        <![CDATA[ ORDER BY ${orderby}]]>
+      </when>
+      <otherwise>
+        <![CDATA[ ORDER BY create_time DESC]]>
+      </otherwise>
+    </choose>
+    <if test="start!=null and max!=null">
+      <![CDATA[ LIMIT #{start}, #{max}]]>
+    </if>
+  </sql>
+
+  <!-- 查询(含条件查询)-->
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    <include refid="table_name"/>
+    <include refid="sqlWhere"/>
+    <include refid="sqlPage"/>
+  </select>
+
+  <!-- 分页计数-->
+  <select id="counts" parameterType="map" resultType="java.lang.Integer">
+    SELECT count(1)
+    FROM
+    <include refid="table_name"/>
+    <include refid="sqlWhere"/>
+  </select>
+
+
+
+
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -42,7 +91,7 @@
       is_delete)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{rate,jdbcType=VARCHAR}, 
       #{fee,jdbcType=VARCHAR}, #{normMin,jdbcType=VARCHAR}, #{normMax,jdbcType=VARCHAR}, 
-      #{timeBegin,jdbcType=TIMESTAMP}, #{timeEnd,jdbcType=TIMESTAMP}, #{states,jdbcType=BIGINT}, 
+      #{timeBegin,jdbcType=VARCHAR}, #{timeEnd,jdbcType=VARCHAR}, #{states,jdbcType=BIGINT},
       #{type,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, 
       #{isDelete,jdbcType=BIGINT})
@@ -119,10 +168,10 @@
         #{normMax,jdbcType=VARCHAR},
       </if>
       <if test="timeBegin != null">
-        #{timeBegin,jdbcType=TIMESTAMP},
+        #{timeBegin,jdbcType=VARCHAR},
       </if>
       <if test="timeEnd != null">
-        #{timeEnd,jdbcType=TIMESTAMP},
+        #{timeEnd,jdbcType=VARCHAR},
       </if>
       <if test="states != null">
         #{states,jdbcType=BIGINT},
@@ -169,10 +218,10 @@
         norm_max = #{normMax,jdbcType=VARCHAR},
       </if>
       <if test="timeBegin != null">
-        time_begin = #{timeBegin,jdbcType=TIMESTAMP},
+        time_begin = #{timeBegin,jdbcType=VARCHAR},
       </if>
       <if test="timeEnd != null">
-        time_end = #{timeEnd,jdbcType=TIMESTAMP},
+        time_end = #{timeEnd,jdbcType=VARCHAR},
       </if>
       <if test="states != null">
         states = #{states,jdbcType=BIGINT},
@@ -208,8 +257,8 @@
       fee = #{fee,jdbcType=VARCHAR},
       norm_min = #{normMin,jdbcType=VARCHAR},
       norm_max = #{normMax,jdbcType=VARCHAR},
-      time_begin = #{timeBegin,jdbcType=TIMESTAMP},
-      time_end = #{timeEnd,jdbcType=TIMESTAMP},
+      time_begin = #{timeBegin,jdbcType=VARCHAR},
+      time_end = #{timeEnd,jdbcType=VARCHAR},
       states = #{states,jdbcType=BIGINT},
       `type` = #{type,jdbcType=BIGINT},
       remark = #{remark,jdbcType=VARCHAR},

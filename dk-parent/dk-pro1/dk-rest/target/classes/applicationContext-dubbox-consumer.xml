@@ -21,6 +21,9 @@
 	<!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
 
 	<!-- -->
-	<dubbo:reference id="interfaceRecordService" interface="com.dk.provider.test.service.InterfaceRecordService" check="false" />
+	<!--<dubbo:reference id="interfaceRecordService" interface="com.dk.provider.test.service.InterfaceRecordService" check="false" />
+-->
+	<dubbo:reference id="redisCacheService" interface="com.dk.provider.basis.service.RedisCacheService" check="false" />
 
+	<dubbo:reference id="routeInfoService" interface="com.dk.provider.plat.service.RouteInfoService" check="false" />
 </beans>

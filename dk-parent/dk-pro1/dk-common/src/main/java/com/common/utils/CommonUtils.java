@@ -18,4 +18,7 @@ public class CommonUtils {
         return sb.toString();
     }
 
+    public static void main(String[] args) {
+        System.out.println(getRandom(6));
+    }
 }

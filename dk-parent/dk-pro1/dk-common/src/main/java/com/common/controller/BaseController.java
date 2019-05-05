@@ -35,7 +35,7 @@ public class BaseController {
     public RestResult getSuccuss(JSONObject data){
         RestResult result = new RestResult();
         result.setRespCode(ResultEnume.SUCCESS);
-        result.setRespMsg("成功");
+        result.setRespMsg(ResultEnume.SUCSTR);
         result.setData(data);
         return result;
     }
@@ -43,7 +43,7 @@ public class BaseController {
     public RestResult getFail(String data){
         RestResult result = new RestResult();
         result.setRespCode(ResultEnume.FAIL);
-        result.setRespMsg("失败");
+        result.setRespMsg(ResultEnume.FAILSTR);
         result.setData(data);
         return result;
     }
@@ -51,7 +51,7 @@ public class BaseController {
     public RestResult getFail(){
         RestResult result = new RestResult();
         result.setRespCode(ResultEnume.FAIL);
-        result.setRespMsg("失败");
+        result.setRespMsg(ResultEnume.FAILSTR);
         result.setData(null);
         return result;
     }
@@ -59,7 +59,7 @@ public class BaseController {
     public RestResult getFailRes(){
         RestResult result = new RestResult();
         result.setRespCode(ResultEnume.BUSY);
-        result.setRespMsg("系统繁忙,请稍后再试");
+        result.setRespMsg(ResultEnume.BUSYSTR);
         result.setData(null);
         return result;
     }
