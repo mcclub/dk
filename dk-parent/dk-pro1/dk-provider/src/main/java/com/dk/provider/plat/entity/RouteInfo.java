@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 通道信息表
+ * 大类通道信息表
  */
 public class RouteInfo implements Serializable {
     private Long id;
@@ -22,6 +22,8 @@ public class RouteInfo implements Serializable {
     private String timeBegin;
 
     private String timeEnd;
+
+    private Long isFree;
 
     private Long states;
 
@@ -165,5 +167,13 @@ public class RouteInfo implements Serializable {
 
     public void setIsDelete(Long isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public Long getIsFree() {
+        return isFree;
+    }
+
+    public void setIsFree(Long isFree) {
+        this.isFree = isFree;
     }
 }

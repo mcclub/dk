@@ -10,6 +10,7 @@
     <result column="norm_max" jdbcType="VARCHAR" property="normMax" />
     <result column="time_begin" jdbcType="VARCHAR" property="timeBegin" />
     <result column="time_end" jdbcType="VARCHAR" property="timeEnd" />
+    <result column="is_free" jdbcType="BIGINT" property="isFree" />
     <result column="states" jdbcType="BIGINT" property="states" />
     <result column="type" jdbcType="BIGINT" property="type" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -20,7 +21,7 @@
     <result column="is_delete" jdbcType="BIGINT" property="isDelete" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, `name`, rate, fee, norm_min, norm_max, time_begin, time_end, states, `type`, 
+    id, `name`, rate, fee, norm_min, norm_max, time_begin, time_end, is_free, states, `type`,
     remark, create_time, update_time, create_by, update_by, is_delete
   </sql>
 
@@ -32,6 +33,9 @@
       states = 1
       <if test="id != null and id != ''">
         and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="type != null and type != ''">
+        and type = #{type,jdbcType=BIGINT}
       </if>
     </where>
   </sql>
@@ -67,7 +71,26 @@
     <include refid="sqlWhere"/>
   </select>
 
-
+  <sql id="sqlWhereOne">
+    <if test="userId != null and userId != ''">
+      and u.id = #{userId}
+    </if>
+    <if test="type != null and type != ''">
+      and type = #{type}
+    </if>
+  </sql>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+    select t.id,t.`name`,t.norm_min,norm_max,t.time_begin,t.time_end,t.is_free,remark,cr.fee,cr.rate
+    from t_routeinfo t,t_class_rate cr, t_classinfo cls,t_user u
+    where cr.route_id = t.id and cls.id = cr.class_id and u.class_id = cls.id
+    <include refid="sqlWhereOne"/>
+  </select>
+  <select id="counts" parameterType="map" resultType="java.lang.Integer">
+    SELECT count(1)
+    FROM
+    where cr.route_id = t.id and cls.id = cr.class_id and u.class_id = cls.id
+    <include refid="sqlWhereOne"/>
+  </select>
 
 
 
@@ -85,13 +108,14 @@
   <insert id="insert" parameterType="com.dk.provider.plat.entity.RouteInfo">
     insert into t_routeinfo (id, `name`, rate, 
       fee, norm_min, norm_max, 
-      time_begin, time_end, states, 
+      time_begin, time_end, is_free, states,
       `type`, remark, create_time, 
       update_time, create_by, update_by, 
       is_delete)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{rate,jdbcType=VARCHAR}, 
       #{fee,jdbcType=VARCHAR}, #{normMin,jdbcType=VARCHAR}, #{normMax,jdbcType=VARCHAR}, 
-      #{timeBegin,jdbcType=VARCHAR}, #{timeEnd,jdbcType=VARCHAR}, #{states,jdbcType=BIGINT},
+      #{timeBegin,jdbcType=VARCHAR}, #{timeEnd,jdbcType=VARCHAR}, #{isFree,jdbcType=BIGINT},
+      #{states,jdbcType=BIGINT},
       #{type,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, 
       #{isDelete,jdbcType=BIGINT})
@@ -122,6 +146,9 @@
       </if>
       <if test="timeEnd != null">
         time_end,
+      </if>
+      <if test="is_free != null">
+        is_free,
       </if>
       <if test="states != null">
         states,
@@ -173,6 +200,9 @@
       <if test="timeEnd != null">
         #{timeEnd,jdbcType=VARCHAR},
       </if>
+      <if test="isFree != null">
+        #{isFree,jdbcType=BIGINT},
+      </if>
       <if test="states != null">
         #{states,jdbcType=BIGINT},
       </if>
@@ -223,6 +253,9 @@
       <if test="timeEnd != null">
         time_end = #{timeEnd,jdbcType=VARCHAR},
       </if>
+      <if test="isFree != null">
+        is_free = #{isFree,jdbcType=BIGINT},
+      </if>
       <if test="states != null">
         states = #{states,jdbcType=BIGINT},
       </if>
@@ -259,6 +292,7 @@
       norm_max = #{normMax,jdbcType=VARCHAR},
       time_begin = #{timeBegin,jdbcType=VARCHAR},
       time_end = #{timeEnd,jdbcType=VARCHAR},
+      is_free = #{isFree,jdbcType=BIGINT},
       states = #{states,jdbcType=BIGINT},
       `type` = #{type,jdbcType=BIGINT},
       remark = #{remark,jdbcType=VARCHAR},

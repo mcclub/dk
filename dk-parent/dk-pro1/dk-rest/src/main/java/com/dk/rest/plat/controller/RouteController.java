@@ -1,5 +1,6 @@
 package com.dk.rest.plat.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.common.bean.page.Page;
 import com.common.bean.page.Pageable;
 import com.common.bean.RestResult;
@@ -30,7 +31,7 @@ public class RouteController extends BaseController {
     @Resource
     private RouteInfoService routeInfoService;
     /**
-     * 查询通道信息（快捷，代还）
+     * 查询大类通道信息（快捷，代还）
      * @param map
      * @param pageable
      * @return
@@ -64,5 +65,23 @@ public class RouteController extends BaseController {
         }
     }
 
-    //public RestResult
+    /**
+     * 生成订单(快捷)
+     * @param jsonObject
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = {"/order"},method = RequestMethod.POST)
+    public RestResult order(@RequestBody JSONObject jsonObject){
+        String method = "order";
+        logger.info("进入RouteController的"+method+"方法,参数为:{}",jsonObject);
+        try{
+            
+            return null;
+        }catch (Exception e){
+            logger.error(method+"执行出错:{}",e.getMessage());
+            e.printStackTrace();
+            return getFailRes();
+        }
+    }
 }

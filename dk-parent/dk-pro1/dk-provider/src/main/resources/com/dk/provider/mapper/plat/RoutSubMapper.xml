@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dk.provider.plat.mapper.RoutSubMapper">
+  <resultMap id="BaseResultMap" type="com.dk.provider.plat.entity.RoutSub">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="rout_id" jdbcType="VARCHAR" property="routId" />
+    <result column="sub_id" jdbcType="VARCHAR" property="subId" />
+    <result column="states" jdbcType="BIGINT" property="states" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, rout_id, sub_id, states
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_rout_sub
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_rout_sub
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dk.provider.plat.entity.RoutSub">
+    insert into t_rout_sub (id, rout_id, sub_id, 
+      states)
+    values (#{id,jdbcType=BIGINT}, #{routId,jdbcType=VARCHAR}, #{subId,jdbcType=VARCHAR}, 
+      #{states,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dk.provider.plat.entity.RoutSub">
+    insert into t_rout_sub
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="routId != null">
+        rout_id,
+      </if>
+      <if test="subId != null">
+        sub_id,
+      </if>
+      <if test="states != null">
+        states,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="routId != null">
+        #{routId,jdbcType=VARCHAR},
+      </if>
+      <if test="subId != null">
+        #{subId,jdbcType=VARCHAR},
+      </if>
+      <if test="states != null">
+        #{states,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dk.provider.plat.entity.RoutSub">
+    update t_rout_sub
+    <set>
+      <if test="routId != null">
+        rout_id = #{routId,jdbcType=VARCHAR},
+      </if>
+      <if test="subId != null">
+        sub_id = #{subId,jdbcType=VARCHAR},
+      </if>
+      <if test="states != null">
+        states = #{states,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dk.provider.plat.entity.RoutSub">
+    update t_rout_sub
+    set rout_id = #{routId,jdbcType=VARCHAR},
+      sub_id = #{subId,jdbcType=VARCHAR},
+      states = #{states,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

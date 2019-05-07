@@ -22,6 +22,10 @@ public class RouteInfoBean {
     private String timeEnd;
 
     private String remark;
+    /**
+     * 是否自选商户(1是，0否)
+     */
+    private Long isFree;
 
     public Long getId() {
         return id;
@@ -93,5 +97,13 @@ public class RouteInfoBean {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Long getIsFree() {
+        return isFree;
+    }
+
+    public void setIsFree(Long isFree) {
+        this.isFree = isFree;
     }
 }

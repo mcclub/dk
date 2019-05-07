@@ -57,5 +57,6 @@
 
 	<dubbo:service interface="com.dk.provider.plat.service.RouteInfoService" ref="routeInfoService"/>
 
+	<dubbo:service interface="com.dk.provider.plat.service.SmsRecordService" ref="smsRecordService"/>
 </beans>
 

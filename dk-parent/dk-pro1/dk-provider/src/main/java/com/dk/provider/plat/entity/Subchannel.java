@@ -4,22 +4,22 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 短信记录
+ * 小类通道
  */
-public class SmsRecord implements Serializable {
+public class Subchannel implements Serializable {
     private Long id;
 
-    private Long userId;
+    private String name;
 
-    private String phone;
+    private String tabNo;
 
-    private String content;
+    private String merNo;
+
+    private String merKey;
+
+    private Long type;
 
     private Long states;
-
-    private String desc;
-
-    private Long oemId;
 
     private Date createTime;
 
@@ -39,28 +39,44 @@ public class SmsRecord implements Serializable {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getName() {
+        return name;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
-    public String getPhone() {
-        return phone;
+    public String getTabNo() {
+        return tabNo;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+    public void setTabNo(String tabNo) {
+        this.tabNo = tabNo == null ? null : tabNo.trim();
     }
 
-    public String getContent() {
-        return content;
+    public String getMerNo() {
+        return merNo;
     }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+    public void setMerNo(String merNo) {
+        this.merNo = merNo == null ? null : merNo.trim();
+    }
+
+    public String getMerKey() {
+        return merKey;
+    }
+
+    public void setMerKey(String merKey) {
+        this.merKey = merKey == null ? null : merKey.trim();
+    }
+
+    public Long getType() {
+        return type;
+    }
+
+    public void setType(Long type) {
+        this.type = type;
     }
 
     public Long getStates() {
@@ -109,21 +125,5 @@ public class SmsRecord implements Serializable {
 
     public void setIsDelete(Long isDelete) {
         this.isDelete = isDelete;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public Long getOemId() {
-        return oemId;
-    }
-
-    public void setOemId(Long oemId) {
-        this.oemId = oemId;
     }
 }
