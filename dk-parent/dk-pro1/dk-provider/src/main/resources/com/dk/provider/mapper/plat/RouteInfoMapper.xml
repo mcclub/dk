@@ -54,41 +54,42 @@
   </sql>
 
   <!-- 查询(含条件查询)-->
-  <select id="query" parameterType="map" resultMap="BaseResultMap">
+  <!--<select id="query" parameterType="map" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from
     <include refid="table_name"/>
     <include refid="sqlWhere"/>
     <include refid="sqlPage"/>
-  </select>
+  </select>-->
 
   <!-- 分页计数-->
-  <select id="counts" parameterType="map" resultType="java.lang.Integer">
+  <!--<select id="counts" parameterType="map" resultType="java.lang.Integer">
     SELECT count(1)
     FROM
     <include refid="table_name"/>
     <include refid="sqlWhere"/>
-  </select>
+  </select>-->
 
   <sql id="sqlWhereOne">
-    <if test="userId != null and userId != ''">
-      and u.id = #{userId}
+    and t.states=1
+    <if test="classId != null and classId != ''">
+      and cr.class_id = #{classId}
     </if>
     <if test="type != null and type != ''">
       and type = #{type}
     </if>
   </sql>
   <select id="query" parameterType="map" resultMap="BaseResultMap">
-    select t.id,t.`name`,t.norm_min,norm_max,t.time_begin,t.time_end,t.is_free,remark,cr.fee,cr.rate
-    from t_routeinfo t,t_class_rate cr, t_classinfo cls,t_user u
-    where cr.route_id = t.id and cls.id = cr.class_id and u.class_id = cls.id
+    select t.id,t.`name`,t.norm_min,norm_max,t.time_begin,t.time_end,t.is_free,remark,cr.fee,cr.rate,cls.id as class_id,cls.name as clsname
+    from t_routeinfo t,t_class_rate cr,t_classinfo cls
+    where cr.route_id = t.id and cls.id = cr.class_id
     <include refid="sqlWhereOne"/>
   </select>
   <select id="counts" parameterType="map" resultType="java.lang.Integer">
     SELECT count(1)
-    FROM
-    where cr.route_id = t.id and cls.id = cr.class_id and u.class_id = cls.id
+    FROM t_routeinfo t,t_class_rate cr,t_classinfo cls
+    where cr.route_id = t.id and cls.id = cr.class_id
     <include refid="sqlWhereOne"/>
   </select>
 

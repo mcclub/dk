@@ -45,4 +45,6 @@ public interface BaseMapper<T> {
      * @return
      */
     List<T> finds(Map<String, Object> map);
+
+    T queryByid(Long id);
 }

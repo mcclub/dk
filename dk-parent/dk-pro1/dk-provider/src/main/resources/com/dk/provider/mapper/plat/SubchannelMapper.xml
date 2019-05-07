@@ -19,6 +19,20 @@
     id, `name`, tab_no, mer_no, mer_key, `type`, states, create_time, update_time, create_by, 
     update_by, is_delete
   </sql>
+
+  <!-- 根据大类通道id查询小类通道信息-->
+  <select id="selectByrout" parameterType="map" resultMap="BaseResultMap">
+    select s.id,s.tab_no,s.mer_no,s.mer_key,s.type
+    from t_rout_sub t, t_subchannel s
+    where  t.sub_id = s.id
+    and t.states = 1 and s.states = 1
+    and t.rout_id = #{routId,jdbcType=BIGINT}
+  </select>
+
+
+
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

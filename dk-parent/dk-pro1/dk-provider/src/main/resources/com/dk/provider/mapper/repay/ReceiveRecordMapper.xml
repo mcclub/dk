@@ -28,7 +28,7 @@
     delete from t_receive_record
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.dk.provider.repay.entity.ReceiveRecord">
+  <insert id="insert" parameterType="com.dk.provider.repay.entity.ReceiveRecord" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
     insert into t_receive_record (id, order_no, user_id, 
       amount, rate, fee, 
       rece_card, settle_card, route_id, 
@@ -36,8 +36,11 @@
     values (#{id,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
       #{amount,jdbcType=VARCHAR}, #{rate,jdbcType=VARCHAR}, #{fee,jdbcType=VARCHAR}, 
       #{receCard,jdbcType=VARCHAR}, #{settleCard,jdbcType=VARCHAR}, #{routeId,jdbcType=VARCHAR}, 
-      #{states,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP})
+      #{states,jdbcType=BIGINT}, SYSDATE()
   </insert>
+
+
+
   <insert id="insertSelective" parameterType="com.dk.provider.repay.entity.ReceiveRecord">
     insert into t_receive_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -107,7 +110,7 @@
         #{states,jdbcType=BIGINT},
       </if>
       <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
+        SYSDATE(),
       </if>
     </trim>
   </insert>

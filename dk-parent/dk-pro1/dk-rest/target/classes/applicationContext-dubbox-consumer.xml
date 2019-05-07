@@ -26,4 +26,7 @@
 	<dubbo:reference id="redisCacheService" interface="com.dk.provider.basis.service.RedisCacheService" check="false" />
 
 	<dubbo:reference id="routeInfoService" interface="com.dk.provider.plat.service.RouteInfoService" check="false" />
+
+    <dubbo:reference id="smsRecordService" interface="com.dk.provider.plat.service.SmsRecordService" check="false" />
+
 </beans>

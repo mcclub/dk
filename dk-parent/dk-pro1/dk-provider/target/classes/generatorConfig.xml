@@ -12,30 +12,30 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://47.244.153.104:3306/vedio?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;transformedBitIsBoolean=true&amp;useSSL=true"
+                        connectionURL="jdbc:mysql://47.92.252.143:3306/dkapp?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;transformedBitIsBoolean=true&amp;useSSL=true"
                         userId="root"
-                        password="diankong8899">
+                        password="ascme">
         </jdbcConnection>
 
         <!-- 生成的实体 targetPackage路径  targetProject源目录-->
-        <javaModelGenerator targetPackage="com.dk.provider.test.entity"
+        <javaModelGenerator targetPackage="com.dk.provider.repay.entity"
                             targetProject="src/main/java">
             <!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!-- 生成的curd xml  targetPackage路径  targetProject源目录-->
-        <sqlMapGenerator targetPackage= "com.dk.provider.mapper.test"
+        <sqlMapGenerator targetPackage= "com.dk.provider.mapper.repay"
                          targetProject="src/main/resources"/>
 
         <!-- 对应的Mapper接口类文件 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.dk.provider.test.mapper"
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.dk.provider.repay.mapper"
                              targetProject="./src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
         <!-- 配置不生成Exmaple文件>  tableName表名   domainObjectName生成后的xml名(自动拼接 Mapper.xml)-->
-        <table tableName="t_vedio" domainObjectName="Vedio"
+        <table tableName="t_repay_flow" domainObjectName="RepayFlow"
                enableDeleteByExample="false" selectByExampleQueryId="false"
                enableCountByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>

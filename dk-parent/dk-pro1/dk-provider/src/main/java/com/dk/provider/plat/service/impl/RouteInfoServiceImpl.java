@@ -26,7 +26,7 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
     }
 
     /**
-     * 分页条件查询
+     * 分页条件查询  根据用户id userId 查询等级id 对应等级费率
      * @param map
      * @param pageable
      * @return
@@ -34,6 +34,11 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
      */
     @Override
     public Page<RouteInfo> page(Map map, Pageable pageable) throws Exception {
+        /**
+         * 根据用户id查询用户等级id
+         */
+
+        map.put("classId","");
         Page<RouteInfo> pages = super.findPages(map,pageable);
         return pages;
     }

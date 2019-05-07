@@ -22,4 +22,6 @@ public class ResultEnume {
     public static final String BUSY="9999";
     public static final String BUSYSTR ="系统繁忙,请稍后重试";
 
+
+
 }

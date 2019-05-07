@@ -1,8 +1,11 @@
 package com.dk.provider.repay.mapper;
 
+import com.dk.provider.basis.mapper.BaseMapper;
 import com.dk.provider.repay.entity.ReceiveRecord;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface ReceiveRecordMapper {
+@Mapper
+public interface ReceiveRecordMapper extends BaseMapper<ReceiveRecord> {
     int deleteByPrimaryKey(Long id);
 
     int insert(ReceiveRecord record);

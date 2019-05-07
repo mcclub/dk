@@ -51,9 +51,12 @@
 	<!-- 设置超时时间 -->
 	<dubbo:consumer check="false" timeout="30000" />
 
-	<dubbo:service interface="com.dk.provider.test.service.InterfaceRecordService" ref="interfaceRecordService"/>
-
+	<!--<dubbo:service interface="com.dk.provider.test.service.InterfaceRecordService" ref="interfaceRecordService"/>
+-->
 	<dubbo:service interface="com.dk.provider.basis.service.RedisCacheService" ref="redisCacheService"/>
 
+	<dubbo:service interface="com.dk.provider.plat.service.RouteInfoService" ref="routeInfoService"/>
+
+	<dubbo:service interface="com.dk.provider.plat.service.SmsRecordService" ref="smsRecordService"/>
 </beans>
 

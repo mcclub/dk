@@ -39,6 +39,10 @@ public abstract class BaseServiceImpl<T> implements Serializable , BaseServiceI<
         this.baseMapper.delete(id);
     }
 
+    public T queryByid(Long id) {
+        return this.baseMapper.queryByid(id);
+    }
+
     public Page<T> findPages(Map<String, Object> params, Pageable pageable) {
         if (params == null || ((Map)params).isEmpty()) {
             params = new HashMap();

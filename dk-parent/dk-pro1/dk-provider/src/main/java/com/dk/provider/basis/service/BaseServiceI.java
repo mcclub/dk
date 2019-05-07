@@ -30,4 +30,11 @@ public interface BaseServiceI<T> {
      * @param id
      */
     void delete(Long id) throws Exception;
+
+    /**
+     * 根据id查询
+     * @param id
+     * @return
+     */
+    T queryByid(Long id);
 }

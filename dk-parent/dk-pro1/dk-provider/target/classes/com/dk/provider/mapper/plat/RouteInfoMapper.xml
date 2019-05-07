@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dk.provider.plat.mapper.RouteInfoMapper">
+  <resultMap id="BaseResultMap" type="com.dk.provider.plat.entity.RouteInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="rate" jdbcType="VARCHAR" property="rate" />
+    <result column="fee" jdbcType="VARCHAR" property="fee" />
+    <result column="norm_min" jdbcType="VARCHAR" property="normMin" />
+    <result column="norm_max" jdbcType="VARCHAR" property="normMax" />
+    <result column="time_begin" jdbcType="VARCHAR" property="timeBegin" />
+    <result column="time_end" jdbcType="VARCHAR" property="timeEnd" />
+    <result column="states" jdbcType="BIGINT" property="states" />
+    <result column="type" jdbcType="BIGINT" property="type" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="is_delete" jdbcType="BIGINT" property="isDelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, rate, fee, norm_min, norm_max, time_begin, time_end, states, `type`, 
+    remark, create_time, update_time, create_by, update_by, is_delete
+  </sql>
+
+  <sql id="table_name">
+    t_routeinfo
+  </sql>
+  <sql id="sqlWhere">
+    <where>
+      states = 1
+      <if test="id != null and id != ''">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+    </where>
+  </sql>
+  <sql id="sqlPage">
+    <choose>
+      <when test="orderby!=null and orderby!=''">
+        <![CDATA[ ORDER BY ${orderby}]]>
+      </when>
+      <otherwise>
+        <![CDATA[ ORDER BY create_time DESC]]>
+      </otherwise>
+    </choose>
+    <if test="start!=null and max!=null">
+      <![CDATA[ LIMIT #{start}, #{max}]]>
+    </if>
+  </sql>
+
+  <!-- 查询(含条件查询)-->
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    <include refid="table_name"/>
+    <include refid="sqlWhere"/>
+    <include refid="sqlPage"/>
+  </select>
+
+  <!-- 分页计数-->
+  <select id="counts" parameterType="map" resultType="java.lang.Integer">
+    SELECT count(1)
+    FROM
+    <include refid="table_name"/>
+    <include refid="sqlWhere"/>
+  </select>
+
+
+
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_routeinfo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_routeinfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dk.provider.plat.entity.RouteInfo">
+    insert into t_routeinfo (id, `name`, rate, 
+      fee, norm_min, norm_max, 
+      time_begin, time_end, states, 
+      `type`, remark, create_time, 
+      update_time, create_by, update_by, 
+      is_delete)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{rate,jdbcType=VARCHAR}, 
+      #{fee,jdbcType=VARCHAR}, #{normMin,jdbcType=VARCHAR}, #{normMax,jdbcType=VARCHAR}, 
+      #{timeBegin,jdbcType=VARCHAR}, #{timeEnd,jdbcType=VARCHAR}, #{states,jdbcType=BIGINT},
+      #{type,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dk.provider.plat.entity.RouteInfo">
+    insert into t_routeinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="rate != null">
+        rate,
+      </if>
+      <if test="fee != null">
+        fee,
+      </if>
+      <if test="normMin != null">
+        norm_min,
+      </if>
+      <if test="normMax != null">
+        norm_max,
+      </if>
+      <if test="timeBegin != null">
+        time_begin,
+      </if>
+      <if test="timeEnd != null">
+        time_end,
+      </if>
+      <if test="states != null">
+        states,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null">
+        #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=VARCHAR},
+      </if>
+      <if test="normMin != null">
+        #{normMin,jdbcType=VARCHAR},
+      </if>
+      <if test="normMax != null">
+        #{normMax,jdbcType=VARCHAR},
+      </if>
+      <if test="timeBegin != null">
+        #{timeBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="timeEnd != null">
+        #{timeEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="states != null">
+        #{states,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dk.provider.plat.entity.RouteInfo">
+    update t_routeinfo
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null">
+        rate = #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null">
+        fee = #{fee,jdbcType=VARCHAR},
+      </if>
+      <if test="normMin != null">
+        norm_min = #{normMin,jdbcType=VARCHAR},
+      </if>
+      <if test="normMax != null">
+        norm_max = #{normMax,jdbcType=VARCHAR},
+      </if>
+      <if test="timeBegin != null">
+        time_begin = #{timeBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="timeEnd != null">
+        time_end = #{timeEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="states != null">
+        states = #{states,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dk.provider.plat.entity.RouteInfo">
+    update t_routeinfo
+    set `name` = #{name,jdbcType=VARCHAR},
+      rate = #{rate,jdbcType=VARCHAR},
+      fee = #{fee,jdbcType=VARCHAR},
+      norm_min = #{normMin,jdbcType=VARCHAR},
+      norm_max = #{normMax,jdbcType=VARCHAR},
+      time_begin = #{timeBegin,jdbcType=VARCHAR},
+      time_end = #{timeEnd,jdbcType=VARCHAR},
+      states = #{states,jdbcType=BIGINT},
+      `type` = #{type,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
