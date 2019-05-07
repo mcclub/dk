@@ -23,4 +23,11 @@
 	<!-- -->
 	<!--<dubbo:reference id="interfaceRecordService" interface="com.dk.provider.test.service.InterfaceRecordService" check="false" />
 -->
+
+
+	<dubbo:reference id="oemInfoServiceImpl" interface="com.dk.provider.oem.service.IOemInfoService" check="false" />
+
+	<dubbo:reference id="userServiceImpl" interface="com.dk.provider.user.service.IUserService" check="false" />
+
+	<dubbo:reference id="userAccountServiceImpl" interface="com.dk.provider.user.service.IUserAccountService" check="false" />
 </beans>

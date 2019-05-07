@@ -1,11 +1,14 @@
 package com.dk.provider.oem.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * OEM产品表
  */
-public class OemInfo {
+public class OemInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Long id;
 
     private String name;

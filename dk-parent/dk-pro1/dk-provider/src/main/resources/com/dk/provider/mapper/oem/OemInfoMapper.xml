@@ -125,4 +125,14 @@
       is_delete = #{isDelete,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="queryById" parameterType="Map" resultMap="BaseResultMap">
+  select
+    <include refid="Base_Column_List"/>
+  from t_oeminfo
+  where 1 = 1
+    <if test="id != null and id != ''">
+    and id = #{id}
+    </if>
+  </select>
 </mapper>

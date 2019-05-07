@@ -1,11 +1,13 @@
 package com.dk.provider.user.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 用户基本信息表
  */
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
 
     private String name;

@@ -2,6 +2,9 @@ package com.dk.provider.user.mapper;
 
 import com.dk.provider.user.entity.UserAccount;
 
+import javax.annotation.Resource;
+
+@Resource
 public interface UserAccountMapper {
     int deleteByPrimaryKey(Long id);
 
