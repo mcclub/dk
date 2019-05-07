@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dk.provider.repay.mapper.RepayPlanMapper">
+  <resultMap id="BaseResultMap" type="com.dk.provider.repay.entity.RepayPlan">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="card_code" jdbcType="VARCHAR" property="cardCode" />
+    <result column="bill_time" jdbcType="VARCHAR" property="billTime" />
+    <result column="rep_time" jdbcType="VARCHAR" property="repTime" />
+    <result column="plan_begin" jdbcType="VARCHAR" property="planBegin" />
+    <result column="plan_end" jdbcType="VARCHAR" property="planEnd" />
+    <result column="amount" jdbcType="VARCHAR" property="amount" />
+    <result column="rese_amt" jdbcType="VARCHAR" property="reseAmt" />
+    <result column="plan_area" jdbcType="VARCHAR" property="planArea" />
+    <result column="parn_id" jdbcType="BIGINT" property="parnId" />
+    <result column="states" jdbcType="BIGINT" property="states" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, card_code, bill_time, rep_time, plan_begin, plan_end, amount, rese_amt, 
+    plan_area, parn_id, states, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_repay_plan
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_repay_plan
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dk.provider.repay.entity.RepayPlan">
+    insert into t_repay_plan (id, user_id, card_code, 
+      bill_time, rep_time, plan_begin, 
+      plan_end, amount, rese_amt, 
+      plan_area, parn_id, states, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{cardCode,jdbcType=VARCHAR}, 
+      #{billTime,jdbcType=VARCHAR}, #{repTime,jdbcType=VARCHAR}, #{planBegin,jdbcType=VARCHAR}, 
+      #{planEnd,jdbcType=VARCHAR}, #{amount,jdbcType=VARCHAR}, #{reseAmt,jdbcType=VARCHAR}, 
+      #{planArea,jdbcType=VARCHAR}, #{parnId,jdbcType=BIGINT}, #{states,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dk.provider.repay.entity.RepayPlan">
+    insert into t_repay_plan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="cardCode != null">
+        card_code,
+      </if>
+      <if test="billTime != null">
+        bill_time,
+      </if>
+      <if test="repTime != null">
+        rep_time,
+      </if>
+      <if test="planBegin != null">
+        plan_begin,
+      </if>
+      <if test="planEnd != null">
+        plan_end,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="reseAmt != null">
+        rese_amt,
+      </if>
+      <if test="planArea != null">
+        plan_area,
+      </if>
+      <if test="parnId != null">
+        parn_id,
+      </if>
+      <if test="states != null">
+        states,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="cardCode != null">
+        #{cardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="billTime != null">
+        #{billTime,jdbcType=VARCHAR},
+      </if>
+      <if test="repTime != null">
+        #{repTime,jdbcType=VARCHAR},
+      </if>
+      <if test="planBegin != null">
+        #{planBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="planEnd != null">
+        #{planEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="reseAmt != null">
+        #{reseAmt,jdbcType=VARCHAR},
+      </if>
+      <if test="planArea != null">
+        #{planArea,jdbcType=VARCHAR},
+      </if>
+      <if test="parnId != null">
+        #{parnId,jdbcType=BIGINT},
+      </if>
+      <if test="states != null">
+        #{states,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dk.provider.repay.entity.RepayPlan">
+    update t_repay_plan
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="cardCode != null">
+        card_code = #{cardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="billTime != null">
+        bill_time = #{billTime,jdbcType=VARCHAR},
+      </if>
+      <if test="repTime != null">
+        rep_time = #{repTime,jdbcType=VARCHAR},
+      </if>
+      <if test="planBegin != null">
+        plan_begin = #{planBegin,jdbcType=VARCHAR},
+      </if>
+      <if test="planEnd != null">
+        plan_end = #{planEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="reseAmt != null">
+        rese_amt = #{reseAmt,jdbcType=VARCHAR},
+      </if>
+      <if test="planArea != null">
+        plan_area = #{planArea,jdbcType=VARCHAR},
+      </if>
+      <if test="parnId != null">
+        parn_id = #{parnId,jdbcType=BIGINT},
+      </if>
+      <if test="states != null">
+        states = #{states,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dk.provider.repay.entity.RepayPlan">
+    update t_repay_plan
+    set user_id = #{userId,jdbcType=BIGINT},
+      card_code = #{cardCode,jdbcType=VARCHAR},
+      bill_time = #{billTime,jdbcType=VARCHAR},
+      rep_time = #{repTime,jdbcType=VARCHAR},
+      plan_begin = #{planBegin,jdbcType=VARCHAR},
+      plan_end = #{planEnd,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=VARCHAR},
+      rese_amt = #{reseAmt,jdbcType=VARCHAR},
+      plan_area = #{planArea,jdbcType=VARCHAR},
+      parn_id = #{parnId,jdbcType=BIGINT},
+      states = #{states,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
