@@ -137,3 +137,19 @@ Caused by: java.net.ConnectException: Connection refused: connect
 
 2019-05-05 21:09:21.042 [http-nio-7091-exec-4] ERROR com.dk.rest.common.CommonController
 				-queryroute执行出错:null
+2019-05-08 15:06:41.109 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter
+				-
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.dk.provider.basis.service.RedisCacheService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.dk.provider.basis.service.RedisCacheService' in your configuration.
+

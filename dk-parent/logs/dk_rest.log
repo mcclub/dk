@@ -88,3 +88,52 @@
 2019-05-07 14:19:10.746  INFO 13092 --- [main-SendThread(127.0.0.1:2181)] org.apache.zookeeper.ClientCnxn          : Socket connection established to 127.0.0.1/127.0.0.1:2181, initiating session
 2019-05-07 14:19:10.756  INFO 13092 --- [main-SendThread(127.0.0.1:2181)] org.apache.zookeeper.ClientCnxn          : Session establishment complete on server 127.0.0.1/127.0.0.1:2181, sessionid = 0x10000483d37005b, negotiated timeout = 40000
 2019-05-07 14:19:10.756  INFO 13092 --- [main-EventThread] o.a.c.f.state.ConnectionStateManager     : State change: RECONNECTED
+2019-05-08 15:06:37.191  INFO 5944 --- [main] com.dk.rest.DkRestApplication            : Starting DkRestApplication on TJXMATEBOOKX with PID 5944 (D:\workspace\dk\dk-parent\dk-pro1\dk-rest\target\classes started by tjx in D:\workspace\dk\dk-parent)
+2019-05-08 15:06:37.197  INFO 5944 --- [main] com.dk.rest.DkRestApplication            : The following profiles are active: local
+2019-05-08 15:06:37.411  INFO 5944 --- [main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2dd29a59: startup date [Wed May 08 15:06:37 CST 2019]; root of context hierarchy
+2019-05-08 15:06:38.161  INFO 5944 --- [main] o.s.b.f.xml.XmlBeanDefinitionReader      : Loading XML bean definitions from class path resource [applicationContext-dubbox-consumer.xml]
+2019-05-08 15:06:38.753  INFO 5944 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-05-08 15:06:39.195  INFO 5944 --- [main] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2019-05-08 15:06:39.427  INFO 5944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cache.annotation.ProxyCachingConfiguration' of type [org.springframework.cache.annotation.ProxyCachingConfiguration$$EnhancerBySpringCGLIB$$c2d2e952] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-08 15:06:39.455  INFO 5944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration' of type [org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration$$EnhancerBySpringCGLIB$$b746adf6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-08 15:06:39.481  INFO 5944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.context.properties.ConversionServiceDeducer$Factory' of type [org.springframework.boot.context.properties.ConversionServiceDeducer$Factory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-08 15:06:39.498  INFO 5944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.cache-org.springframework.boot.autoconfigure.cache.CacheProperties' of type [org.springframework.boot.autoconfigure.cache.CacheProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-08 15:06:39.508  INFO 5944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'cacheManagerCustomizers' of type [org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-08 15:06:39.517  INFO 5944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.cache.RedisCacheConfiguration' of type [org.springframework.boot.autoconfigure.cache.RedisCacheConfiguration$$EnhancerBySpringCGLIB$$67d84a50] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-08 15:06:39.536  INFO 5944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties' of type [org.springframework.boot.autoconfigure.data.redis.RedisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-08 15:06:39.546  INFO 5944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.data.redis.JedisConnectionConfiguration' of type [org.springframework.boot.autoconfigure.data.redis.JedisConnectionConfiguration$$EnhancerBySpringCGLIB$$1afc64c9] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-08 15:06:39.617  INFO 5944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisConnectionFactory' of type [org.springframework.data.redis.connection.jedis.JedisConnectionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-08 15:06:39.659  INFO 5944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'cacheManager' of type [org.springframework.data.redis.cache.RedisCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-08 15:06:39.661  INFO 5944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'cacheAutoConfigurationValidator' of type [org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration$CacheManagerValidator] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-08 15:06:39.711  INFO 5944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$79c0b334] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-05-08 15:06:40.177  INFO 5944 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 7091 (http)
+2019-05-08 15:06:40.214  INFO 5944 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-05-08 15:06:40.215  INFO 5944 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.29
+2019-05-08 15:06:40.223  INFO 5944 --- [localhost-startStop-1] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [D:\soft\Jdk1.8\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;D:\soft\TortoiseSVN\bin;";D:\soft\Jdk1.8\bin;D:\soft\Jdk1.8\jre\bin;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;D:\soft\Git\cmd;C:\Users\11360\AppData\Local\Microsoft\WindowsApps;;D:\soft\Microsoft VS Code\bin;D:\soft\Fiddler;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;.]
+2019-05-08 15:06:40.412  INFO 5944 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/app]    : Initializing Spring embedded WebApplicationContext
+2019-05-08 15:06:40.412  INFO 5944 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3001 ms
+2019-05-08 15:06:40.672  INFO 5944 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-05-08 15:06:40.680  INFO 5944 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-05-08 15:06:40.681  INFO 5944 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-05-08 15:06:40.681  INFO 5944 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2019-05-08 15:06:40.681  INFO 5944 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-05-08 15:06:40.862  WARN 5944 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'commonController': Injection of resource dependencies failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.dk.provider.basis.service.RedisCacheService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
+2019-05-08 15:06:40.865  INFO 5944 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2019-05-08 15:06:40.906  INFO 5944 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-05-08 15:06:41.109 ERROR 5944 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean of type 'com.dk.provider.basis.service.RedisCacheService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.dk.provider.basis.service.RedisCacheService' in your configuration.
+
