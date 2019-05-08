@@ -1,13 +1,14 @@
 package com.dk.provider.oem.mapper;
 
+import com.dk.provider.basis.mapper.BaseMapper;
 import com.dk.provider.oem.entity.OemInfo;
+import org.apache.ibatis.annotations.Mapper;
 
-import javax.annotation.Resource;
 import java.util.Map;
 
 
-@Resource
-public interface OemInfoMapper {
+@Mapper
+public interface OemInfoMapper extends BaseMapper<OemInfo> {
     int deleteByPrimaryKey(Long id);
 
     int insert(OemInfo record);

@@ -106,5 +106,10 @@ public class UserServiceImpl implements IUserService {
 
     }
 
+    @Override
+    public User queryByid(Long id) {
+        return null;
+    }
+
 
 }

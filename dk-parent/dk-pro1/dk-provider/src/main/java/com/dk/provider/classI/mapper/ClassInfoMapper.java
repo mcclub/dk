@@ -1,8 +1,11 @@
 package com.dk.provider.classI.mapper;
 
+import com.dk.provider.basis.mapper.BaseMapper;
 import com.dk.provider.classI.entity.ClassInfo;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface ClassInfoMapper {
+@Mapper
+public interface ClassInfoMapper extends BaseMapper<ClassInfo> {
     int deleteByPrimaryKey(Long id);
 
     int insert(ClassInfo record);

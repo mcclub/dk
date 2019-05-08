@@ -1,11 +1,12 @@
 package com.dk.provider.rake.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 返佣记录表
  */
-public class RakeRecord {
+public class RakeRecord implements Serializable {
     private Long id;
 
     private Long userId;

@@ -1,11 +1,12 @@
 package com.dk.provider.classI.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 等级表
  */
-public class ClassInfo {
+public class ClassInfo implements Serializable {
     private Long id;
 
     private String name;

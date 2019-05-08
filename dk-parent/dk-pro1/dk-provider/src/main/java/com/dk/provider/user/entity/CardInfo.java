@@ -1,11 +1,12 @@
 package com.dk.provider.user.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 用户卡信息
  */
-public class CardInfo {
+public class CardInfo implements Serializable {
     private Long id;
 
     private Long userId;

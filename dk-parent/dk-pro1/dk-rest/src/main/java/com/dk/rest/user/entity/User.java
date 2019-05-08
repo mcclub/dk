@@ -1,4 +1,4 @@
-package com.dk.rest.common.user.entity;
+package com.dk.rest.user.entity;
 
 import java.io.Serializable;
 import java.util.Date;

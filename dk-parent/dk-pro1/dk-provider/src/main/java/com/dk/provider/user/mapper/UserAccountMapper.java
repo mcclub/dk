@@ -1,11 +1,13 @@
 package com.dk.provider.user.mapper;
 
+import com.dk.provider.basis.mapper.BaseMapper;
 import com.dk.provider.user.entity.UserAccount;
+import org.apache.ibatis.annotations.Mapper;
 
 import javax.annotation.Resource;
 
-@Resource
-public interface UserAccountMapper {
+@Mapper
+public interface UserAccountMapper extends BaseMapper<UserAccount> {
     int deleteByPrimaryKey(Long id);
 
     int insert(UserAccount record);

@@ -1,9 +1,11 @@
 package com.dk.provider.classI.entity;
 
+import java.io.Serializable;
+
 /**
  * 等级费率表(中间表)
  */
-public class ClassRate {
+public class ClassRate implements Serializable {
     private Long id;
 
     private Long classId;

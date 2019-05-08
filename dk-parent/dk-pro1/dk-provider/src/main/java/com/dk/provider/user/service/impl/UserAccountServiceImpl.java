@@ -6,13 +6,14 @@ import com.dk.provider.user.service.IUserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
 
 @Service("userAccountServiceImpl")
 public class UserAccountServiceImpl implements IUserAccountService {
-    @Autowired
+    @Resource
     private UserAccountMapper userAccountMapper;
 
     @Override
@@ -33,5 +34,10 @@ public class UserAccountServiceImpl implements IUserAccountService {
     @Override
     public void delete(Long id) throws Exception {
 
+    }
+
+    @Override
+    public UserAccount queryByid(Long id) {
+        return null;
     }
 }

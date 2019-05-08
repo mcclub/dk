@@ -1,11 +1,12 @@
 package com.dk.provider.repay.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 快捷收款流水记录
  */
-public class ReceiveRecord {
+public class ReceiveRecord implements Serializable {
     private Long id;
 
     private String orderNo;

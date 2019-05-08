@@ -1,11 +1,12 @@
 package com.dk.provider.repay.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 还款计划表
  */
-public class RepayPlan {
+public class RepayPlan implements Serializable {
     private Long id;
 
     private Long userId;

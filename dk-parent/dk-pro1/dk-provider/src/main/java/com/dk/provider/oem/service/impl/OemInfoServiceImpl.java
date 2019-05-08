@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ import java.util.Map;
 public class OemInfoServiceImpl implements IOemInfoService {
     private Logger logger = LoggerFactory.getLogger(OemInfoServiceImpl.class);
 
-    @Autowired
+    @Resource
     private OemInfoMapper oemInfoMapper;
 
     @Override
@@ -42,6 +43,11 @@ public class OemInfoServiceImpl implements IOemInfoService {
     @Override
     public void delete(Long id) throws Exception {
 
+    }
+
+    @Override
+    public OemInfo queryByid(Long id) {
+        return null;
     }
 
     @Override

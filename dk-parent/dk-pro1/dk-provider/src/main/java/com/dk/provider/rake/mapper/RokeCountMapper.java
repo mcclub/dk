@@ -1,8 +1,11 @@
 package com.dk.provider.rake.mapper;
 
+import com.dk.provider.basis.mapper.BaseMapper;
 import com.dk.provider.rake.entity.RokeCount;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface RokeCountMapper {
+@Mapper
+public interface RokeCountMapper extends BaseMapper<RokeCount> {
     int deleteByPrimaryKey(Long id);
 
     int insert(RokeCount record);

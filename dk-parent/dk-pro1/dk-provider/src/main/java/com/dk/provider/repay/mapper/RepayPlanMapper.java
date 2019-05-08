@@ -1,8 +1,11 @@
 package com.dk.provider.repay.mapper;
 
+import com.dk.provider.basis.mapper.BaseMapper;
 import com.dk.provider.repay.entity.RepayPlan;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface RepayPlanMapper {
+@Mapper
+public interface RepayPlanMapper extends BaseMapper<RepayPlan> {
     int deleteByPrimaryKey(Long id);
 
     int insert(RepayPlan record);

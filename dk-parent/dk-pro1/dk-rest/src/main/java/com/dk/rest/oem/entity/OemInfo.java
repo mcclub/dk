@@ -1,4 +1,4 @@
-package com.dk.rest.common.oem.entity;
+package com.dk.rest.oem.entity;
 
 import java.io.Serializable;
 import java.util.Date;

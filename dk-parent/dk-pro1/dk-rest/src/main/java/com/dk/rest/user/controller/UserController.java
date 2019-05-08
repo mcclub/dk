@@ -1,4 +1,4 @@
-package com.dk.rest.common.user.controller;
+package com.dk.rest.user.controller;
 
 
 import com.common.bean.PageResult;
@@ -6,12 +6,10 @@ import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
 import com.common.utils.EncryptionUtil;
 import com.common.utils.StringUtil;
-import com.dk.provider.basis.service.impl.RedisCacheServiceImpl;
 import com.dk.provider.oem.entity.OemInfo;
 import com.dk.provider.oem.service.IOemInfoService;
 import com.dk.provider.user.service.IUserService;
-import com.dk.rest.common.user.entity.User;
-import org.apache.shiro.crypto.hash.Hash;
+import com.dk.rest.user.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
