@@ -1,11 +1,14 @@
 package com.dk.provider.user.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 用户账户信息
  */
-public class UserAccount {
+public class UserAccount implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Long id;
 
     private Long userId;

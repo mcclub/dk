@@ -41,4 +41,14 @@ public class RestResult implements Serializable {
     public void setData(Object data) {
         this.data = data;
     }
+
+    public RestResult() {
+
+    }
+
+    public RestResult setCodeAndMsg (String respCode,String respMsg) {
+        this.respCode = respCode;
+        this.respMsg = respMsg;
+        return this;
+    }
 }

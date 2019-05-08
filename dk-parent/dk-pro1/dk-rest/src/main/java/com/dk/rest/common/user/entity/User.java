@@ -1,4 +1,4 @@
-package com.dk.provider.user.entity;
+package com.dk.rest.common.user.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -8,6 +8,7 @@ import java.util.Date;
  */
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private Long id;
 
     private String name;
@@ -41,6 +42,12 @@ public class User implements Serializable {
     private Long classId;
 
     private String className;
+
+    private String repeatPassWord;
+
+    private String referPhone;
+
+    private String verificationCode;
 
     public Long getId() {
         return id;
@@ -176,5 +183,29 @@ public class User implements Serializable {
 
     public void setClassName(String className) {
         this.className = className == null ? null : className.trim();
+    }
+
+    public String getRepeatPassWord() {
+        return repeatPassWord;
+    }
+
+    public void setRepeatPassWord(String repeatPassWord) {
+        this.repeatPassWord = repeatPassWord;
+    }
+
+    public String getReferPhone() {
+        return referPhone;
+    }
+
+    public void setReferPhone(String referPhone) {
+        this.referPhone = referPhone;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 }
