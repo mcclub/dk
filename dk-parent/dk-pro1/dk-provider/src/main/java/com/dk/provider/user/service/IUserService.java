@@ -34,5 +34,12 @@ public interface IUserService extends BaseServiceI<User> {
      * @param map 用户登录信息
      * @return
      */
-    User login(Map map);
+    RestResult login(Map map);
+
+    /**
+     * 通过绑卡修改姓名，身份证
+     * @param map
+     * @return
+     */
+    int updateByBindCard (Map map);
 }

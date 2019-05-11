@@ -182,4 +182,12 @@
       and oem_id = #{oemId}
     </if>
   </select>
+
+  <update id="updateByBindCard" parameterType="Map">
+  update t_user
+  set name = #{name,jdbcType=VARCHAR}
+  ,identity = #{identity,jdbcType=VARCHAR}
+  ,update_time = #{updateTime,jdbcType=TIMESTAMP}
+  where id = #{userId,jdbcType=BIGINT}
+  </update>
 </mapper>

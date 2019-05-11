@@ -13,7 +13,7 @@ public class AuthenUtils {
     private static String host = "https://yunyidata.market.alicloudapi.com";
     private static String path = "/bankAuthenticate4";
     private static String method = "POST";
-    private static String appcode = "";
+    private static String appcode = "01ea2a2c362346d78836502c6c9c3e16";
     public static void main(String[] args) {
         String host = "https://yunyidata.market.alicloudapi.com";
         String path = "/bankAuthenticate4";
@@ -79,13 +79,12 @@ public class AuthenUtils {
             HttpResponse response = HttpUtils.doPost(host, path, method, headers, querys, bodys);
             System.out.println(response.toString());
             //获取response的body
-            System.out.println(EntityUtils.toString(response.getEntity()));
-            return response.toString();
+            return EntityUtils.toString(response.getEntity());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return null;
+        return "{}";
     }
 
 }

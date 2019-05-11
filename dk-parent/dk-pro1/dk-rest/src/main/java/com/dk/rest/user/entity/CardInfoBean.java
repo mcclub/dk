@@ -1,12 +1,11 @@
-package com.dk.provider.user.entity;
+package com.dk.rest.user.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户卡信息
+ * 信用卡，储蓄卡信息
  */
-public class CardInfo implements Serializable {
+public class CardInfoBean {
     private Long id;
 
     private Long userId;
@@ -38,6 +37,8 @@ public class CardInfo implements Serializable {
     private Date createTime;
 
     private Date updateTime;
+
+    private String verificationCode;
 
     public Long getId() {
         return id;
@@ -165,5 +166,13 @@ public class CardInfo implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 }

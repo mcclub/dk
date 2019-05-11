@@ -17,10 +17,11 @@
     <result column="isbind" jdbcType="BIGINT" property="isbind" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
     id, user_id, card_code, real_name, bank_name, bank_code, `identity`, phone, `valid`, 
-    cvv, bill_time, rep_time, isbind, `type`, create_time
+    cvv, bill_time, rep_time, isbind, `type`, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -37,13 +38,13 @@
       real_name, bank_name, bank_code, 
       `identity`, phone, `valid`, 
       cvv, bill_time, rep_time, 
-      isbind, `type`, create_time
+      isbind, `type`, create_time, update_time
       )
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{cardCode,jdbcType=VARCHAR}, 
       #{realName,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{bankCode,jdbcType=CHAR}, 
       #{identity,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{valid,jdbcType=VARCHAR}, 
       #{cvv,jdbcType=VARCHAR}, #{billTime,jdbcType=VARCHAR}, #{repTime,jdbcType=VARCHAR}, 
-      #{isbind,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      #{isbind,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.dk.provider.user.entity.CardInfo">
@@ -208,5 +209,26 @@
       `type` = #{type,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="searchByNo" parameterType="Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_cardinfo
+    where 1 = 1
+    and isbind = 1
+    <if test="cardNo != null and cardNo != ''">
+      and card_code = #{cardNo}
+    </if>
+    <if test="userId != null and userId != ''">
+      and user_id = #{userId}
+    </if>
+  </select>
+
+  <update id="offBinding" parameterType="Map">
+    update t_cardinfo
+    set isbind = #{isbind,jdbcType=BIGINT}
+    where user_id = #{userId,jdbcType=BIGINT}
+    and card_code = #{cardNo,jdbcType=BIGINT}
   </update>
 </mapper>

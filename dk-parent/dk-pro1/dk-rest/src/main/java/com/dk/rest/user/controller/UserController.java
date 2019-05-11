@@ -1,9 +1,11 @@
 package com.dk.rest.user.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.common.bean.PageResult;
 import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
+import com.common.controller.BaseController;
 import com.common.utils.EncryptionUtil;
 import com.common.utils.StringUtil;
 import com.dk.provider.oem.entity.OemInfo;
@@ -24,7 +26,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Resource
@@ -160,26 +162,8 @@ public class UserController {
             HashMap<String,Object> map = new HashMap<>();
             map.put("phone",user.getPhone());
             map.put("oemId",user.getOemId());
-            com.dk.provider.user.entity.User token = userServiceImpl.login(map);
-            if (StringUtil.isNotEmpty(token)) {
-                if (token.getPassword().equals(EncryptionUtil.md5(user.getPassword()))) {
-                    if (token.getStates() == 1) {
-                        restResult.setCodeAndMsg(ResultEnume.SUCCESS,"登录成功！");
-                        user.setPassword("******");
-                        restResult.setData(user);
-                        return restResult;
-                    } else {
-                        restResult.setCodeAndMsg(ResultEnume.FAIL,"账号已被冻结！");
-                        return restResult;
-                    }
-                } else {
-                    restResult.setCodeAndMsg(ResultEnume.FAIL,"密码错误！");
-                    return restResult;
-                }
-            } else {
-                restResult.setCodeAndMsg(ResultEnume.FAIL,"用户不存在！");
-                return restResult;
-            }
+            map.put("password",user.getPassword());
+            return userServiceImpl.login(map);
         } else {
             restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误！");
             return restResult;

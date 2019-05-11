@@ -1,7 +1,10 @@
 package com.dk.provider.user.service.impl;
 
+
 import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
+import com.common.utils.EncryptionUtil;
+import com.common.utils.StringUtil;
 import com.dk.provider.user.entity.User;
 import com.dk.provider.user.entity.UserAccount;
 import com.dk.provider.user.mapper.UserMapper;
@@ -80,8 +83,34 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User login(Map map) {
-        return userMapper.isPhoneRegisterOem(map);
+    public RestResult login(Map map) {
+        RestResult restResult = new RestResult();
+        User token = userMapper.isPhoneRegisterOem(map);
+        if (StringUtil.isNotEmpty(token)) {
+            if (token.getPassword().equals(EncryptionUtil.md5((String)map.get("password")))) {
+                if (token.getStates() == 1) {
+                    token.setPassword("******");
+                    restResult.setData(token);
+                    restResult.setCodeAndMsg(ResultEnume.SUCCESS,"登录成功！");
+                    return restResult;
+                } else {
+                    restResult.setCodeAndMsg(ResultEnume.FAIL,"账号已被冻结！");
+                    return restResult;
+                }
+            } else {
+                restResult.setCodeAndMsg(ResultEnume.FAIL,"密码错误！");
+                return restResult;
+            }
+        } else {
+            restResult.setCodeAndMsg(ResultEnume.FAIL,"用户不存在！");
+            return restResult;
+        }
+    }
+
+    @Override
+    public int updateByBindCard(Map map) {
+        map.put("updateTime",new Date());
+        return userMapper.updateByBindCard(map);
     }
 
     @Override

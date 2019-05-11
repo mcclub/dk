@@ -29,6 +29,6 @@
 	<dubbo:reference id="oemInfoServiceImpl" interface="com.dk.provider.oem.service.IOemInfoService" check="false" />
 	<dubbo:reference id="userServiceImpl" interface="com.dk.provider.user.service.IUserService" check="false" />
 	<dubbo:reference id="userAccountServiceImpl" interface="com.dk.provider.user.service.IUserAccountService" check="false" />
-
+	<dubbo:reference id="cardInfoServiceImpl" interface="com.dk.provider.user.service.ICardInfoService" check="false" />
 
 </beans>

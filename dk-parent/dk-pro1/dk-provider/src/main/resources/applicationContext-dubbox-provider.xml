@@ -60,6 +60,7 @@
 	<dubbo:service interface="com.dk.provider.oem.service.IOemInfoService" ref="oemInfoServiceImpl"/>
 	<dubbo:service interface="com.dk.provider.user.service.IUserService" ref="userServiceImpl"/>
 	<dubbo:service interface="com.dk.provider.user.service.IUserAccountService" ref="userAccountServiceImpl"/>
+	<dubbo:service interface="com.dk.provider.user.service.ICardInfoService" ref="cardInfoServiceImpl"/>
 
 </beans>
 

@@ -1,5 +1,6 @@
 package com.common.bean;
 
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,6 +50,7 @@ public class RestResult implements Serializable {
     public RestResult setCodeAndMsg (String respCode,String respMsg) {
         this.respCode = respCode;
         this.respMsg = respMsg;
+        this.data = new JSONObject();
         return this;
     }
 }
