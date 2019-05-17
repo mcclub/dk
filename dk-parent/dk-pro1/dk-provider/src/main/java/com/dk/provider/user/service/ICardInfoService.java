@@ -2,6 +2,7 @@ package com.dk.provider.user.service;
 
 import com.common.bean.RestResult;
 import com.dk.provider.basis.service.BaseServiceI;
+import com.dk.provider.user.entity.Bank;
 import com.dk.provider.user.entity.CardInfo;
 
 import java.util.Map;
@@ -27,4 +28,6 @@ public interface ICardInfoService extends BaseServiceI<CardInfo> {
      * @return
      */
     int offBinding(CardInfo cardInfo);
+
+
 }

@@ -1,7 +1,9 @@
 package com.dk.provider.plat.service.impl;
 
 import com.dk.provider.basis.service.impl.BaseServiceImpl;
+import com.dk.provider.plat.entity.SubUser;
 import com.dk.provider.plat.entity.Subchannel;
+import com.dk.provider.plat.mapper.SubUserMapper;
 import com.dk.provider.plat.mapper.SubchannelMapper;
 import com.dk.provider.plat.service.SubchannelService;
 import org.slf4j.Logger;
@@ -25,6 +27,9 @@ public class SubchannelServiceImpl extends BaseServiceImpl<Subchannel> implement
         super.setBaseMapper (subchannelMapper);
     }
 
+    @Resource
+    private SubUserMapper subUserMapper;
+
     /**
      * 根据大类通道id查询小类通道信息
      * @param map
@@ -42,5 +47,39 @@ public class SubchannelServiceImpl extends BaseServiceImpl<Subchannel> implement
 
         return null;
     }
+
+    /**
+     * 查询小类通道用户信息
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public SubUser querySubuser(Map map) throws Exception {
+        return subUserMapper.queryUser(map);
+    }
+
+    /**
+     * 新增小类通道用户信息
+     * @param subUser
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int insertSubuser(SubUser subUser) throws Exception {
+        return subUserMapper.insert(subUser);
+    }
+
+    /**
+     * 修改小类通道用户信息
+     * @param subUser
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int updateSubuser(SubUser subUser) throws Exception {
+        return subUserMapper.updateByPrimaryKeySelective(subUser);
+    }
+
 
 }

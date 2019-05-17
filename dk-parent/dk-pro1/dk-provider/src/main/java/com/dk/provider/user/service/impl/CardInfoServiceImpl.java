@@ -3,11 +3,13 @@ package com.dk.provider.user.service.impl;
 import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
 import com.common.utils.StringUtil;
+import com.dk.provider.basis.service.impl.BaseServiceImpl;
 import com.dk.provider.user.entity.CardInfo;
 import com.dk.provider.user.mapper.CardInfoMapper;
 import com.dk.provider.user.service.ICardInfoService;
 import com.dk.provider.user.service.IUserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -19,36 +21,13 @@ import java.util.Map;
  * 用户卡信息管理
  */
 @Service
-public class CardInfoServiceImpl implements ICardInfoService {
+public class CardInfoServiceImpl extends BaseServiceImpl<CardInfo> implements ICardInfoService {
     @Resource
     private CardInfoMapper cardInfoMapper;
     @Resource
     private IUserService userServiceImpl;
 
-    @Override
-    public List<CardInfo> query(Map map) throws Exception {
-        return null;
-    }
 
-    @Override
-    public int insert(CardInfo cardInfo) throws Exception {
-        return cardInfoMapper.insert(cardInfo);
-    }
-
-    @Override
-    public int update(CardInfo cardInfo) throws Exception {
-        return 0;
-    }
-
-    @Override
-    public void delete(Long id) throws Exception {
-
-    }
-
-    @Override
-    public CardInfo queryByid(Long id) {
-        return null;
-    }
 
     @Override
     public CardInfo searchByNo(Map map) {
@@ -56,6 +35,7 @@ public class CardInfoServiceImpl implements ICardInfoService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public RestResult bindingCard(CardInfo cardInfo) {
         RestResult restResult = new RestResult();
         HashMap<String,Object> map = new HashMap<>();
@@ -87,6 +67,7 @@ public class CardInfoServiceImpl implements ICardInfoService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int offBinding(CardInfo cardInfo) {
         HashMap<String,Object> map = new HashMap<>();
         map.put("updateTime",new Date());

@@ -2,6 +2,7 @@ package com.dk.provider.user.service;
 
 import com.common.bean.RestResult;
 import com.dk.provider.basis.service.BaseServiceI;
+import com.dk.provider.user.entity.CardInfo;
 import com.dk.provider.user.entity.User;
 
 import java.util.Map;
@@ -34,7 +35,18 @@ public interface IUserService extends BaseServiceI<User> {
      * @param map 用户登录信息
      * @return
      */
-    RestResult login(Map map);
+    RestResult login(Map map) throws Exception;
+
+    /**
+     * 用户id查询绑定卡信息
+     * @param map  用户id
+     * @param map  01储蓄卡,02信用卡
+     * @param map  卡号
+     * @return
+     * @throws Exception
+     */
+    CardInfo queryCard(Map map) throws Exception;
+
 
     /**
      * 通过绑卡修改姓名，身份证

@@ -43,15 +43,15 @@ public class CommonController extends BaseController {
         String method = "queryroute";
         logger.info("进入CommonController的"+method+"方法,参数为:{}",jsonObject);
         try{
-            if(jsonObject.containsKey("phone")&&jsonObject.get("phone") !=null){
-
+            if(!jsonObject.containsKey("phone") || jsonObject.get("phone") ==null){
+                return getRestResult(ResultEnume.FAIL,"手机号不能为空",new JSONObject());
             }
             int ismsg = smsRecordService.insertOne(jsonObject);
 
             if(ismsg==1){//发送成功
-                return getRestResult(ResultEnume.SUCCESS,"短信发送成功",null);
+                return getRestResult(ResultEnume.SUCCESS,"短信发送成功",new JSONObject());
             }else{//发送失败
-                return getRestResult(ResultEnume.FAIL,"短信发送失败",null);
+                return getRestResult(ResultEnume.FAIL,"短信发送失败",new JSONObject());
             }
         }catch (Exception e){
             logger.error(method+"执行出错:{}",e.getMessage());

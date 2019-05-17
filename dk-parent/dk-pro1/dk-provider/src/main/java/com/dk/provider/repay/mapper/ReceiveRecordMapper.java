@@ -17,4 +17,6 @@ public interface ReceiveRecordMapper extends BaseMapper<ReceiveRecord> {
     int updateByPrimaryKeySelective(ReceiveRecord record);
 
     int updateByPrimaryKey(ReceiveRecord record);
+
+    int updateStates(ReceiveRecord record);
 }

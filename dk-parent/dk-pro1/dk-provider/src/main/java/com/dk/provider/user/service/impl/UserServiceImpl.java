@@ -1,18 +1,23 @@
 package com.dk.provider.user.service.impl;
 
-
+import com.alibaba.fastjson.JSONObject;
 import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
+import com.common.utils.CommonUtils;
 import com.common.utils.EncryptionUtil;
 import com.common.utils.StringUtil;
+import com.dk.provider.basis.service.impl.BaseServiceImpl;
+import com.dk.provider.user.entity.CardInfo;
 import com.dk.provider.user.entity.User;
 import com.dk.provider.user.entity.UserAccount;
+import com.dk.provider.user.entity.UserLogin;
+import com.dk.provider.user.mapper.CardInfoMapper;
 import com.dk.provider.user.mapper.UserMapper;
 import com.dk.provider.user.service.IUserAccountService;
 import com.dk.provider.user.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service("userServiceImpl")
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl extends BaseServiceImpl<User> implements IUserService {
     private Logger logger = LoggerFactory.getLogger(IUserService.class);
     @Resource
     private UserMapper userMapper;
@@ -30,6 +35,9 @@ public class UserServiceImpl implements IUserService {
     private IUserAccountService userAccountServiceImpl;
     @Resource
     private IUserService userServiceImpl;
+
+    @Resource
+    private CardInfoMapper cardInfoMapper;
 
     @Override
     public boolean isPhoneRegisterOem(Map map) {
@@ -48,7 +56,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public RestResult regist(RestResult restResult, User user) {
         //创建用户
         try {
@@ -64,7 +72,10 @@ public class UserServiceImpl implements IUserService {
                 userAccount.setCreateBy(Long.toString(user.getId()));
                 int accountInsertNum = userAccountServiceImpl.insert(userAccount);
                 if (0 != accountInsertNum) {
-                    restResult.setCodeAndMsg(ResultEnume.SUCCESS,"注册成功！");
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("id",user.getId());
+                    jsonObject.put("name",user.getName());
+                    restResult.setCodeAndMsg(ResultEnume.SUCCESS,"注册成功！",jsonObject);
                     return restResult;
                 } else {
                     restResult.setCodeAndMsg(ResultEnume.FAIL,"服务器异常，注册失败！");
@@ -83,15 +94,16 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public RestResult login(Map map) {
+    public RestResult login(Map map) throws Exception{
         RestResult restResult = new RestResult();
         User token = userMapper.isPhoneRegisterOem(map);
         if (StringUtil.isNotEmpty(token)) {
             if (token.getPassword().equals(EncryptionUtil.md5((String)map.get("password")))) {
                 if (token.getStates() == 1) {
-                    token.setPassword("******");
-                    restResult.setData(token);
-                    restResult.setCodeAndMsg(ResultEnume.SUCCESS,"登录成功！");
+                    UserLogin userLogin = new UserLogin();
+                    BeanUtils.copyProperties(token,userLogin);
+                    CommonUtils.reflect(userLogin);
+                    restResult.setCodeAndMsg(ResultEnume.SUCCESS,"登录成功！",userLogin);
                     return restResult;
                 } else {
                     restResult.setCodeAndMsg(ResultEnume.FAIL,"账号已被冻结！");
@@ -108,9 +120,15 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int updateByBindCard(Map map) {
         map.put("updateTime",new Date());
         return userMapper.updateByBindCard(map);
+    }
+
+    @Override
+    public CardInfo queryCard(Map map) throws Exception {
+        return cardInfoMapper.queryByuserId(map);
     }
 
     @Override
@@ -137,7 +155,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User queryByid(Long id) {
-        return null;
+        return userMapper.queryByid(id);
     }
 
 

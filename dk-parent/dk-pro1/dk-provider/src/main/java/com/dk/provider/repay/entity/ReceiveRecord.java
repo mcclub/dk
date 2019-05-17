@@ -25,7 +25,19 @@ public class ReceiveRecord implements Serializable {
 
     private String routeId;
 
+    private String subId;
+
+    private String province;
+
+    private String city;
+
+    private String industry;
+
+    private String merchant;
+
     private Long states;
+
+    private String orderDesc;
 
     private Date createTime;
 
@@ -115,5 +127,53 @@ public class ReceiveRecord implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getSubId() {
+        return subId;
+    }
+
+    public void setSubId(String subId) {
+        this.subId = subId;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
+    }
+
+    public String getMerchant() {
+        return merchant;
+    }
+
+    public void setMerchant(String merchant) {
+        this.merchant = merchant;
+    }
+
+    public String getOrderDesc() {
+        return orderDesc;
+    }
+
+    public void setOrderDesc(String orderDesc) {
+        this.orderDesc = orderDesc;
     }
 }

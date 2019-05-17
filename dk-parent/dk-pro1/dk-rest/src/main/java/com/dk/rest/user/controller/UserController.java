@@ -8,10 +8,12 @@ import com.common.bean.ResultEnume;
 import com.common.controller.BaseController;
 import com.common.utils.EncryptionUtil;
 import com.common.utils.StringUtil;
+import com.dk.provider.basis.service.RedisCacheService;
 import com.dk.provider.oem.entity.OemInfo;
 import com.dk.provider.oem.service.IOemInfoService;
 import com.dk.provider.user.service.IUserService;
 import com.dk.rest.user.entity.User;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -35,8 +37,8 @@ public class UserController extends BaseController {
     private IUserAccountService userAccountServiceImpl;*/
     @Resource
     private IUserService userServiceImpl;
-    /*@Resource
-    private RedisCacheServiceImpl redisCacheService;*/
+    @Resource
+    private RedisCacheService redisCacheService;
 
 
 
@@ -61,10 +63,10 @@ public class UserController extends BaseController {
                 restResult.setCodeAndMsg(ResultEnume.FAIL,"手机号码格式有误！");
                 return restResult;
             }
-            /*if (!user.getVerificationCode().equals(redisCacheService.get(user.getPhone()))) {
+            if (!user.getVerificationCode().equals(redisCacheService.get(user.getPhone()))) {
                 restResult.setCodeAndMsg(ResultEnume.FAIL,"验证码输入有误！");
                 return restResult;
-            }*/
+            }
             //校验密码是否为空
             if (user.getPassword() == null || user.getRepeatPassWord() == null) {
                 restResult.setCodeAndMsg(ResultEnume.FAIL,"密码不能为空！");
@@ -76,9 +78,11 @@ public class UserController extends BaseController {
                 return restResult;
             }
             //校验推荐人手机号
-            if (!StringUtil.isMobilePhone(user.getReferPhone())) {
-                restResult.setCodeAndMsg(ResultEnume.FAIL,"推荐人手机号码格式有误！");
-                return restResult;
+            if(!StringUtils.isEmpty(user.getReferPhone())){
+                if (!StringUtil.isMobilePhone(user.getReferPhone())) {
+                    restResult.setCodeAndMsg(ResultEnume.FAIL,"推荐人手机号码格式有误！");
+                    return restResult;
+                }
             }
             //判断oemid是否为空
             if (StringUtil.isNotEmpty(user.getOemId())) {
@@ -97,29 +101,31 @@ public class UserController extends BaseController {
                     userMap.put("states","1");
                     boolean isRegist = userServiceImpl.isPhoneRegisterOem(userMap);
                     if (!isRegist) {
-                        //关联推荐人信息
-                        Map<String,Object> referMap = new HashMap();
-                        referMap.put("referPhone",user.getReferPhone());
-                        referMap.put("oemId",user.getOemId());
-                        referMap.put("states","1");
-                        com.dk.provider.user.entity.User referInfo = userServiceImpl.searchReferPeople(referMap);
-                        if (referInfo != null) {
-                            user.setReferNo(String.valueOf(referInfo.getId()));
-                            user.setStates(1l);
-                            user.setPassword(EncryptionUtil.md5(user.getPassword()));
-                            user.setName(StringUtil.getRandomName());
-                            user.setCreateTime(new Date());
-                            user.setUpdateTime(new Date());
-                            user.setIsDelete(1l);
-                            user.setClassId(1l);
-                            user.setClassName("青铜");
-                            com.dk.provider.user.entity.User providerUser = new com.dk.provider.user.entity.User();
-                            BeanUtils.copyProperties(user,providerUser);
-                            return userServiceImpl.regist(restResult,providerUser);
-                        } else {
-                            restResult.setCodeAndMsg(ResultEnume.FAIL,"推荐人不存在！");
-                            return restResult;
+                        if(!StringUtils.isEmpty(user.getReferPhone())){
+                            //关联推荐人信息
+                            Map<String,Object> referMap = new HashMap();
+                            referMap.put("referPhone",user.getReferPhone());
+                            referMap.put("oemId",user.getOemId());
+                            referMap.put("states","1");
+                            com.dk.provider.user.entity.User referInfo = userServiceImpl.searchReferPeople(referMap);
+                            if (referInfo != null) {
+                                user.setReferNo(String.valueOf(referInfo.getId()));
+                            } else {
+                                restResult.setCodeAndMsg(ResultEnume.FAIL,"推荐人不存在！");
+                                return restResult;
+                            }
                         }
+                        user.setStates(1l);
+                        user.setPassword(EncryptionUtil.md5(user.getPassword()));
+                        user.setName(StringUtil.getRandomName());
+                        user.setCreateTime(new Date());
+                        user.setUpdateTime(new Date());
+                        user.setIsDelete(1l);
+                        user.setClassId(1l);
+                        user.setClassName("青铜");
+                        com.dk.provider.user.entity.User providerUser = new com.dk.provider.user.entity.User();
+                        BeanUtils.copyProperties(user,providerUser);
+                        return userServiceImpl.regist(restResult,providerUser);
                     } else {
                         restResult.setCodeAndMsg(ResultEnume.FAIL,"该手机号已被注册！");
                         return restResult;

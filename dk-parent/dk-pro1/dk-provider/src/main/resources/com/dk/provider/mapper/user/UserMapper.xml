@@ -183,6 +183,13 @@
     </if>
   </select>
 
+  <select id="queryByid" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
   <update id="updateByBindCard" parameterType="Map">
   update t_user
   set name = #{name,jdbcType=VARCHAR}

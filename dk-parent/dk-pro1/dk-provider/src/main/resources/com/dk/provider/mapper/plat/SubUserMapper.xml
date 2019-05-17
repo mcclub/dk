@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dk.provider.plat.mapper.SubUserMapper">
+  <resultMap id="BaseResultMap" type="com.dk.provider.plat.entity.SubUser">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="card_no" jdbcType="VARCHAR" property="cardNo" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="identity" jdbcType="VARCHAR" property="identity" />
+    <result column="validity" jdbcType="VARCHAR" property="validity" />
+    <result column="cvn" jdbcType="VARCHAR" property="cvn" />
+    <result column="subuser_id" jdbcType="VARCHAR" property="subuserId" />
+    <result column="sub_id" jdbcType="BIGINT" property="subId" />
+    <result column="rate" jdbcType="VARCHAR" property="rate" />
+    <result column="fee" jdbcType="VARCHAR" property="fee" />
+    <result column="mer_id" jdbcType="VARCHAR" property="merId" />
+    <result column="mer_key" jdbcType="VARCHAR" property="merKey" />
+    <result column="notify_url" jdbcType="VARCHAR" property="notifyUrl" />
+    <result column="balance" jdbcType="VARCHAR" property="balance" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, `name`, card_no, bank_name, phone, `identity`, validity, cvn, subuser_id, 
+    sub_id, rate, fee, mer_id, mer_key, notify_url, balance, create_time, update_time
+  </sql>
+  <sql id="table_name">
+    t_sub_user
+  </sql>
+  <sql id="sqlWhere">
+    <where>
+      <if test="userId != null and userId != ''">
+        and user_id = #{userId}
+      </if>
+      <if test="cardNo != null and cardNo != ''">
+        and card_no = #{cardNo}
+      </if>
+      <if test="subId != null and subId != ''">
+        and sub_id = #{subId}
+      </if>
+    </where>
+  </sql>
+  <select id="queryUser" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    <include refid="table_name"/>
+    <include refid="sqlWhere"/>
+  </select>
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sub_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_sub_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dk.provider.plat.entity.SubUser" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+    insert into t_sub_user (id, user_id, `name`, 
+      card_no, bank_name, phone, 
+      `identity`, validity, cvn, 
+      subuser_id, sub_id, rate, 
+      fee, mer_id, mer_key, 
+      notify_url, balance, create_time, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{cardNo,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{identity,jdbcType=VARCHAR}, #{validity,jdbcType=VARCHAR}, #{cvn,jdbcType=VARCHAR}, 
+      #{subuserId,jdbcType=VARCHAR}, #{subId,jdbcType=BIGINT}, #{rate,jdbcType=VARCHAR}, 
+      #{fee,jdbcType=VARCHAR}, #{merId,jdbcType=VARCHAR}, #{merKey,jdbcType=VARCHAR}, 
+      #{notifyUrl,jdbcType=VARCHAR}, #{balance,jdbcType=VARCHAR}, SYSDATE(),
+      SYSDATE())
+  </insert>
+  <insert id="insertSelective" parameterType="com.dk.provider.plat.entity.SubUser">
+    insert into t_sub_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="cardNo != null">
+        card_no,
+      </if>
+      <if test="bankName != null">
+        bank_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="identity != null">
+        `identity`,
+      </if>
+      <if test="validity != null">
+        validity,
+      </if>
+      <if test="cvn != null">
+        cvn,
+      </if>
+      <if test="subuserId != null">
+        subuser_id,
+      </if>
+      <if test="subId != null">
+        sub_id,
+      </if>
+      <if test="rate != null">
+        rate,
+      </if>
+      <if test="fee != null">
+        fee,
+      </if>
+      <if test="merId != null">
+        mer_id,
+      </if>
+      <if test="merKey != null">
+        mer_key,
+      </if>
+      <if test="notifyUrl != null">
+        notify_url,
+      </if>
+      <if test="balance != null">
+        balance,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null">
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null">
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="identity != null">
+        #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="validity != null">
+        #{validity,jdbcType=VARCHAR},
+      </if>
+      <if test="cvn != null">
+        #{cvn,jdbcType=VARCHAR},
+      </if>
+      <if test="subuserId != null">
+        #{subuserId,jdbcType=VARCHAR},
+      </if>
+      <if test="subId != null">
+        #{subId,jdbcType=BIGINT},
+      </if>
+      <if test="rate != null">
+        #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=VARCHAR},
+      </if>
+      <if test="merId != null">
+        #{merId,jdbcType=VARCHAR},
+      </if>
+      <if test="merKey != null">
+        #{merKey,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null">
+        #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=VARCHAR},
+      </if>
+      SYSDATE(),
+      SYSDATE()
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dk.provider.plat.entity.SubUser">
+    update t_sub_user
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null">
+        card_no = #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null">
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="identity != null">
+        `identity` = #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="validity != null">
+        validity = #{validity,jdbcType=VARCHAR},
+      </if>
+      <if test="cvn != null">
+        cvn = #{cvn,jdbcType=VARCHAR},
+      </if>
+      <if test="subuserId != null">
+        subuser_id = #{subuserId,jdbcType=VARCHAR},
+      </if>
+      <if test="subId != null">
+        sub_id = #{subId,jdbcType=BIGINT},
+      </if>
+      <if test="rate != null">
+        rate = #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null">
+        fee = #{fee,jdbcType=VARCHAR},
+      </if>
+      <if test="merId != null">
+        mer_id = #{merId,jdbcType=VARCHAR},
+      </if>
+      <if test="merKey != null">
+        mer_key = #{merKey,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null">
+        notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      update_time = SYSDATE()
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dk.provider.plat.entity.SubUser">
+    update t_sub_user
+    set user_id = #{userId,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      card_no = #{cardNo,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      `identity` = #{identity,jdbcType=VARCHAR},
+      validity = #{validity,jdbcType=VARCHAR},
+      cvn = #{cvn,jdbcType=VARCHAR},
+      subuser_id = #{subuserId,jdbcType=VARCHAR},
+      sub_id = #{subId,jdbcType=BIGINT},
+      rate = #{rate,jdbcType=VARCHAR},
+      fee = #{fee,jdbcType=VARCHAR},
+      mer_id = #{merId,jdbcType=VARCHAR},
+      mer_key = #{merKey,jdbcType=VARCHAR},
+      notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = SYSDATE()
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

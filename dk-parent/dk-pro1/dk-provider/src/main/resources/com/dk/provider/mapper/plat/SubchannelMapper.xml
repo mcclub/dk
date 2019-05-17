@@ -19,7 +19,27 @@
     id, `name`, tab_no, mer_no, mer_key, `type`, states, create_time, update_time, create_by, 
     update_by, is_delete
   </sql>
-
+  <sql id="table_name">
+    t_subchannel
+  </sql>
+  <sql id="sqlWhere">
+    <where>
+      <if test="subId != null and subId != ''">
+        and id = #{subId,jdbcType=BIGINT}
+      </if>
+      <if test="tabNo != null and tabNo != ''">
+        and tab_no = #{tabNo,jdbcType=BIGINT}
+      </if>
+    </where>
+  </sql>
+  <!-- 查询小类通道信息-->
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    <include refid="table_name"/>
+    <include refid="sqlWhere"/>
+  </select>
   <!-- 根据大类通道id查询小类通道信息-->
   <select id="selectByrout" parameterType="map" resultMap="BaseResultMap">
     select s.id,s.tab_no,s.mer_no,s.mer_key,s.type
@@ -28,6 +48,8 @@
     and t.states = 1 and s.states = 1
     and t.rout_id = #{routId,jdbcType=BIGINT}
   </select>
+
+
 
 
 

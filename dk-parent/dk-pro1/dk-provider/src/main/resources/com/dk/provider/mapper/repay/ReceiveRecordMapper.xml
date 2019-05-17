@@ -11,11 +11,18 @@
     <result column="rece_card" jdbcType="VARCHAR" property="receCard" />
     <result column="settle_card" jdbcType="VARCHAR" property="settleCard" />
     <result column="route_id" jdbcType="VARCHAR" property="routeId" />
+    <result column="sub_id" jdbcType="VARCHAR" property="subId" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="industry" jdbcType="VARCHAR" property="industry" />
+    <result column="merchant" jdbcType="VARCHAR" property="merchant" />
     <result column="states" jdbcType="BIGINT" property="states" />
+    <result column="order_desc" jdbcType="VARCHAR" property="orderDesc" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, order_no, user_id, amount, rate, fee, rece_card, settle_card, route_id, states, 
+    id, order_no, user_id, amount, rate, fee, rece_card, settle_card, route_id, sub_id, province,
+    city, industry, merchant, states, order_desc,
     create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -29,14 +36,16 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.dk.provider.repay.entity.ReceiveRecord" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
-    insert into t_receive_record (id, order_no, user_id, 
+    insert into t_receive_record ( order_no, user_id,
       amount, rate, fee, 
-      rece_card, settle_card, route_id, 
-      states, create_time)
-    values (#{id,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      rece_card, settle_card, route_id, sub_id, province,
+      city, industry, merchant,
+      states, order_desc, create_time)
+    values(#{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR},
       #{amount,jdbcType=VARCHAR}, #{rate,jdbcType=VARCHAR}, #{fee,jdbcType=VARCHAR}, 
-      #{receCard,jdbcType=VARCHAR}, #{settleCard,jdbcType=VARCHAR}, #{routeId,jdbcType=VARCHAR}, 
-      #{states,jdbcType=BIGINT}, SYSDATE()
+      #{receCard,jdbcType=VARCHAR}, #{settleCard,jdbcType=VARCHAR}, #{routeId,jdbcType=VARCHAR},#{subId,jdbcType=VARCHAR},#{province,jdbcType=VARCHAR},
+      #{city,jdbcType=VARCHAR},#{industry,jdbcType=VARCHAR},#{merchant,jdbcType=VARCHAR},
+      #{states,jdbcType=BIGINT},#{orderDesc,jdbcType=VARCHAR}, SYSDATE())
   </insert>
 
 
@@ -71,8 +80,26 @@
       <if test="routeId != null">
         route_id,
       </if>
+      <if test="subId != null">
+        sub_id,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="industry != null">
+        industry,
+      </if>
+      <if test="merchant != null">
+        merchant,
+      </if>
       <if test="states != null">
         states,
+      </if>
+      <if test="orderDesc != null">
+        order_desc,
       </if>
       <if test="createTime != null">
         create_time,
@@ -106,8 +133,26 @@
       <if test="routeId != null">
         #{routeId,jdbcType=VARCHAR},
       </if>
+      <if test="subId != null">
+        #{subId,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null">
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant != null">
+        #{merchant,jdbcType=VARCHAR},
+      </if>
       <if test="states != null">
         #{states,jdbcType=BIGINT},
+      </if>
+      <if test="orderDesc != null">
+        #{orderDesc,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         SYSDATE(),
@@ -141,8 +186,26 @@
       <if test="routeId != null">
         route_id = #{routeId,jdbcType=VARCHAR},
       </if>
+      <if test="subId != null">
+        sub_id = #{subId,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null">
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant != null">
+        merchant = #{merchant,jdbcType=VARCHAR},
+      </if>
       <if test="states != null">
         states = #{states,jdbcType=BIGINT},
+      </if>
+      <if test="orderDesc != null">
+        order_desc = #{orderDesc,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -160,8 +223,23 @@
       rece_card = #{receCard,jdbcType=VARCHAR},
       settle_card = #{settleCard,jdbcType=VARCHAR},
       route_id = #{routeId,jdbcType=VARCHAR},
+      sub_id = #{subId,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      merchant = #{merchant,jdbcType=VARCHAR},
       states = #{states,jdbcType=BIGINT},
+      order_desc = #{orderDesc,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateStates" parameterType="com.dk.provider.repay.entity.ReceiveRecord">
+    update t_receive_record
+    set
+    states = #{states,jdbcType=BIGINT},
+    order_desc = #{orderDesc,jdbcType=VARCHAR}
+    where
+    order_no = #{orderNo,jdbcType=VARCHAR}
   </update>
 </mapper>

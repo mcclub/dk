@@ -17,6 +17,10 @@ public class BaseController {
     private static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
 
+
+    public RestResult getRestResult(RestResult result){
+        return result;
+    }
     /**
      * 公共返回参数格式
      * @param respCode 返回码
@@ -52,7 +56,7 @@ public class BaseController {
         RestResult result = new RestResult();
         result.setRespCode(ResultEnume.FAIL);
         result.setRespMsg(ResultEnume.FAILSTR);
-        result.setData(null);
+        result.setData(new JSONObject());
         return result;
     }
 
@@ -60,9 +64,8 @@ public class BaseController {
         RestResult result = new RestResult();
         result.setRespCode(ResultEnume.BUSY);
         result.setRespMsg(ResultEnume.BUSYSTR);
-        result.setData(null);
+        result.setData(new JSONObject());
         return result;
     }
-
 
 }

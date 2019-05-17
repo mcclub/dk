@@ -53,4 +53,10 @@ public class RestResult implements Serializable {
         this.data = new JSONObject();
         return this;
     }
+    public RestResult setCodeAndMsg (String respCode,String respMsg,Object object) {
+        this.respCode = respCode;
+        this.respMsg = respMsg;
+        this.data = object;
+        return this;
+    }
 }

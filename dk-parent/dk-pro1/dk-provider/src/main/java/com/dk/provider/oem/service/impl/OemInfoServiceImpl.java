@@ -1,6 +1,7 @@
 package com.dk.provider.oem.service.impl;
 
 
+import com.dk.provider.basis.service.impl.BaseServiceImpl;
 import com.dk.provider.oem.entity.OemInfo;
 import com.dk.provider.oem.mapper.OemInfoMapper;
 import com.dk.provider.oem.service.IOemInfoService;
@@ -18,7 +19,7 @@ import java.util.Map;
  * oem业务逻辑层
  */
 @Service("oemInfoServiceImpl")
-public class OemInfoServiceImpl implements IOemInfoService {
+public class OemInfoServiceImpl extends BaseServiceImpl<OemInfo> implements IOemInfoService {
     private Logger logger = LoggerFactory.getLogger(OemInfoServiceImpl.class);
 
     @Resource

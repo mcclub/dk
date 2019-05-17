@@ -76,8 +76,11 @@
     <if test="classId != null and classId != ''">
       and cr.class_id = #{classId}
     </if>
+    <if test="routId != null and routId != ''">
+      and t.id = #{routId}
+    </if>
     <if test="type != null and type != ''">
-      and type = #{type}
+      and t.type = #{type}
     </if>
   </sql>
   <select id="query" parameterType="map" resultMap="BaseResultMap">

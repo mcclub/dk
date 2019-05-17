@@ -20,6 +20,8 @@ public interface CardInfoMapper extends BaseMapper<CardInfo> {
 
     int updateByPrimaryKey(CardInfo record);
 
+    CardInfo queryByuserId(Map map);
+
     /**
      * 通过卡号查询是否已绑定
      * @param map
