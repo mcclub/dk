@@ -35,4 +35,11 @@ public interface CardInfoMapper extends BaseMapper<CardInfo> {
      * @return
      */
     int offBinding(Map map);
+
+    /**
+     * 查询用户名下的行用卡／储蓄卡
+     * @param map
+     * @return
+     */
+    CardInfo search (Map map);
 }

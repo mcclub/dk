@@ -5,6 +5,7 @@ import com.dk.provider.user.entity.UserAccount;
 import org.apache.ibatis.annotations.Mapper;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 @Mapper
 public interface UserAccountMapper extends BaseMapper<UserAccount> {
@@ -19,4 +20,8 @@ public interface UserAccountMapper extends BaseMapper<UserAccount> {
     int updateByPrimaryKeySelective(UserAccount record);
 
     int updateByPrimaryKey(UserAccount record);
+
+    int updatePayPassword (Map map);
+
+    UserAccount payVerification (Map map);
 }

@@ -15,11 +15,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * 用户信用卡，储蓄卡信息管理
@@ -90,6 +90,12 @@ public class CardInfoController {
                 return restResult;
             }*/
             if (respCode.equals("0000")) {
+                if (vo.getType().equals("01") && !json.getString("bankType").equals("借记卡")) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"请绑定储蓄卡");
+                }
+                if (vo.getType().equals("02") && !json.getString("bankType").equals("信用卡")) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"请绑定信用卡");
+                }
                 CardInfo cardInfo = new CardInfo();
                 BeanUtils.copyProperties(vo,cardInfo);
                 cardInfo.setType(json.getString("bankType").equals("借记卡")?"01":"02");
@@ -125,6 +131,23 @@ public class CardInfoController {
             BeanUtils.copyProperties(vo,cardInfo);
             cardInfoServiceImpl.offBinding(cardInfo);
             return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"解绑成功!");
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误!");
+        }
+    }
+
+    @RequestMapping("/search")
+    public RestResult search (@RequestBody Map map) {
+        logger.info("search card start 。。。");
+        RestResult restResult = new RestResult();
+        if (StringUtil.isNotEmpty(map)) {
+            if (!StringUtil.isNotEmpty(map.get("userId"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空!");
+            }
+            if (!StringUtil.isNotEmpty(map.get("type"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"卡类型不能为空!");
+            }
+            return cardInfoServiceImpl.search(map);
         } else {
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误!");
         }

@@ -127,6 +127,36 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public RestResult updatePassword(Map map) {
+        RestResult restResult = new RestResult();
+        map.put("oldPassword",EncryptionUtil.md5((String)map.get("oldPassword")));
+        boolean flag = userServiceImpl.comparePassword(map);
+        if (flag) {
+            map.put("updateTime",new Date());
+            map.put("newPassword",EncryptionUtil.md5((String)map.get("newPassword")));
+            int num = userMapper.updatePassword(map);
+            if (num == 1) {
+                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"修改成功");
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"修改失败");
+            }
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"输入的旧密码不正确");
+        }
+    }
+
+    @Override
+    public boolean comparePassword(Map map) {
+        User user = userMapper.comparePassword(map);
+        if (StringUtil.isNotEmpty(user)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public CardInfo queryCard(Map map) throws Exception {
         return cardInfoMapper.queryByuserId(map);
     }

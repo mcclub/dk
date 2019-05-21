@@ -17,4 +17,9 @@ public interface UserMapper extends BaseMapper<User> {
     User isPhoneRegisterOem(Map map);
 
     int updateByBindCard (Map map);
+
+    User comparePassword (Map map);
+
+    int updatePassword (Map map);
+
 }

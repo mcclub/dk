@@ -1,7 +1,6 @@
 package com.dk.rest.user.controller;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.common.bean.PageResult;
 import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
@@ -33,8 +32,6 @@ public class UserController extends BaseController {
 
     @Resource
     private IOemInfoService oemInfoServiceImpl;
-    /*@Resource
-    private IUserAccountService userAccountServiceImpl;*/
     @Resource
     private IUserService userServiceImpl;
     @Resource
@@ -186,5 +183,37 @@ public class UserController extends BaseController {
 
     public PageResult page(Map map) throws Exception {
         return null;
+    }
+
+
+    /**
+     * 用户修改登录密码
+     * @param map
+     * @return
+     */
+    @RequestMapping("/updatePassword")
+    public RestResult updatePassword (@RequestBody Map map) {
+        logger.info("start change password...");
+        RestResult restResult = new RestResult();
+        if (StringUtil.isNotEmpty(map)) {
+            if (!StringUtil.isNotEmpty(map.get("userId"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+            }
+            if (!StringUtil.isNotEmpty(map.get("oldPassword"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"旧密码不能为空");
+            }
+            if (!StringUtil.isNotEmpty(map.get("newPassword"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"新密码不能为空");
+            }
+            if (!StringUtil.isNotEmpty(map.get("repeatPassword"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"重复密码不能为空");
+            }
+            if (!(map.get("newPassword")).equals(map.get("repeatPassword"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"两次密码输入不同");
+            }
+            return userServiceImpl.updatePassword(map);
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+        }
     }
 }

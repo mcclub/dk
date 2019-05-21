@@ -30,4 +30,11 @@ public interface ICardInfoService extends BaseServiceI<CardInfo> {
     int offBinding(CardInfo cardInfo);
 
 
+    /**
+     * 查询用户名下的行用卡／储蓄卡
+     * @param map
+     * @return
+     */
+    RestResult search (Map map);
+
 }

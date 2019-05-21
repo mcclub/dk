@@ -54,4 +54,19 @@ public interface IUserService extends BaseServiceI<User> {
      * @return
      */
     int updateByBindCard (Map map);
+
+    /**
+     * 修改用户登录密码
+     * @param map
+     * @return
+     */
+    RestResult updatePassword (Map map);
+
+
+    /**
+     * 用户修改密码时判断输入的旧密码是否正确
+     * @param map
+     * @return
+     */
+    boolean comparePassword (Map map);
 }

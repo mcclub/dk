@@ -255,4 +255,18 @@
     where user_id = #{userId,jdbcType=BIGINT}
     and card_code = #{cardNo,jdbcType=BIGINT}
   </update>
+
+
+  <select id="search" parameterType="Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_cardinfo
+    where isbind = 1
+    <if test="userId != null and userId != ''">
+      and user_id = #{userId}
+    </if>
+    <if test="type != null and type != ''">
+      and type = #{type}
+    </if>
+  </select>
 </mapper>

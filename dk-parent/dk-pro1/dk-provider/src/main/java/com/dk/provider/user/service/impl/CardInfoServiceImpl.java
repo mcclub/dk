@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,7 +25,6 @@ public class CardInfoServiceImpl extends BaseServiceImpl<CardInfo> implements IC
     private CardInfoMapper cardInfoMapper;
     @Resource
     private IUserService userServiceImpl;
-
 
 
     @Override
@@ -46,7 +44,7 @@ public class CardInfoServiceImpl extends BaseServiceImpl<CardInfo> implements IC
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"同一张卡请勿重新绑定");
         } else {
             try {
-                int num = this.insert(cardInfo);
+                int num = cardInfoMapper.insert(cardInfo);
                 if (num > 0) {
                     if (cardInfo.getType().equals("01")) {
                         HashMap<String,Object> updateMap = new HashMap<>();
@@ -75,6 +73,22 @@ public class CardInfoServiceImpl extends BaseServiceImpl<CardInfo> implements IC
         map.put("cardNo",cardInfo.getCardCode());
         map.put("isbind",0l);
         return cardInfoMapper.offBinding(map);
+    }
+
+    @Override
+    public RestResult search(Map map) {
+        RestResult restResult = new RestResult();
+        try {
+            CardInfo cardInfo = cardInfoMapper.search(map);
+            if (StringUtil.isNotEmpty(cardInfo)) {
+                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",cardInfo);
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功");
+            }
+
+        } catch (Exception e) {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"服务器内部错误");
+        }
     }
 
 

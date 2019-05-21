@@ -161,4 +161,24 @@
       is_delete = #{isDelete,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <update id="updatePayPassword" parameterType="Map">
+  update t_user_account
+    set password = #{newPassword}
+    ,update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where user_id = #{userId}
+    and states = 1
+    and is_delete = 1
+  </update>
+
+
+  <select id="payVerification" parameterType="Map" resultMap="BaseResultMap">
+  select
+    <include refid="Base_Column_List" />
+    from t_user_account
+    where user_id = #{userId}
+    and password = #{passWord}
+    and states = 1
+    and is_delete = 1
+  </select>
 </mapper>

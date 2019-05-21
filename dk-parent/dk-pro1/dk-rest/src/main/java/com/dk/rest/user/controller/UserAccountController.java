@@ -1,0 +1,82 @@
+package com.dk.rest.user.controller;
+
+import com.common.bean.RestResult;
+import com.common.bean.ResultEnume;
+import com.common.utils.StringUtil;
+import com.dk.provider.basis.service.RedisCacheService;
+import com.dk.provider.user.service.IUserAccountService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/userAccount")
+public class UserAccountController {
+    private Logger logger = LoggerFactory.getLogger(UserAccountController.class);
+
+    @Resource
+    private IUserAccountService userAccountServiceImpl;
+    /*@Resource
+    private RedisCacheService redisCacheService;*/
+
+    /**
+     * 用户修改登录密码
+     * @param map
+     * @return
+     */
+    @RequestMapping("/updatePayPassword")
+    public RestResult updatePayPassword (@RequestBody Map map) {
+        logger.info("start update pay password...");
+        RestResult restResult = new RestResult();
+        if (StringUtil.isNotEmpty(map)) {
+            if (!StringUtil.isNotEmpty(map.get("userId"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+            }
+            if (!StringUtil.isNotEmpty(map.get("phone"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"手机号不能为空");
+            }
+            /*if ((map.get("verificationCode")).equals(redisCacheService.get((String)map.get("phone")))) {
+                restResult.setCodeAndMsg(ResultEnume.FAIL,"验证码输入有误！");
+            }*/
+            if (!StringUtil.isNotEmpty(map.get("newPassword"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"新密码不能为空");
+            }
+            if (!StringUtil.isNotEmpty(map.get("repeatPassword"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"重复密码不能为空");
+            }
+            if (!(map.get("newPassword")).equals(map.get("repeatPassword"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"两次密码输入不同");
+            }
+            return userAccountServiceImpl.updatePayPassword(map);
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+        }
+    }
+
+
+    /**
+     * 用户支付验证
+     * @return
+     */
+    @RequestMapping("/payVerification")
+    public RestResult payVerification (@RequestBody Map map) {
+        logger.info("start payVerification ...");
+        RestResult restResult = new RestResult();
+        if (StringUtil.isNotEmpty(map)) {
+            if (!StringUtil.isNotEmpty(map.get("userId"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+            }
+            if (!StringUtil.isNotEmpty(map.get("passWord"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"密码不能为空");
+            }
+            return userAccountServiceImpl.payVerification(map);
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+        }
+    }
+}
