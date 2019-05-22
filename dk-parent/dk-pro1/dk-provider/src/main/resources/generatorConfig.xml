@@ -18,24 +18,24 @@
         </jdbcConnection>
 
         <!-- 生成的实体 targetPackage路径  targetProject源目录-->
-        <javaModelGenerator targetPackage="com.dk.provider.plat.entity"
+        <javaModelGenerator targetPackage="com.dk.provider.basic.entity"
                             targetProject="src/main/java">
             <!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!-- 生成的curd xml  targetPackage路径  targetProject源目录-->
-        <sqlMapGenerator targetPackage= "com.dk.provider.mapper.plat"
+        <sqlMapGenerator targetPackage= "com.dk.provider.mapper.basic"
                          targetProject="src/main/resources"/>
 
         <!-- 对应的Mapper接口类文件 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.dk.provider.plat.mapper"
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.dk.provider.basic.mapper"
                              targetProject="./src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
         <!-- 配置不生成Exmaple文件>  tableName表名   domainObjectName生成后的xml名(自动拼接 Mapper.xml)-->
-        <table tableName="t_rout_sub" domainObjectName="RoutSub"
+        <table tableName="t_area" domainObjectName="Area"
                enableDeleteByExample="false" selectByExampleQueryId="false"
                enableCountByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>

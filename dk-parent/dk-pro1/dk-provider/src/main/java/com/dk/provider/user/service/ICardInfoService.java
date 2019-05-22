@@ -5,6 +5,7 @@ import com.dk.provider.basis.service.BaseServiceI;
 import com.dk.provider.user.entity.Bank;
 import com.dk.provider.user.entity.CardInfo;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ICardInfoService extends BaseServiceI<CardInfo> {
@@ -35,6 +36,6 @@ public interface ICardInfoService extends BaseServiceI<CardInfo> {
      * @param map
      * @return
      */
-    RestResult search (Map map);
+    List<CardInfo> search (Map map);
 
 }

@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 public class CommonUtils {
@@ -52,6 +53,21 @@ public class CommonUtils {
             }
         }
     }
+
+    /**
+     * List里随机取一条数据
+     * @param list
+     * @return
+     */
+    public static int s(List list){
+        /**
+         * 随机取一条
+         */
+        Random random = new Random();
+        int n = random.nextInt(list.size());//随机数
+        return n;
+    }
+
 
     public static void main(String[] args) throws Exception {
 

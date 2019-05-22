@@ -6,16 +6,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
 import com.common.utils.AuthenUtils;
+import com.common.utils.CommonUtils;
 import com.common.utils.StringUtil;
 import com.dk.provider.user.entity.CardInfo;
 import com.dk.provider.user.service.ICardInfoService;
+import com.dk.rest.user.bean.CardInfoBeans;
 import com.dk.rest.user.entity.CardInfoBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -137,8 +138,7 @@ public class CardInfoController {
     }
 
     @RequestMapping("/search")
-    public RestResult search (@RequestBody Map map) {
-        logger.info("search card start 。。。");
+    public RestResult search (@RequestBody Map map) throws Exception{
         RestResult restResult = new RestResult();
         if (StringUtil.isNotEmpty(map)) {
             if (!StringUtil.isNotEmpty(map.get("userId"))) {
@@ -147,7 +147,18 @@ public class CardInfoController {
             if (!StringUtil.isNotEmpty(map.get("type"))) {
                 return restResult.setCodeAndMsg(ResultEnume.FAIL,"卡类型不能为空!");
             }
-            return cardInfoServiceImpl.search(map);
+            List<CardInfo> cardInfoList = cardInfoServiceImpl.search(map);
+            List<CardInfoBeans> cardInfoBeanList = new LinkedList<>();
+            if(cardInfoList != null){
+                for(CardInfo e: cardInfoList){
+                    CardInfoBeans cardInfoBeans = new CardInfoBeans();
+                    BeanUtils.copyProperties(e,cardInfoBeans);
+                    CommonUtils.reflect(cardInfoBeans);
+                    cardInfoBeanList.add(cardInfoBeans);
+                }
+                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功!",cardInfoBeanList);
+            }
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"查询结果为空!");
         } else {
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误!");
         }

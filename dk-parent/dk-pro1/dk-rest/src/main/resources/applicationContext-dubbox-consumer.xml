@@ -31,4 +31,5 @@
 	<dubbo:reference id="userAccountServiceImpl" interface="com.dk.provider.user.service.IUserAccountService" check="false" />
 	<dubbo:reference id="cardInfoServiceImpl" interface="com.dk.provider.user.service.ICardInfoService" check="false" />
 	<dubbo:reference id="bankService" interface="com.dk.provider.user.service.BankService" check="false"/>
+	<dubbo:reference id="areaService" interface="com.dk.provider.basic.service.AreaService" check="false"/>
 </beans>

@@ -1,5 +1,6 @@
 package com.dk.provider.basis.service;
 
+
 public interface RedisCacheService  {
     /**
      * 获取redis的值
@@ -7,6 +8,12 @@ public interface RedisCacheService  {
      * @return
      */
     String get(String var1);
+    /**
+     * 缓存redis的值
+     * @param var1 key键值
+     * @param var2 value键值
+     */
+    void set(String var1, String var2);
 
     /**
      * 缓存redis的值
@@ -28,4 +35,5 @@ public interface RedisCacheService  {
      * @return
      */
     boolean exist(String var1);
+
 }

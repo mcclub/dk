@@ -7,6 +7,11 @@ public class RouteInfoBean {
 
     private Long id;
 
+    /**
+     * 小类通道id
+     */
+    private String subId;
+
     private String name;
 
     private String rate;
@@ -105,5 +110,13 @@ public class RouteInfoBean {
 
     public void setIsFree(Long isFree) {
         this.isFree = isFree;
+    }
+
+    public String getSubId() {
+        return subId;
+    }
+
+    public void setSubId(String subId) {
+        this.subId = subId;
     }
 }

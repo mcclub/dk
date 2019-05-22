@@ -27,6 +27,13 @@ public class RedisCacheServiceImpl implements RedisCacheService {
     }
 
     @Override
+    public void set(String var1, String var2) {
+        if(var2!=null){
+            redisTemplate.opsForValue().set(var1, var2);
+        }
+    }
+
+    @Override
     public void set(String var1, String var2, Long var3) {
         if(var2!=null){
             redisTemplate.opsForValue().set(var1, var2, var3, TimeUnit.MINUTES);
@@ -47,4 +54,5 @@ public class RedisCacheServiceImpl implements RedisCacheService {
         }
         return false;
     }
+
 }

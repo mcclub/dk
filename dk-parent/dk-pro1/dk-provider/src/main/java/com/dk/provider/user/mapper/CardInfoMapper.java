@@ -4,6 +4,7 @@ import com.dk.provider.basis.mapper.BaseMapper;
 import com.dk.provider.user.entity.CardInfo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
 import java.util.Map;
 
 @Mapper
@@ -41,5 +42,5 @@ public interface CardInfoMapper extends BaseMapper<CardInfo> {
      * @param map
      * @return
      */
-    CardInfo search (Map map);
+    List<CardInfo> search (Map map);
 }

@@ -3,6 +3,7 @@ package com.common.bean.page;
 import com.common.bean.page.Order.Direction;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -63,6 +64,9 @@ public class Pageable implements Serializable {
     }
 
     public void setSearchProperty(String searchProperty) {
+        if(StringUtils.isEmpty(searchProperty)){
+            searchProperty = "";
+        }
         this.searchProperty = searchProperty;
     }
 
@@ -71,6 +75,9 @@ public class Pageable implements Serializable {
     }
 
     public void setSearchValue(String searchValue) {
+        if(StringUtils.isEmpty(searchValue)){
+            searchValue = "";
+        }
         this.searchValue = searchValue;
     }
 
@@ -79,6 +86,9 @@ public class Pageable implements Serializable {
     }
 
     public void setOrderProperty(String orderProperty) {
+        if(StringUtils.isEmpty(orderProperty)){
+            orderProperty = "";
+        }
         this.orderProperty = orderProperty;
     }
 

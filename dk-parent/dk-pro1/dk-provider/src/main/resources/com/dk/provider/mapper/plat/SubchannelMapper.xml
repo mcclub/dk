@@ -47,6 +47,9 @@
     where  t.sub_id = s.id
     and t.states = 1 and s.states = 1
     and t.rout_id = #{routId,jdbcType=BIGINT}
+    <if test="subId != null and subId != ''">
+      and s.id = #{subId,jdbcType=BIGINT}
+    </if>
   </select>
 
 

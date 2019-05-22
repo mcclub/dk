@@ -7,6 +7,9 @@ import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
 import com.common.controller.BaseController;
 import com.common.utils.CommonUtils;
+import com.dk.provider.basic.entity.Area;
+import com.dk.provider.basic.service.AreaService;
+import com.dk.provider.basis.service.RedisCacheService;
 import com.dk.provider.plat.entity.RouteInfo;
 import com.dk.provider.plat.entity.RouteUser;
 import com.dk.provider.plat.entity.Subchannel;
@@ -15,10 +18,12 @@ import com.dk.provider.plat.service.SubchannelService;
 import com.dk.provider.repay.entity.ReceiveRecord;
 import com.dk.provider.repay.service.ReceiveRecordService;
 import com.dk.rest.api.inter.BeiduoQuickPayApi;
+import com.dk.rest.plat.bean.AreaBean;
 import com.dk.rest.plat.bean.RouteInfoBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -33,9 +38,12 @@ public class RouteController extends BaseController {
 
     private Logger logger = LoggerFactory.getLogger(RouteController.class);
 
+
     @Resource
     private RouteInfoService routeInfoService;
 
+    @Resource
+    private AreaService areaService;
     /**
      * 收款流水记录
      */
@@ -69,6 +77,23 @@ public class RouteController extends BaseController {
                 for(RouteInfo routeInfo : routeInfoPage.getContent() ){
                     RouteInfoBean routeInfoBean = new RouteInfoBean();
                     BeanUtils.copyProperties(routeInfo,routeInfoBean);
+                    /**
+                     * 查询小类通道
+                     */
+                    Map<String,Object> mapRout = new HashMap<>();
+                    mapRout.put("routId",routeInfo.getId());//大类通道id
+                    List<Subchannel> subchannelList = subchannelService.selectByrout(mapRout);
+                    if(subchannelList != null ) {
+                        /**
+                         * 随机取一条
+                         */
+                        Random random = new Random();
+                        int n = random.nextInt(subchannelList.size());//随机数
+                        Subchannel subchannel = subchannelList.get(n);//取出的随机一条数据
+                        Long subId = subchannel.getId();//小类通道id
+                        routeInfoBean.setSubId(subId.toString());
+                    }
+                    CommonUtils.reflect(routeInfoBean);
                     routeInfoBeanList.add(routeInfoBean);
                 }
                 page.getContent().addAll(routeInfoBeanList);
@@ -116,16 +141,17 @@ public class RouteController extends BaseController {
              */
             Map<String,Object> map = new HashMap<>();
             map.put("routId",jsonObject.get("routId"));//大类通道id
+            map.put("subId",jsonObject.get("subId"));//小类通道id
             List<Subchannel> subchannelList = subchannelService.selectByrout(map);
             if(subchannelList.size() >0){
                 /**
                  * 随机取一条
                  */
-                Random random = new Random();
+                /*Random random = new Random();
                 int n = random.nextInt(subchannelList.size());//随机数
-                Subchannel subchannel = subchannelList.get(n);//取出的随机一条数据
-                String tabNo = subchannel.getTabNo();//小类通道标记
-                Long subId = subchannel.getId();//小类通道id
+                Subchannel subchannel = subchannelList.get(n);//取出的随机一条数据*/
+                String tabNo = subchannelList.get(0).getTabNo();//小类通道标记
+                Long subId = subchannelList.get(0).getId();//小类通道id
 
                 jsonObject.put("tabNo",tabNo);
                 jsonObject.put("subId",subId);
@@ -216,4 +242,112 @@ public class RouteController extends BaseController {
             return getFailRes();
         }
     }
+
+    /**
+     * 查询省
+     * @param jsonObject
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = {"/province"})
+    public RestResult queryProvince(@RequestBody JSONObject jsonObject){
+        String method = "queryProvince";
+        logger.info("进入RouteController的"+method+"方法,参数为:{}",jsonObject);
+        try{
+            /**
+             * 查询省
+             */
+            Map<String,Object> map = new HashMap<>();
+            map.put("level","1");
+            List<Area> areaList = areaService.queryList(map);
+            List<AreaBean> areaBeanList = new LinkedList<>();
+            for(Area e : areaList){
+                AreaBean areaBean = new AreaBean();
+                BeanUtils.copyProperties(e,areaBean);
+                CommonUtils.reflect(areaBean);
+                areaBeanList.add(areaBean);
+            }
+
+            return getRestResult(ResultEnume.SUCCESS,"查询省成功",areaBeanList);
+        }catch (Exception e){
+            logger.error(method+"执行出错:{}",e.getMessage());
+            e.printStackTrace();
+            return getFailRes();
+        }
+    }
+
+    /**
+     * 查询市
+     * @param jsonObject
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = {"/city"})
+    public RestResult queryCity(@RequestBody JSONObject jsonObject){
+        String method = "queryCity";
+        logger.info("进入RouteController的"+method+"方法,参数为:{}",jsonObject);
+        if(StringUtils.isEmpty(jsonObject.get("parentId"))){
+            return getRestResult(ResultEnume.FAIL,"省份id不能为空",new JSONObject());
+        }
+        try{
+            /**
+             * 根据上级省份查询市
+             */
+            Map<String,Object> map = new HashMap<>();
+            map.put("parentId",jsonObject.get("parentId"));
+            List<Area> areaList = areaService.queryList(map);
+            List<AreaBean> areaBeanList = new LinkedList<>();
+            for(Area e : areaList){
+                AreaBean areaBean = new AreaBean();
+                BeanUtils.copyProperties(e,areaBean);
+                CommonUtils.reflect(areaBean);
+                areaBeanList.add(areaBean);
+            }
+            return getRestResult(ResultEnume.SUCCESS,"查询市成功",areaBeanList);
+        }catch (Exception e){
+            logger.error(method+"执行出错:{}",e.getMessage());
+            e.printStackTrace();
+            return getFailRes();
+        }
+    }
+
+    /**
+     * 查询行业
+     * @param jsonObject
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = {"/industry"},method = RequestMethod.POST)
+    public RestResult queryIndusMer(JSONObject jsonObject){
+        String method = "industry";
+        logger.info("进入RouteController的"+method+"方法,参数为:{}",jsonObject);
+        try {
+
+            return null;
+        }catch (Exception e){
+            logger.error(method+"执行出错:{}",e.getMessage());
+            e.printStackTrace();
+            return getFailRes();
+        }
+    }
+    /**
+     * 查询商户
+     * @param jsonObject
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = {"/merchant"},method = RequestMethod.POST)
+    public RestResult merchant(JSONObject jsonObject){
+        String method = "merchant";
+        logger.info("进入RouteController的"+method+"方法,参数为:{}",jsonObject);
+        try {
+
+            return null;
+        }catch (Exception e){
+            logger.error(method+"执行出错:{}",e.getMessage());
+            e.printStackTrace();
+            return getFailRes();
+        }
+    }
 }
+

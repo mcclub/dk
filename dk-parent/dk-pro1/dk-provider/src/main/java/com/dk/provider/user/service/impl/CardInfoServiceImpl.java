@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -76,18 +77,17 @@ public class CardInfoServiceImpl extends BaseServiceImpl<CardInfo> implements IC
     }
 
     @Override
-    public RestResult search(Map map) {
-        RestResult restResult = new RestResult();
+    public List<CardInfo> search(Map map) {
         try {
-            CardInfo cardInfo = cardInfoMapper.search(map);
+            List<CardInfo> cardInfo = cardInfoMapper.search(map);
             if (StringUtil.isNotEmpty(cardInfo)) {
-                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",cardInfo);
+                return cardInfo;
             } else {
-                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功");
+                return null;
             }
 
         } catch (Exception e) {
-            return restResult.setCodeAndMsg(ResultEnume.FAIL,"服务器内部错误");
+            return null;
         }
     }
 

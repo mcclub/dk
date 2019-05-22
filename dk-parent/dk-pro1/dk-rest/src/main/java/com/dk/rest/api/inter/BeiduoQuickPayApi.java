@@ -70,6 +70,7 @@ public class BeiduoQuickPayApi {
      * @param jsonObject
      */
     public RestResult BDquickProcess(JSONObject jsonObject) throws Exception{
+        RestResult restResult = new RestResult();
         logger.info("支付流程接收到jsonObject的参数为:{}",jsonObject);
         Long userId = jsonObject.getLong("userId");//用户id
         Long subId = jsonObject.getLong("subId");//小类id
@@ -86,6 +87,8 @@ public class BeiduoQuickPayApi {
         if(subchannelList != null){
             merchantNo = subchannelList.get(0).getMerNo();
             key = subchannelList.get(0).getMerKey();
+        }else{
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"未找到路由通道",new JSONObject());
         }
         /**
          * 查询储蓄卡
@@ -94,6 +97,9 @@ public class BeiduoQuickPayApi {
         mapcard.put("userId",userId);
         mapcard.put("type","01");
         CardInfo cardInfo = userServiceImpl.queryCard(mapcard);
+        if(cardInfo == null){
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"未绑定储蓄卡",new JSONObject());
+        }
 
         /**
          * 查询储蓄卡联行号
@@ -213,7 +219,7 @@ public class BeiduoQuickPayApi {
         String msg = payJson.getString("msg");
         Long states = 3L;//订单状态(0处理中，1成功，2失败，3未知)
         JSONObject resjson = new JSONObject();
-        RestResult restResult = new RestResult();
+
         if(payJson.get("code").equals("000")) {//成功
             if(payJson.get("data") !=null){
                 JSONObject data = payJson.getJSONObject("data");
@@ -250,6 +256,7 @@ public class BeiduoQuickPayApi {
 
 
 
+    /**
     /**
      * 1.商户注册
      * @param jsonObject
