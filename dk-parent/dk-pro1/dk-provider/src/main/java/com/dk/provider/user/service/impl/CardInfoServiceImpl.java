@@ -42,7 +42,7 @@ public class CardInfoServiceImpl extends BaseServiceImpl<CardInfo> implements IC
         map.put("cardNo",cardInfo.getCardCode());
         CardInfo bean = this.searchByNo(map);
         if (StringUtil.isNotEmpty(bean)) {
-            return restResult.setCodeAndMsg(ResultEnume.FAIL,"同一张卡请勿重新绑定");
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"该卡已被绑定");
         } else {
             try {
                 int num = cardInfoMapper.insert(cardInfo);

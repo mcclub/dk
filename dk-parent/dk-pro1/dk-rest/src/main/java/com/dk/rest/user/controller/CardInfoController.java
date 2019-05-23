@@ -52,9 +52,14 @@ public class CardInfoController {
             if (StringUtil.isEmpty(vo.getIdentity())) {
                 return restResult.setCodeAndMsg(ResultEnume.FAIL,"身份证号不能为空!");
             }
-            /*if (StringUtil.isEmpty(vo.getType())) {
+            if (StringUtil.isEmpty(vo.getType())) {
                 return restResult.setCodeAndMsg(ResultEnume.FAIL,"卡类型不能为空!");
-            }*/
+            }
+            if ((vo.getType()).equals("02")) {
+                if (StringUtil.isEmpty(vo.getValid()) || StringUtil.isEmpty(vo.getCvv())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"有效期或安全码为空!");
+                }
+            }
             if (!StringUtil.isMobilePhone(vo.getPhone())) {
                 return restResult.setCodeAndMsg(ResultEnume.FAIL,"手机号格式有误!");
             }
@@ -72,6 +77,9 @@ public class CardInfoController {
             String cardAuthenInfo = AuthenUtils.bankAuthen(bodys);
             JSONObject json = JSON.parseObject(cardAuthenInfo);
             String respCode = json.getString("respCode");
+            if (respCode.equals("0001")) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"开户名不能为空");
+            }
             if (respCode.equals("0002")) {
                 return restResult.setCodeAndMsg(ResultEnume.FAIL,"银行卡号格式错误");
             }
@@ -105,8 +113,9 @@ public class CardInfoController {
                 } catch (Exception e) {
                     return restResult.setCodeAndMsg(ResultEnume.FAIL,"服务器内部错误");
                 }
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户信息验证失败");
             }
-            return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"成功");
         } else {
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误!");
         }
@@ -157,19 +166,5 @@ public class CardInfoController {
         } else {
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误!");
         }
-    }
-
-    public static void main(String[] args) {
-        HashMap<String,String> bodys = new HashMap<>();
-        bodys.put("cardNo", "6216913101638113");
-        bodys.put("idNo", "430703199712174518");
-        bodys.put("name", "张立昌");
-        bodys.put("phoneNo", "15210243233");
-        String cardAuthenInfo = AuthenUtils.bankAuthen(bodys);
-        System.out.println("cardAuthenInfo="+cardAuthenInfo);
-        //String cardAuthenInfo = "{\"name\":\"张立昌\",\"cardNo\":\"6216913101638113\",\"idNo\":\"430703199712174518\",\"phoneNo\":\"15210243233\",\"respMessage\":\"信息匹配\",\"respCode\":\"0000\",\"bankName\":\"中国民生银行\",\"bankKind\":\"借记卡普卡\",\"bankType\":\"借记卡\",\"bankCode\":\"CMBC\"}";
-        JSONObject json = JSON.parseObject(cardAuthenInfo);
-        String respCode = json.getString("respCode");
-        System.out.println(respCode);
     }
 }
