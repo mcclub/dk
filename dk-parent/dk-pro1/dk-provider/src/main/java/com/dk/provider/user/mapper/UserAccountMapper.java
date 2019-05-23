@@ -24,4 +24,6 @@ public interface UserAccountMapper extends BaseMapper<UserAccount> {
     int updatePayPassword (Map map);
 
     UserAccount payVerification (Map map);
+
+    UserAccount queryByUserId (Map map);
 }

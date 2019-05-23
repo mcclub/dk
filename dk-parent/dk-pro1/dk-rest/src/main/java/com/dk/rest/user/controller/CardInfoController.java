@@ -62,11 +62,6 @@ public class CardInfoController {
                 restResult.setCodeAndMsg(ResultEnume.FAIL,"验证码输入有误！");
                 return restResult;
             }*/
-            if (vo.getType().equals("01")) {
-                if (StringUtil.isEmpty(vo.getBankName())) {
-                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"银行名称不能为空!");
-                }
-            }
             //银行卡四要素鉴权
             logger.info("银行卡四要素鉴权 。。。");
             HashMap<String,String> bodys = new HashMap<>();

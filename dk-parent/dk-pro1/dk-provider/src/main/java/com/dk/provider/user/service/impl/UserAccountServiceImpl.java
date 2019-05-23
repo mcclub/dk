@@ -61,4 +61,44 @@ public class UserAccountServiceImpl extends BaseServiceImpl<UserAccount> impleme
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"验证失败");
         }
     }
+
+
+    /**
+     * 通过用户id查询账户
+     * @param map
+     * @return
+     */
+    @Override
+    public RestResult queryByUserId(Map map) {
+        RestResult restResult = new RestResult();
+        UserAccount userAccount = userAccountMapper.queryByUserId(map);
+        if (StringUtil.isNotEmpty(userAccount)) {
+            return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",userAccount);
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"该用户没有账户");
+        }
+    }
+
+
+    /**
+     * 判断账户是否设置了密码
+     * @param map
+     * @return
+     */
+    @Override
+    public RestResult hasSetPassword(Map map) {
+        RestResult result = this.queryByUserId(map);
+        if (result.getRespCode().equals("1000")) {
+            UserAccount userAccount = (UserAccount) result.getData();
+            if (!StringUtil.isEmpty(userAccount.getPassword())) {
+                result.setData(true);
+                return result;
+            } else {
+                result.setData(false);
+                return result;
+            }
+        } else {
+            return result;
+        }
+    }
 }

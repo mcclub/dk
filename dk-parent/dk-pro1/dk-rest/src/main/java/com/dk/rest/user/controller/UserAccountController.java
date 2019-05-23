@@ -79,4 +79,23 @@ public class UserAccountController {
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
         }
     }
+
+
+    /**
+     * 是否设置了交易密码
+     * @return
+     */
+    @RequestMapping("/hasSetPassword")
+    public RestResult hasSetPassword (@RequestBody Map map) {
+        logger.info("start hasSetPassword ...");
+        RestResult restResult = new RestResult();
+        if (StringUtil.isNotEmpty(map)) {
+            if (!StringUtil.isNotEmpty(map.get("userId"))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+            }
+            return userAccountServiceImpl.hasSetPassword(map);
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+        }
+    }
 }

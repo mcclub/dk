@@ -10,4 +10,8 @@ public interface IUserAccountService extends BaseServiceI<UserAccount> {
     RestResult updatePayPassword (Map map);
 
     RestResult payVerification (Map map);
+
+    RestResult queryByUserId (Map map);
+
+    RestResult hasSetPassword (Map map);
 }

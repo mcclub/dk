@@ -181,4 +181,13 @@
     and states = 1
     and is_delete = 1
   </select>
+
+  <select id="queryByUserId" parameterType="Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user_account
+    where user_id = #{userId}
+    and states = 1
+    and is_delete = 1
+  </select>
 </mapper>
