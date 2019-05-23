@@ -37,31 +37,22 @@ public class CardInfoServiceImpl extends BaseServiceImpl<CardInfo> implements IC
     @Transactional(rollbackFor = Exception.class)
     public RestResult bindingCard(CardInfo cardInfo) {
         RestResult restResult = new RestResult();
-        HashMap<String,Object> map = new HashMap<>();
-        map.put("userId",cardInfo.getUserId());
-        map.put("cardNo",cardInfo.getCardCode());
-        CardInfo bean = this.searchByNo(map);
-        if (StringUtil.isNotEmpty(bean)) {
-            return restResult.setCodeAndMsg(ResultEnume.FAIL,"该卡已被绑定");
-        } else {
-            try {
-                int num = cardInfoMapper.insert(cardInfo);
-                if (num > 0) {
-                    if (cardInfo.getType().equals("01")) {
-                        HashMap<String,Object> updateMap = new HashMap<>();
-                        updateMap.put("userId",cardInfo.getUserId());
-                        updateMap.put("name",cardInfo.getRealName());
-                        updateMap.put("identity",cardInfo.getIdentity());
-                        userServiceImpl.updateByBindCard(updateMap);
-                    }
-                    return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"绑定成功");
-                } else {
-                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"绑定失败，请联系管理员");
+        try {
+            int num = cardInfoMapper.insert(cardInfo);
+            if (num > 0) {
+                if (cardInfo.getType().equals("01")) {
+                    HashMap<String,Object> updateMap = new HashMap<>();
+                    updateMap.put("userId",cardInfo.getUserId());
+                    updateMap.put("name",cardInfo.getRealName());
+                    updateMap.put("identity",cardInfo.getIdentity());
+                    userServiceImpl.updateByBindCard(updateMap);
                 }
-            } catch (Exception e) {
-                return restResult.setCodeAndMsg(ResultEnume.FAIL,"服务器内部错误");
+                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"绑定成功");
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"绑定失败，请联系管理员");
             }
-
+        } catch (Exception e) {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"服务器内部错误");
         }
     }
 

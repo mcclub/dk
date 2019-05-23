@@ -67,54 +67,64 @@ public class CardInfoController {
                 restResult.setCodeAndMsg(ResultEnume.FAIL,"验证码输入有误！");
                 return restResult;
             }*/
-            //银行卡四要素鉴权
-            logger.info("银行卡四要素鉴权 。。。");
-            HashMap<String,String> bodys = new HashMap<>();
-            bodys.put("cardNo", vo.getCardCode());
-            bodys.put("idNo", vo.getIdentity());
-            bodys.put("name", vo.getRealName());
-            bodys.put("phoneNo", vo.getPhone());
-            String cardAuthenInfo = AuthenUtils.bankAuthen(bodys);
-            JSONObject json = JSON.parseObject(cardAuthenInfo);
-            String respCode = json.getString("respCode");
-            if (respCode.equals("0001")) {
-                return restResult.setCodeAndMsg(ResultEnume.FAIL,"开户名不能为空");
-            }
-            if (respCode.equals("0002")) {
-                return restResult.setCodeAndMsg(ResultEnume.FAIL,"银行卡号格式错误");
-            }
-            if (respCode.equals("0003")) {
-                return restResult.setCodeAndMsg(ResultEnume.FAIL,"身份证号格式错误");
-            }
-            if (respCode.equals("0008")) {
-                return restResult.setCodeAndMsg(ResultEnume.FAIL,"信息不匹配");
-            }
+
+
+            //判断该卡是否已被绑定
+            HashMap<String,Object> map = new HashMap<>();
+            map.put("cardNo",vo.getCardCode());
+            CardInfo bean = cardInfoServiceImpl.searchByNo(map);
+            if (StringUtil.isNotEmpty(bean)) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"该卡已被绑定");
+            } else {
+                //银行卡四要素鉴权
+                logger.info("银行卡四要素鉴权 。。。");
+                HashMap<String,String> bodys = new HashMap<>();
+                bodys.put("cardNo", vo.getCardCode());
+                bodys.put("idNo", vo.getIdentity());
+                bodys.put("name", vo.getRealName());
+                bodys.put("phoneNo", vo.getPhone());
+                String cardAuthenInfo = AuthenUtils.bankAuthen(bodys);
+                JSONObject json = JSON.parseObject(cardAuthenInfo);
+                String respCode = json.getString("respCode");
+                if (respCode.equals("0001")) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"开户名不能为空");
+                }
+                if (respCode.equals("0002")) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"银行卡号格式错误");
+                }
+                if (respCode.equals("0003")) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"身份证号格式错误");
+                }
+                if (respCode.equals("0008")) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"信息不匹配");
+                }
             /*if (!user.getVerificationCode().equals(redisCacheService.get(user.getPhone()))) {
                 restResult.setCodeAndMsg(ResultEnume.FAIL,"验证码输入有误！");
                 return restResult;
             }*/
-            if (respCode.equals("0000")) {
-                if (vo.getType().equals("01") && !json.getString("bankType").equals("借记卡")) {
-                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"请绑定储蓄卡");
+                if (respCode.equals("0000")) {
+                    if (vo.getType().equals("01") && !json.getString("bankType").equals("借记卡")) {
+                        return restResult.setCodeAndMsg(ResultEnume.FAIL,"请绑定储蓄卡");
+                    }
+                    if (vo.getType().equals("02") && !json.getString("bankType").equals("信用卡")) {
+                        return restResult.setCodeAndMsg(ResultEnume.FAIL,"请绑定信用卡");
+                    }
+                    CardInfo cardInfo = new CardInfo();
+                    BeanUtils.copyProperties(vo,cardInfo);
+                    cardInfo.setType(json.getString("bankType").equals("借记卡")?"01":"02");
+                    cardInfo.setBankCode(json.getString("bankCode"));
+                    cardInfo.setBankName(json.getString("bankName"));
+                    cardInfo.setCreateTime(new Date());
+                    cardInfo.setUpdateTime(new Date());
+                    cardInfo.setIsbind(1l);
+                    try {
+                        return cardInfoServiceImpl.bindingCard(cardInfo);
+                    } catch (Exception e) {
+                        return restResult.setCodeAndMsg(ResultEnume.FAIL,"服务器内部错误");
+                    }
+                } else {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户信息验证失败");
                 }
-                if (vo.getType().equals("02") && !json.getString("bankType").equals("信用卡")) {
-                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"请绑定信用卡");
-                }
-                CardInfo cardInfo = new CardInfo();
-                BeanUtils.copyProperties(vo,cardInfo);
-                cardInfo.setType(json.getString("bankType").equals("借记卡")?"01":"02");
-                cardInfo.setBankCode(json.getString("bankCode"));
-                cardInfo.setBankName(json.getString("bankName"));
-                cardInfo.setCreateTime(new Date());
-                cardInfo.setUpdateTime(new Date());
-                cardInfo.setIsbind(1l);
-                try {
-                    return cardInfoServiceImpl.bindingCard(cardInfo);
-                } catch (Exception e) {
-                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"服务器内部错误");
-                }
-            } else {
-                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户信息验证失败");
             }
         } else {
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误!");
