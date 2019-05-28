@@ -216,4 +216,53 @@
     and states = 1
     and is_delete = 1
   </update>
+
+  <select id="searchUserById" parameterType="Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{userId}
+    and states = 1
+    and is_delete = 1
+  </select>
+
+  <select id="searchTwoId" parameterType="Map" resultType="java.lang.Long">
+  select id
+    from t_user
+    where states=1
+    and is_delete=1
+    and refer_no = #{userId}
+  </select>
+
+  <select id="searchTwoThreeId" parameterType="Map" resultType="java.lang.Long">
+  select id
+   from t_user
+   where states=1
+   and is_delete=1
+   and refer_no = #{userId}
+   union all
+  select id
+   from t_user
+   where states=1
+   and is_delete=1
+   and refer_no in
+   (select id
+   from t_user
+   where states=1
+   and is_delete=1
+   and refer_no = #{userId})
+  </select>
+
+  <select id="searchThreeId" parameterType="Map" resultType="java.lang.Long">
+  select id
+   from t_user
+   where states=1
+   and is_delete=1
+   and refer_no in
+   (select id
+   from t_user
+   where states=1
+   and is_delete=1
+   and refer_no = #{userId})
+  </select>
 </mapper>
