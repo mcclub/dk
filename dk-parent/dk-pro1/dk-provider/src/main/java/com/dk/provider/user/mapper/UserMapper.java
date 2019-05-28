@@ -2,6 +2,7 @@ package com.dk.provider.user.mapper;
 
 import com.dk.provider.basis.mapper.BaseMapper;
 import com.dk.provider.user.entity.User;
+import com.dk.provider.user.entity.UserFriend;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Map;
@@ -21,5 +22,7 @@ public interface UserMapper extends BaseMapper<User> {
     User comparePassword (Map map);
 
     int updatePassword (Map map);
+
+    UserFriend searchFriendList (Map map);
 
 }

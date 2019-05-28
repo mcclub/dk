@@ -1,6 +1,7 @@
 package com.dk.provider.plat.service;
 
 
+import com.common.bean.RestResult;
 import com.common.bean.page.Page;
 import com.common.bean.page.Pageable;
 import com.dk.provider.basis.service.BaseServiceI;
@@ -22,4 +23,11 @@ public interface RouteInfoService extends BaseServiceI<RouteInfo> {
     Page<RouteInfo> page(Map map , Pageable pageable) throws Exception;
 
     RouteUser queryUserRout(Map map) throws Exception;
+
+    /**
+     * 通过用户查询通道信息
+     * @param map
+     * @return
+     */
+    RestResult routeInfoByUser (Map map);
 }

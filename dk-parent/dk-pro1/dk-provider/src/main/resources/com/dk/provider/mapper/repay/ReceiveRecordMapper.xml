@@ -20,6 +20,9 @@
     <result column="order_desc" jdbcType="VARCHAR" property="orderDesc" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
+
+
+
   <sql id="Base_Column_List">
     id, order_no, user_id, amount, rate, fee, rece_card, settle_card, route_id, sub_id, province,
     city, industry, merchant, states, order_desc,
@@ -242,4 +245,18 @@
     where
     order_no = #{orderNo,jdbcType=VARCHAR}
   </update>
+
+  <select id="counts" parameterType="Map" resultType="java.lang.Integer">
+    SELECT count(1)
+    FROM t_receive_record
+    where user_id = #{userId}
+  </select>
+
+
+  <select id="query" parameterType="Map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_receive_record
+    where user_id = #{userId}
+  </select>
 </mapper>

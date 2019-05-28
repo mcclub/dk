@@ -157,6 +157,12 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     }
 
     @Override
+    public RestResult searchFriendList(Map map) {
+        RestResult restResult = new RestResult();
+        return restResult;
+    }
+
+    @Override
     public CardInfo queryCard(Map map) throws Exception {
         return cardInfoMapper.queryByuserId(map);
     }

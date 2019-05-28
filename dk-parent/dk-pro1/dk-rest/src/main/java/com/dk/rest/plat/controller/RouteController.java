@@ -7,6 +7,7 @@ import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
 import com.common.controller.BaseController;
 import com.common.utils.CommonUtils;
+import com.common.utils.StringUtil;
 import com.dk.provider.basic.entity.Area;
 import com.dk.provider.basic.service.AreaService;
 import com.dk.provider.basis.service.RedisCacheService;
@@ -347,6 +348,33 @@ public class RouteController extends BaseController {
             logger.error(method+"执行出错:{}",e.getMessage());
             e.printStackTrace();
             return getFailRes();
+        }
+    }
+
+
+    /**
+     * 根据用户查询对应的通道信息
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = {"/routeInfoByUser"},method = RequestMethod.POST)
+    public RestResult routeInfoByUser(@RequestBody Map map){
+        logger.info("进入RouteController的"+"routeInfoByUser"+"方法,参数为:{}",map);
+        RestResult restResult = new RestResult();
+        try {
+            if (StringUtil.isNotEmpty(map)) {
+                if (StringUtil.isNotEmpty(map.get("userId"))) {
+                    return routeInfoService.routeInfoByUser(map);
+                } else {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+                }
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数异常");
+            }
+        }catch (Exception e){
+            logger.error("routeInfoByUser"+"执行出错:{}",e.getMessage());
+            e.printStackTrace();
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"服务器处理异常");
         }
     }
 }

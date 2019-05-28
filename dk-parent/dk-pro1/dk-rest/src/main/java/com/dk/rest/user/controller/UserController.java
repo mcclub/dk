@@ -216,4 +216,25 @@ public class UserController extends BaseController {
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
         }
     }
+
+
+    /**
+     * 查询用户推荐的好友列表
+     * @param map
+     * @return
+     */
+    @RequestMapping("/searchFriendList")
+    public RestResult searchFriendList (@RequestBody Map map) {
+        logger.info("start searchFriendList...");
+        RestResult restResult = new RestResult();
+        if (StringUtil.isNotEmpty(map)) {
+            if (StringUtil.isNotEmpty(map.get("userId"))) {
+                return userServiceImpl.searchFriendList(map);
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+            }
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+        }
+    }
 }
