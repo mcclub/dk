@@ -8,6 +8,7 @@ import com.common.bean.ResultEnume;
 import com.common.utils.AuthenUtils;
 import com.common.utils.CommonUtils;
 import com.common.utils.StringUtil;
+import com.dk.provider.basis.service.impl.RedisCacheServiceImpl;
 import com.dk.provider.user.entity.CardInfo;
 import com.dk.provider.user.service.ICardInfoService;
 import com.dk.rest.user.bean.CardInfoBeans;
@@ -32,8 +33,8 @@ public class CardInfoController {
 
     @Resource
     private ICardInfoService cardInfoServiceImpl;
-    /*@Resource
-    private RedisCacheServiceImpl redisCacheService;*/
+    @Resource
+    private RedisCacheServiceImpl redisCacheService;
 
     @RequestMapping("/add")
     public RestResult insert (@RequestBody CardInfoBean vo) {
@@ -63,10 +64,10 @@ public class CardInfoController {
             if (!StringUtil.isMobilePhone(vo.getPhone())) {
                 return restResult.setCodeAndMsg(ResultEnume.FAIL,"手机号格式有误!");
             }
-            /*if (!user.getVerificationCode().equals(redisCacheService.get(user.getPhone()))) {
+            if (!vo.getVerificationCode().equals(redisCacheService.get(vo.getPhone()))) {
                 restResult.setCodeAndMsg(ResultEnume.FAIL,"验证码输入有误！");
                 return restResult;
-            }*/
+            }
 
 
             //判断该卡是否已被绑定
@@ -98,10 +99,6 @@ public class CardInfoController {
                 if (respCode.equals("0008")) {
                     return restResult.setCodeAndMsg(ResultEnume.FAIL,"信息不匹配");
                 }
-            /*if (!user.getVerificationCode().equals(redisCacheService.get(user.getPhone()))) {
-                restResult.setCodeAndMsg(ResultEnume.FAIL,"验证码输入有误！");
-                return restResult;
-            }*/
                 if (respCode.equals("0000")) {
                     if (vo.getType().equals("01") && !json.getString("bankType").equals("借记卡")) {
                         return restResult.setCodeAndMsg(ResultEnume.FAIL,"请绑定储蓄卡");

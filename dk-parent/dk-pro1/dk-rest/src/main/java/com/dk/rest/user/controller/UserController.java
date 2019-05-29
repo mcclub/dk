@@ -62,10 +62,10 @@ public class UserController extends BaseController {
                 restResult.setCodeAndMsg(ResultEnume.FAIL,"手机号码格式有误！");
                 return restResult;
             }
-            /*if (!user.getVerificationCode().equals(redisCacheService.get(user.getPhone()))) {
+            if (!user.getVerificationCode().equals(redisCacheService.get(user.getPhone()))) {
                 restResult.setCodeAndMsg(ResultEnume.FAIL,"验证码输入有误！");
                 return restResult;
-            }*/
+            }
             //校验密码是否为空
             if (user.getPassword() == null || user.getRepeatPassWord() == null) {
                 restResult.setCodeAndMsg(ResultEnume.FAIL,"密码不能为空！");
