@@ -16,7 +16,7 @@ import java.util.Map;
 
 
 /**
- * 返佣查询
+ * 返佣查询Controller
  */
 @RestController
 @RequestMapping("/rebate")
