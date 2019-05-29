@@ -70,10 +70,5 @@ public interface IUserService extends BaseServiceI<User> {
      */
     boolean comparePassword (Map map);
 
-    /**
-     * 查询用户推荐的好友列表
-     * @param map
-     * @return
-     */
-    RestResult searchFriendList (Map map);
+    int udpOpautopay(Map map);
 }

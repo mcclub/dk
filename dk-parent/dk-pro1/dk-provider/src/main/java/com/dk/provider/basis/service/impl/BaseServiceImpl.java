@@ -67,13 +67,13 @@ public abstract class BaseServiceImpl<T> implements Serializable , BaseServiceI<
             params = new HashMap();
         }
 
-        int totalPages = (int)Math.ceil((double)total / (double)pageable.getPageSize());
+        /*int totalPages = (int)Math.ceil((double)total / (double)pageable.getPageSize());
         if (totalPages < pageable.getPageNumber()) {
             pageable.setPageNumber(totalPages);
-        }
+        }*/
 
         int firstResult = (pageable.getPageNumber() - 1) * pageable.getPageSize();
-        int maxResults = pageable.getPageSize();
+        int maxResults = pageable.getPageSize() * pageable.getPageNumber();
         if (StringUtils.hasText(pageable.getOrderProperty()) && pageable.getOrderDirection() != null) {
             StringBuilder odr = new StringBuilder();
             odr.append(pageable.getOrderProperty()).append(" ").append(pageable.getOrderDirection().toString());

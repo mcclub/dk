@@ -25,7 +25,11 @@ public class RepayPlan implements Serializable {
 
     private String reseAmt;
 
+    private String returnAmt;
+
     private String planArea;
+
+    private String planCity;
 
     private Long parnId;
 
@@ -135,5 +139,21 @@ public class RepayPlan implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getReturnAmt() {
+        return returnAmt;
+    }
+
+    public void setReturnAmt(String returnAmt) {
+        this.returnAmt = returnAmt;
+    }
+
+    public String getPlanCity() {
+        return planCity;
+    }
+
+    public void setPlanCity(String planCity) {
+        this.planCity = planCity;
     }
 }

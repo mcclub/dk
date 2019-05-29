@@ -42,6 +42,8 @@ public class User implements Serializable {
 
     private String className;
 
+    private String isautopay;
+
     public Long getId() {
         return id;
     }
@@ -176,5 +178,13 @@ public class User implements Serializable {
 
     public void setClassName(String className) {
         this.className = className == null ? null : className.trim();
+    }
+
+    public String getIsautopay() {
+        return isautopay;
+    }
+
+    public void setIsautopay(String isautopay) {
+        this.isautopay = isautopay;
     }
 }

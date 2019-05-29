@@ -11,15 +11,38 @@
     <result column="plan_end" jdbcType="VARCHAR" property="planEnd" />
     <result column="amount" jdbcType="VARCHAR" property="amount" />
     <result column="rese_amt" jdbcType="VARCHAR" property="reseAmt" />
+    <result column="return_amt" jdbcType="VARCHAR" property="returnAmt" />
     <result column="plan_area" jdbcType="VARCHAR" property="planArea" />
+    <result column="plan_city" jdbcType="VARCHAR" property="planCity" />
     <result column="parn_id" jdbcType="BIGINT" property="parnId" />
     <result column="states" jdbcType="BIGINT" property="states" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, card_code, bill_time, rep_time, plan_begin, plan_end, amount, rese_amt, 
-    plan_area, parn_id, states, create_time
+    id, user_id, card_code, bill_time, rep_time, plan_begin, plan_end, amount, rese_amt, return_amt,
+    plan_area, plan_city, parn_id, states, create_time
   </sql>
+
+  <sql id="table_name">
+   t_repay_plan
+  </sql>
+  <sql id="sqlWhere">
+    <where>
+      <if test="cardCode != null and cardCode != ''">
+        and card_code = #{cardCode,jdbcType=BIGINT}
+      </if>
+      order by create_time desc
+    </where>
+  </sql>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    <include refid="table_name"/>
+    <include refid="sqlWhere"/>
+  </select>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -33,13 +56,13 @@
   <insert id="insert" parameterType="com.dk.provider.repay.entity.RepayPlan">
     insert into t_repay_plan (id, user_id, card_code, 
       bill_time, rep_time, plan_begin, 
-      plan_end, amount, rese_amt, 
-      plan_area, parn_id, states, 
+      plan_end, amount, rese_amt, return_amt,
+      plan_area, plan_city, parn_id, states,
       create_time)
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{cardCode,jdbcType=VARCHAR}, 
       #{billTime,jdbcType=VARCHAR}, #{repTime,jdbcType=VARCHAR}, #{planBegin,jdbcType=VARCHAR}, 
-      #{planEnd,jdbcType=VARCHAR}, #{amount,jdbcType=VARCHAR}, #{reseAmt,jdbcType=VARCHAR}, 
-      #{planArea,jdbcType=VARCHAR}, #{parnId,jdbcType=BIGINT}, #{states,jdbcType=BIGINT}, 
+      #{planEnd,jdbcType=VARCHAR}, #{amount,jdbcType=VARCHAR}, #{reseAmt,jdbcType=VARCHAR}, #{returnAmt,jdbcType=VARCHAR},
+      #{planArea,jdbcType=VARCHAR}, #{planCity,jdbcType=VARCHAR}, #{parnId,jdbcType=BIGINT}, #{states,jdbcType=BIGINT},
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.dk.provider.repay.entity.RepayPlan">
@@ -72,8 +95,14 @@
       <if test="reseAmt != null">
         rese_amt,
       </if>
+      <if test="returnAmt != null">
+        return_amt,
+      </if>
       <if test="planArea != null">
         plan_area,
+      </if>
+      <if test="planCity != null">
+        plan_city,
       </if>
       <if test="parnId != null">
         parn_id,
@@ -113,8 +142,14 @@
       <if test="reseAmt != null">
         #{reseAmt,jdbcType=VARCHAR},
       </if>
+      <if test="returnAmt != null">
+        #{returnAmt,jdbcType=VARCHAR},
+      </if>
       <if test="planArea != null">
         #{planArea,jdbcType=VARCHAR},
+      </if>
+      <if test="planCity != null">
+        #{planCity,jdbcType=VARCHAR},
       </if>
       <if test="parnId != null">
         #{parnId,jdbcType=BIGINT},
@@ -154,8 +189,14 @@
       <if test="reseAmt != null">
         rese_amt = #{reseAmt,jdbcType=VARCHAR},
       </if>
+      <if test="returnAmt != null">
+        return_amt = #{returnAmt,jdbcType=VARCHAR},
+      </if>
       <if test="planArea != null">
         plan_area = #{planArea,jdbcType=VARCHAR},
+      </if>
+      <if test="planCity != null">
+        plan_city = #{planCity,jdbcType=VARCHAR},
       </if>
       <if test="parnId != null">
         parn_id = #{parnId,jdbcType=BIGINT},
@@ -179,7 +220,9 @@
       plan_end = #{planEnd,jdbcType=VARCHAR},
       amount = #{amount,jdbcType=VARCHAR},
       rese_amt = #{reseAmt,jdbcType=VARCHAR},
+      return_amt = #{returnAmt,jdbcType=VARCHAR},
       plan_area = #{planArea,jdbcType=VARCHAR},
+      plan_city = #{planCity,jdbcType=VARCHAR},
       parn_id = #{parnId,jdbcType=BIGINT},
       states = #{states,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP}

@@ -19,6 +19,7 @@
     <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
     <result column="class_id" jdbcType="BIGINT" property="classId" />
     <result column="class_name" jdbcType="VARCHAR" property="className" />
+    <result column="isautopay" jdbcType="VARCHAR" property="isautopay" />
   </resultMap>
 
   <sql id="Base_Column_List">
@@ -27,7 +28,7 @@
       refer_no, oem_id, states,
       create_time, update_time, create_by,
       update_by, is_delete, img_url,
-      class_id, class_name
+      class_id, class_name,isautopay
   </sql>
 
   <insert id="insert" parameterType="com.dk.provider.user.entity.User" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
@@ -36,13 +37,13 @@
       refer_no, oem_id, states, 
       create_time, update_time, create_by, 
       update_by, is_delete, img_url, 
-      class_id, class_name)
+      class_id, class_name,isautopay)
     values (#{name,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR},
       #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{identity,jdbcType=VARCHAR}, 
       #{referNo,jdbcType=VARCHAR}, #{oemId,jdbcType=VARCHAR}, #{states,jdbcType=BIGINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, 
       #{updateBy,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIGINT}, #{imgUrl,jdbcType=VARCHAR}, 
-      #{classId,jdbcType=BIGINT}, #{className,jdbcType=VARCHAR})
+      #{classId,jdbcType=BIGINT}, #{className,jdbcType=VARCHAR}), #{isautopay,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dk.provider.user.entity.User">
     insert into t_user
@@ -98,6 +99,9 @@
       <if test="className != null">
         class_name,
       </if>
+      <if test="isautopay != null">
+        isautopay,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -150,6 +154,9 @@
       </if>
       <if test="className != null">
         #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="isautopay != null">
+        #{isautopay,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -217,52 +224,10 @@
     and is_delete = 1
   </update>
 
-  <select id="searchUserById" parameterType="Map" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_user
+  <!-- 开通自动还款 -->
+  <update id="udpOpautopay" parameterType="Map">
+    update t_user
+    set isautopay = '1'
     where id = #{userId}
-    and states = 1
-    and is_delete = 1
-  </select>
-
-  <select id="searchTwoId" parameterType="Map" resultType="java.lang.Long">
-  select id
-    from t_user
-    where states=1
-    and is_delete=1
-    and refer_no = #{userId}
-  </select>
-
-  <select id="searchTwoThreeId" parameterType="Map" resultType="java.lang.Long">
-  select id
-   from t_user
-   where states=1
-   and is_delete=1
-   and refer_no = #{userId}
-   union all
-  select id
-   from t_user
-   where states=1
-   and is_delete=1
-   and refer_no in
-   (select id
-   from t_user
-   where states=1
-   and is_delete=1
-   and refer_no = #{userId})
-  </select>
-
-  <select id="searchThreeId" parameterType="Map" resultType="java.lang.Long">
-  select id
-   from t_user
-   where states=1
-   and is_delete=1
-   and refer_no in
-   (select id
-   from t_user
-   where states=1
-   and is_delete=1
-   and refer_no = #{userId})
-  </select>
+  </update>
 </mapper>

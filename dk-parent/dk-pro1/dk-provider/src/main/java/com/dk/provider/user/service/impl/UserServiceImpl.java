@@ -157,9 +157,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     }
 
     @Override
-    public RestResult searchFriendList(Map map) {
-        RestResult restResult = new RestResult();
-        return restResult;
+    public int udpOpautopay(Map map) {
+        return userMapper.udpOpautopay(map);
     }
 
     @Override

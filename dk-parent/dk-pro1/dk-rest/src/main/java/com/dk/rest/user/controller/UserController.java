@@ -1,6 +1,7 @@
 package com.dk.rest.user.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.common.bean.PageResult;
 import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -217,24 +219,45 @@ public class UserController extends BaseController {
         }
     }
 
-
     /**
-     * 查询用户推荐的好友列表
+     * 查看当前用户是否开通自动还款
      * @param map
      * @return
      */
-    @RequestMapping("/searchFriendList")
-    public RestResult searchFriendList (@RequestBody Map map) {
-        logger.info("start searchFriendList...");
-        RestResult restResult = new RestResult();
-        if (StringUtil.isNotEmpty(map)) {
-            if (StringUtil.isNotEmpty(map.get("userId"))) {
-                return userServiceImpl.searchFriendList(map);
-            } else {
-                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
-            }
-        } else {
-            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+    @RequestMapping("/isautopay")
+    public RestResult isautopay (@RequestBody Map map) throws Exception {
+        if(StringUtils.isEmpty(map.get("userId").toString())){
+            return getRestResult(ResultEnume.FAIL,"用户id不能为空",new JSONObject());
         }
+
+        com.dk.provider.user.entity.User userList = userServiceImpl.queryByid(Long.valueOf(map.get("userId").toString()));
+        if(userList == null){
+            return getRestResult(ResultEnume.FAIL,"用户不存在",new JSONObject());
+        }
+
+        String istype = userList.getIsautopay();//(0未开通，1已开通)
+
+        map.put("isautopay",istype);
+
+        return getRestResult(ResultEnume.SUCCESS,ResultEnume.SUCSTR,map);
+    }
+
+    /**
+     * 当前用户开通自动还款
+     * @param map
+     * @return
+     */
+    @RequestMapping("/openautopay")
+    public RestResult openautopay (@RequestBody Map map) throws Exception {
+        if(StringUtils.isEmpty(map.get("userId").toString())){
+            return getRestResult(ResultEnume.FAIL,"用户id不能为空",new JSONObject());
+        }
+
+        int isauto = userServiceImpl.udpOpautopay(map);
+        if(isauto <0){
+            return getRestResult(ResultEnume.FAIL,"开通失败",new JSONObject());
+        }
+
+        return getRestResult(ResultEnume.SUCCESS,"开通成功",new JSONObject());
     }
 }

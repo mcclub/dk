@@ -215,9 +215,14 @@ public class BeiduoQuickPayApi {
         jsonObject.put("idCard",info.getIdentity());//身份证号
         jsonObject.put("subuserId",subUserId);//通道用户id
 
-        JSONObject payJson = BDquickPay(jsonObject);
+        JSONObject resjson = new JSONObject();
+        resjson.put("payUrl","http://h.qingyutec.com:18585/channel/v1/trans/transCode/bindProssing");
+        resjson.put("orderNo",jsonObject.getString("orderNo"));
+        resjson.put("resultType",2);//返回类型（1短信验证，2返回url地址,）
+        restResult = restResult.setCodeAndMsg(ResultEnume.SUCCESS,"订单提交成功",resjson);
+        /*JSONObject payJson = BDquickPay(jsonObject);
         String msg = payJson.getString("msg");
-        Long states = 3L;//订单状态(0处理中，1成功，2失败，3未知)
+        Long states = 4L;//订单状态(0处理中，1成功，2失败，3未知,4初始状态)
         JSONObject resjson = new JSONObject();
 
         if(payJson.get("code").equals("000")) {//成功
@@ -242,14 +247,14 @@ public class BeiduoQuickPayApi {
             states = 2L;
             restResult = restResult.setCodeAndMsg(ResultEnume.FAIL,msg,new JSONObject());
         }
-        /**
+        *//**
          * 修改订单状态和描述
-         */
+         *//*
         ReceiveRecord updaRece = new ReceiveRecord();
         updaRece.setOrderNo(jsonObject.getString("orderNo"));
         updaRece.setStates(states);
         updaRece.setOrderDesc(msg);
-        receiveRecordService.updateStates(updaRece);
+        receiveRecordService.updateStates(updaRece);*/
 
         return restResult;
     }
@@ -361,7 +366,7 @@ public class BeiduoQuickPayApi {
         jsonData.put("cardPhone",jsonObject.getString("cardPhone"));//交易卡手机号
         jsonData.put("validDate",jsonObject.getString("validDate"));//日期
         jsonData.put("cvv2",jsonObject.getString("cvv2"));//安全码
-        jsonData.put("notifyUrl","http://"+serverip+"/app/bdquick/notify");//通知地址
+        jsonData.put("notifyUrl","http://"+serverip+"/app/quick/bdnotify");//通知地址
         jsonData.put("frontUrl","");//前台显示地址
         jsonData.put("terminalIp","127.0.0.1");//终端 IP
         jsonData.put("province",jsonObject.getString("province"));//省

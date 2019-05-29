@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 @Service("redisCacheService")
@@ -16,6 +17,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
 
     @Autowired
     private RedisTemplate<String,String> redisTemplate;
+
 
     @Override
     public String get(String key) {
@@ -54,5 +56,7 @@ public class RedisCacheServiceImpl implements RedisCacheService {
         }
         return false;
     }
+
+
 
 }

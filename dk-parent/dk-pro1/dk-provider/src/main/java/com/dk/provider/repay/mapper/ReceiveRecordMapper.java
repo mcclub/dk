@@ -1,12 +1,8 @@
 package com.dk.provider.repay.mapper;
 
-import com.common.bean.page.Page;
 import com.dk.provider.basis.mapper.BaseMapper;
-import com.dk.provider.repay.entity.ReceiveHistory;
 import com.dk.provider.repay.entity.ReceiveRecord;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.Map;
 
 @Mapper
 public interface ReceiveRecordMapper extends BaseMapper<ReceiveRecord> {
@@ -23,5 +19,4 @@ public interface ReceiveRecordMapper extends BaseMapper<ReceiveRecord> {
     int updateByPrimaryKey(ReceiveRecord record);
 
     int updateStates(ReceiveRecord record);
-
 }

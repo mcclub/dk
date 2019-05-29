@@ -63,7 +63,6 @@
 	<dubbo:service interface="com.dk.provider.user.service.ICardInfoService" ref="cardInfoServiceImpl"/>
 	<dubbo:service interface="com.dk.provider.user.service.BankService" ref="bankService"/>
 	<dubbo:service interface="com.dk.provider.basic.service.AreaService" ref="areaService"/>
-	<dubbo:service interface="com.dk.provider.rake.service.IRakeRecordService" ref="rakeRecordServiceImpl"/>
-
+	<dubbo:service interface="com.dk.provider.repay.service.RepayPlanService" ref="repayPlanService"/>
 </beans>
 

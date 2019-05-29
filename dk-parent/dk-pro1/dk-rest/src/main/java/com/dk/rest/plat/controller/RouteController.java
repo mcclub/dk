@@ -7,7 +7,6 @@ import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
 import com.common.controller.BaseController;
 import com.common.utils.CommonUtils;
-import com.common.utils.StringUtil;
 import com.dk.provider.basic.entity.Area;
 import com.dk.provider.basic.service.AreaService;
 import com.dk.provider.basis.service.RedisCacheService;
@@ -19,6 +18,7 @@ import com.dk.provider.plat.service.SubchannelService;
 import com.dk.provider.repay.entity.ReceiveRecord;
 import com.dk.provider.repay.service.ReceiveRecordService;
 import com.dk.rest.api.inter.BeiduoQuickPayApi;
+import com.dk.rest.api.inter.XSquickPayApi;
 import com.dk.rest.plat.bean.AreaBean;
 import com.dk.rest.plat.bean.RouteInfoBean;
 import org.slf4j.Logger;
@@ -57,8 +57,16 @@ public class RouteController extends BaseController {
     @Resource
     private SubchannelService subchannelService;
 
+    /**
+     * 快捷K3
+     */
     @Resource
     private BeiduoQuickPayApi beiduoQuickPayApi;
+    /**
+     * 快捷K1
+     */
+    @Resource
+    private XSquickPayApi xSquickPayApi;
     /**
      * 查询大类通道信息（快捷，代还）
      * @param map
@@ -71,6 +79,8 @@ public class RouteController extends BaseController {
         String method = "queryroute";
         logger.info("进入RouteController的"+method+"方法,参数为:{}",map);
         try{
+            pageable.setPageSize(Integer.valueOf(map.get("pageSize").toString()));
+            pageable.setPageNumber(Integer.valueOf(map.get("pageNumber").toString()));
             Page<RouteInfo> routeInfoPage = routeInfoService.page(map,pageable);
             Page<RouteInfoBean> page = new Page<>(new LinkedList<>(), routeInfoPage.getTotal(), pageable);
             List<RouteInfoBean> routeInfoBeanList = new LinkedList<>();
@@ -208,6 +218,8 @@ public class RouteController extends BaseController {
         String tabNo = jsonObject.getString("tabNo");
         if(tabNo.equals("beiduo")){//快捷K3
             return beiduoQuickPayApi.BDquickProcess(jsonObject);
+        }else if(tabNo.equals("xskjk1")) {//新生快捷K1
+            return xSquickPayApi.XsQuickapply(jsonObject);
         }else{
             return getRestResult(ResultEnume.FAIL,"暂无可用路由通道",new JSONObject());
         }
@@ -235,8 +247,31 @@ public class RouteController extends BaseController {
             if(!jsonObject.containsKey("orderNo") || jsonObject.get("orderNo") == null){
                 return getRestResult(ResultEnume.FAIL,"订单号不能为空",new JSONObject());
             }
+            String orderNo = jsonObject.getString("orderNo");
 
-            return getRestResult(ResultEnume.SUCCESS,"交易成功",new JSONObject());
+            Map<String,Object> map = new HashMap<>();
+            map.put("orderNo",orderNo);
+            List<ReceiveRecord> receiveRecordList = receiveRecordService.query(map);
+            if(receiveRecordList ==null){
+                return getRestResult(ResultEnume.FAIL,"未找到订单号",new JSONObject());
+            }
+            jsonObject.put("receCard",receiveRecordList.get(0).getReceCard());
+
+            Map<String,Object> map1=new HashMap<>();
+            map1.put("subId",receiveRecordList.get(0).getSubId());
+            List<Subchannel> subchannelList = subchannelService.query(map1);
+            if(subchannelList == null){
+                return getRestResult(ResultEnume.FAIL,"未找到路由通道",new JSONObject());
+            }
+
+            String tabNo = subchannelList.get(0).getTabNo();
+            if(tabNo.equals("xskjk1")) {//新生快捷K1
+                return xSquickPayApi.XsQuickconfirm(jsonObject);
+            }else if(tabNo.equals("beiduo")){//快捷K3
+                return beiduoQuickPayApi.BDquickProcess(jsonObject);
+            }
+
+            return getRestResult(ResultEnume.FAIL,"订单确认失败",new JSONObject());
         }catch (Exception e){
             logger.error(method+"执行出错:{}",e.getMessage());
             e.printStackTrace();
@@ -348,33 +383,6 @@ public class RouteController extends BaseController {
             logger.error(method+"执行出错:{}",e.getMessage());
             e.printStackTrace();
             return getFailRes();
-        }
-    }
-
-
-    /**
-     * 根据用户查询对应的通道信息
-     * @param map
-     * @return
-     */
-    @RequestMapping(value = {"/routeInfoByUser"},method = RequestMethod.POST)
-    public RestResult routeInfoByUser(@RequestBody Map map){
-        logger.info("进入RouteController的"+"routeInfoByUser"+"方法,参数为:{}",map);
-        RestResult restResult = new RestResult();
-        try {
-            if (StringUtil.isNotEmpty(map)) {
-                if (StringUtil.isNotEmpty(map.get("userId"))) {
-                    return routeInfoService.routeInfoByUser(map);
-                } else {
-                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
-                }
-            } else {
-                return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数异常");
-            }
-        }catch (Exception e){
-            logger.error("routeInfoByUser"+"执行出错:{}",e.getMessage());
-            e.printStackTrace();
-            return restResult.setCodeAndMsg(ResultEnume.FAIL,"服务器处理异常");
         }
     }
 }
