@@ -20,6 +20,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.35" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20180813" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.mojo:versions-maven-plugin:2.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-artifact:2.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.maven:maven-artifact-manager:2.2.1" level="project" />
