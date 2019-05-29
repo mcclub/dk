@@ -8,7 +8,7 @@ import com.common.bean.ResultEnume;
 import com.common.utils.AuthenUtils;
 import com.common.utils.CommonUtils;
 import com.common.utils.StringUtil;
-import com.dk.provider.basis.service.impl.RedisCacheServiceImpl;
+import com.dk.provider.basis.service.RedisCacheService;
 import com.dk.provider.user.entity.CardInfo;
 import com.dk.provider.user.service.ICardInfoService;
 import com.dk.rest.user.bean.CardInfoBeans;
@@ -34,7 +34,7 @@ public class CardInfoController {
     @Resource
     private ICardInfoService cardInfoServiceImpl;
     @Resource
-    private RedisCacheServiceImpl redisCacheService;
+    private RedisCacheService redisCacheService;
 
     @RequestMapping("/add")
     public RestResult insert (@RequestBody CardInfoBean vo) {
