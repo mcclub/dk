@@ -32,6 +32,6 @@
 	<dubbo:reference id="cardInfoServiceImpl" interface="com.dk.provider.user.service.ICardInfoService" check="false" />
 	<dubbo:reference id="bankService" interface="com.dk.provider.user.service.BankService" check="false"/>
 	<dubbo:reference id="areaService" interface="com.dk.provider.basic.service.AreaService" check="false"/>
+	<dubbo:reference id="rakeRecordServiceImpl" interface="com.dk.provider.rake.service.IRakeRecordService" check="false"/>
 	<dubbo:reference id="repayPlanService" interface="com.dk.provider.repay.service.RepayPlanService" check="false"/>
-
 </beans>

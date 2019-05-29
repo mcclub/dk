@@ -11,6 +11,8 @@ public class RakeRecord implements Serializable {
 
     private Long userId;
 
+    private Long orderUserId;
+
     private String rokeAmt;
 
     private String orderNo;
@@ -18,6 +20,7 @@ public class RakeRecord implements Serializable {
     private Long orderType;
 
     private Date createTime;
+
 
     public Long getId() {
         return id;
@@ -35,12 +38,20 @@ public class RakeRecord implements Serializable {
         this.userId = userId;
     }
 
+    public Long getOrderUserId() {
+        return orderUserId;
+    }
+
+    public void setOrderUserId(Long orderUserId) {
+        this.orderUserId = orderUserId;
+    }
+
     public String getRokeAmt() {
         return rokeAmt;
     }
 
     public void setRokeAmt(String rokeAmt) {
-        this.rokeAmt = rokeAmt == null ? null : rokeAmt.trim();
+        this.rokeAmt = rokeAmt;
     }
 
     public String getOrderNo() {
@@ -48,7 +59,7 @@ public class RakeRecord implements Serializable {
     }
 
     public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo == null ? null : orderNo.trim();
+        this.orderNo = orderNo;
     }
 
     public Long getOrderType() {
