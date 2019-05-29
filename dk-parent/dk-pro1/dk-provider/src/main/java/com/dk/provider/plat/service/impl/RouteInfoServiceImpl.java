@@ -1,10 +1,13 @@
 package com.dk.provider.plat.service.impl;
 
+import com.common.bean.RestResult;
+import com.common.bean.ResultEnume;
 import com.common.bean.page.Page;
 import com.common.bean.page.Pageable;
 import com.dk.provider.basis.service.impl.BaseServiceImpl;
 import com.dk.provider.plat.entity.RouteInfo;
 import com.dk.provider.plat.entity.RouteUser;
+import com.dk.provider.plat.entity.UserRouteinfo;
 import com.dk.provider.plat.mapper.RouteInfoMapper;
 import com.dk.provider.plat.service.RouteInfoService;
 import com.dk.provider.user.entity.CardInfo;
@@ -88,6 +91,14 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
         }
 
         return routeUser;
+    }
+
+    @Override
+    public RestResult routeInfoByUser(Map map) {
+        RestResult restResult = new RestResult();
+        List<UserRouteinfo> userRouteinfo = routeInfoMapper.routeInfoByUser(map);
+        restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",userRouteinfo);
+        return restResult;
     }
 
 

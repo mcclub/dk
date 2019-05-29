@@ -4,13 +4,27 @@
   <resultMap id="BaseResultMap" type="com.dk.provider.rake.entity.RakeRecord">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="order_user_id" jdbcType="BIGINT" property="orderUserId" />
     <result column="roke_amt" jdbcType="VARCHAR" property="rokeAmt" />
     <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
     <result column="order_type" jdbcType="BIGINT" property="orderType" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
+
+
+  <resultMap id="FriendMap" type="com.dk.provider.rake.entity.FriendInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="order_user_id" jdbcType="BIGINT" property="orderUserId" />
+    <result column="roke_amt" jdbcType="VARCHAR" property="rokeAmt" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="order_type" jdbcType="BIGINT" property="orderType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+  </resultMap>
+
   <sql id="Base_Column_List">
-    id, user_id, roke_amt, order_no, order_type, create_time
+    id, user_id, order_user_id, roke_amt, order_no, order_type, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -103,4 +117,40 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="queryRakeRecord" parameterType="Map" resultMap="BaseResultMap">
+  select
+    <include refid="Base_Column_List" />
+    from t_rake_record
+    where user_id = #{userId}
+    <if test="id!=null">
+      and order_user_id in
+      <foreach collection="id" item="item" separator=","
+               open="(" close=")">
+        #{item}
+      </foreach>
+    </if>
+    <if test="createTime != null and createTime != ''">
+    and DATE_FORMAT(create_time, '%Y-%m-%d') = #{createTime}
+    </if>
+  </select>
+
+
+  <select id="friendList" parameterType="Map" resultMap="FriendMap">
+    select
+    t_rake_record.id, user_id, order_user_id, roke_amt, order_no, order_type, t_rake_record.create_time,phone
+    from t_rake_record
+    left join t_user on order_user_id = t_user.id
+    where
+    t_user.states = 1
+    and t_user.is_delete = 1
+    and user_id = #{userId}
+    <if test="id!=null">
+      and order_user_id in
+      <foreach collection="id" item="item" separator=","
+               open="(" close=")">
+        #{item}
+      </foreach>
+    </if>
+  </select>
 </mapper>

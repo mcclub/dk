@@ -78,16 +78,16 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
                     restResult.setCodeAndMsg(ResultEnume.SUCCESS,"注册成功！",jsonObject);
                     return restResult;
                 } else {
-                    restResult.setCodeAndMsg(ResultEnume.FAIL,"服务器异常，注册失败！");
+                    restResult.setCodeAndMsg(ResultEnume.FAIL,"关联账户创建失败！");
                     return restResult;
                 }
 
             } else {
-                restResult.setCodeAndMsg(ResultEnume.FAIL,"服务器异常，注册失败！");
+                restResult.setCodeAndMsg(ResultEnume.FAIL,"用户创建失败！");
                 return restResult;
             }
         } catch (Exception e) {
-            restResult.setCodeAndMsg(ResultEnume.FAIL,"服务器异常，注册失败！");
+            restResult.setCodeAndMsg(ResultEnume.FAIL,ResultEnume.BUSYSTR);
             return restResult;
         }
 

@@ -28,7 +28,8 @@ public interface UserMapper extends BaseMapper<User> {
 
     User searchUserById(Map map);
 
-    int udpOpautopay(Map map);
+    int udpOpautopay (Map map);
+
 
     /**
      * 查询普通用户下的二级id
