@@ -4,6 +4,9 @@ import com.dk.provider.basis.mapper.BaseMapper;
 import com.dk.provider.repay.entity.ReceiveRecord;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+import java.util.Map;
+
 @Mapper
 public interface ReceiveRecordMapper extends BaseMapper<ReceiveRecord> {
     int deleteByPrimaryKey(Long id);
@@ -19,4 +22,19 @@ public interface ReceiveRecordMapper extends BaseMapper<ReceiveRecord> {
     int updateByPrimaryKey(ReceiveRecord record);
 
     int updateStates(ReceiveRecord record);
+
+    /**
+     * 查询
+     * @param map
+     * @return
+     */
+    List<ReceiveRecord> historyQuery(Map map) ;
+
+
+    /**
+     * 统计
+     * @param map
+     * @return
+     */
+    int historyCounts(Map<String, Object> map)  ;
 }

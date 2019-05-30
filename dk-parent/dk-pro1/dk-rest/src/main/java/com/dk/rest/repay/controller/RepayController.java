@@ -3,14 +3,17 @@ package com.dk.rest.repay.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
+import com.common.bean.page.Pageable;
 import com.common.controller.BaseController;
 import com.common.utils.CommonUtils;
+import com.common.utils.StringUtil;
 import com.dk.provider.plat.entity.RouteUser;
 import com.dk.provider.plat.entity.SubUser;
 import com.dk.provider.plat.entity.Subchannel;
 import com.dk.provider.plat.service.RouteInfoService;
 import com.dk.provider.plat.service.SubchannelService;
 import com.dk.provider.repay.entity.RepayPlan;
+import com.dk.provider.repay.service.ReceiveRecordService;
 import com.dk.provider.repay.service.RepayPlanService;
 import com.dk.provider.user.entity.CardInfo;
 import com.dk.provider.user.service.ICardInfoService;
@@ -54,6 +57,9 @@ public class RepayController extends BaseController {
 
     @Resource
     private RepayPlanService repayPlanService;
+
+    @Resource
+    private ReceiveRecordService receiveRecordService;
     /**
      * 代还签约公共接口
      * 查询是否
@@ -320,6 +326,33 @@ public class RepayController extends BaseController {
             return getRestResult(ResultEnume.SUCCESS,"计划汇总",jsonRes);
         }catch (Exception e){
             logger.error(method+"执行出错:{}",e.getMessage());
+            e.printStackTrace();
+            return getFailRes();
+        }
+    }
+
+
+
+    @ResponseBody
+    @RequestMapping(value = {"/pageHistory"},method = RequestMethod.POST)
+    public RestResult pageHistory(@RequestBody Map map){
+        RestResult restResult = new RestResult();
+        logger.info("进入RepayController的"+"pageHistory"+"方法,参数为:{}",map);
+        try {
+            if (StringUtil.isNotEmpty(map.get("userId"))) {
+                Pageable pageable = new Pageable();
+                if (StringUtil.isNotEmpty(map.get("pageNumber"))) {
+                    pageable.setPageNumber((int)map.get("pageNumber"));
+                }
+                if (StringUtil.isNotEmpty(map.get("pageSize"))) {
+                    pageable.setPageSize((int)map.get("pageSize"));
+                }
+                return receiveRecordService.pageHistory(map,pageable);
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+            }
+        }catch (Exception e){
+            logger.error("pageHistory"+"执行出错:{}",e.getMessage());
             e.printStackTrace();
             return getFailRes();
         }
