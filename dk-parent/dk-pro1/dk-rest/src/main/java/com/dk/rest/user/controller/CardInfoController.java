@@ -39,6 +39,7 @@ public class CardInfoController {
     @RequestMapping("/add")
     public RestResult insert (@RequestBody CardInfoBean vo) {
         logger.info("banding card start 。。。");
+        logger.info(JSON.toJSONString(vo));
         RestResult restResult = new RestResult();
         if (StringUtil.isNotEmpty(vo)) {
             if (!StringUtil.isNotEmpty(vo.getUserId())) {
