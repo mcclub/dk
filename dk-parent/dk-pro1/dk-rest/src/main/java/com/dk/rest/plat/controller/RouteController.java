@@ -7,6 +7,7 @@ import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
 import com.common.controller.BaseController;
 import com.common.utils.CommonUtils;
+import com.common.utils.StringUtil;
 import com.dk.provider.basic.entity.Area;
 import com.dk.provider.basic.service.AreaService;
 import com.dk.provider.basis.service.RedisCacheService;
@@ -383,6 +384,34 @@ public class RouteController extends BaseController {
             logger.error(method+"执行出错:{}",e.getMessage());
             e.printStackTrace();
             return getFailRes();
+        }
+    }
+
+
+    /**
+     * 查询商户
+     * @param map
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = {"/parentInfo"},method = RequestMethod.POST)
+    public RestResult parentInfo(@RequestBody Map map){
+        logger.info("进入RouteController的parentInfo方法,参数为:{}",map);
+        RestResult restResult = new RestResult();
+        if (StringUtil.isNotEmpty(map)) {
+            try {
+                if (StringUtil.isNotEmpty(map.get("userId"))) {
+                    return routeInfoService.parentRouteInfo(map);
+                } else {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+                }
+            }catch (Exception e){
+                logger.error("parentInfo执行出错:{}",e.getMessage());
+                e.printStackTrace();
+                return getFailRes();
+            }
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
         }
     }
 }

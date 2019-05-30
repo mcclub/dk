@@ -52,4 +52,11 @@ public interface UserMapper extends BaseMapper<User> {
      */
     List<Long> searchThreeId(Map map);
 
+    /**
+     * 查询上级id
+     * @param map
+     * @return
+     */
+    Long searchParent(Map map);
+
 }

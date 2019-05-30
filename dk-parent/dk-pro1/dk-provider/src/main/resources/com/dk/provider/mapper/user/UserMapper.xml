@@ -279,4 +279,13 @@
     set isautopay = '1'
     where id = #{userId}
   </update>
+
+  <select id="searchParent" parameterType="Map" resultType="java.lang.Long">
+    select
+      refer_no
+      from t_user
+      where states=1
+      and is_delete=1
+      and id = #{userId}
+  </select>
 </mapper>
