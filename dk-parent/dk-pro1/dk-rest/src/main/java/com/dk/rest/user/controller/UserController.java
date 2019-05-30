@@ -236,6 +236,9 @@ public class UserController extends BaseController {
         }
 
         String istype = userList.getIsautopay();//(0未开通，1已开通)
+        if(StringUtils.isEmpty(istype)){
+            istype="";
+        }
 
         map.put("isautopay",istype);
 
