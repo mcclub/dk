@@ -7,7 +7,9 @@ import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
 import com.common.controller.BaseController;
 import com.common.utils.CommonUtils;
+import com.common.utils.StringUtil;
 import com.dk.provider.basic.entity.Area;
+import com.dk.provider.basic.entity.ProvinceCity;
 import com.dk.provider.basic.service.AreaService;
 import com.dk.provider.basis.service.RedisCacheService;
 import com.dk.provider.plat.entity.RouteInfo;
@@ -384,6 +386,81 @@ public class RouteController extends BaseController {
             e.printStackTrace();
             return getFailRes();
         }
+    }
+
+
+    /**
+     * 查询商户
+     * @param map
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = {"/parentInfo"},method = RequestMethod.POST)
+    public RestResult parentInfo(@RequestBody Map map){
+        logger.info("进入RouteController的parentInfo方法,参数为:{}",map);
+        RestResult restResult = new RestResult();
+        if (StringUtil.isNotEmpty(map)) {
+            try {
+                if (StringUtil.isNotEmpty(map.get("userId"))) {
+                    return routeInfoService.parentRouteInfo(map);
+                } else {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+                }
+            }catch (Exception e){
+                logger.error("parentInfo执行出错:{}",e.getMessage());
+                e.printStackTrace();
+                return getFailRes();
+            }
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+        }
+    }
+
+
+    /**
+     * 加载省份，地市
+     * @return
+     */
+    @RequestMapping("/searchProvinceCity")
+    public RestResult searchProvinceCity () {
+        logger.info("进入RouteController的searchProvinceCity方法");
+        RestResult restResult = new RestResult();
+        Map<String,String> parm = new HashMap<>();
+        parm.put("procity","true");
+        try {
+            List<Area> list = areaService.queryList(parm);
+            if (StringUtil.isNotEmpty(list)) {
+                List<ProvinceCity> provinceCities = new ArrayList<>();
+                for (Area bean:list) {
+                    if ((bean.getAreaLevel()).equals("1")) {
+                        ProvinceCity provinceCity = new ProvinceCity();
+                        provinceCity.setId(bean.getId());
+                        provinceCity.setAreaName(bean.getAreaName());
+                        provinceCity.setAreaFull(bean.getAreaFull());
+                        provinceCity.setParentId(bean.getParentId());
+                        provinceCity.setAreaLevel(bean.getAreaLevel());
+                        provinceCities.add(provinceCity);
+                    }
+                }
+                for (ProvinceCity bean:provinceCities) {
+                    List<Area> cityList = new ArrayList<>();
+                    for (Area areaList:list) {
+                        if ((bean.getId()).equals(areaList.getParentId())) {
+                            cityList.add(areaList);
+                        }
+                    }
+                    bean.setCity(cityList);
+                }
+                restResult.setCodeAndMsg(ResultEnume.SUCCESS," 地市查询成功",provinceCities);
+            } else {
+                restResult.setCodeAndMsg(ResultEnume.FAIL," 地市查询失败");
+            }
+        } catch (Exception e) {
+            logger.error("searchProvinceCity:{}",e.getMessage());
+            e.printStackTrace();
+            return getFailRes();
+        }
+        return restResult;
     }
 }
 

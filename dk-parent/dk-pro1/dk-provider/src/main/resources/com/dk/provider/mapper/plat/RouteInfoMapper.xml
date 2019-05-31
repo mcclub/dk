@@ -309,4 +309,12 @@
       is_delete = #{isDelete,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="parentRouteInfo" parameterType="Map" resultMap="BaseResultMap">
+  select tr.*
+    from t_user u
+    left join t_class_rate tc on u.class_id = tc.class_id
+    left join t_routeinfo tr on tc.route_id = tr.id
+    where u.id = #{userId}
+  </select>
 </mapper>

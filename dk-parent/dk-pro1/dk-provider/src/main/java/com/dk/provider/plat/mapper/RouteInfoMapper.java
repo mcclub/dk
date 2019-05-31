@@ -28,4 +28,6 @@ public interface RouteInfoMapper extends BaseMapper<RouteInfo> {
     Page<RouteInfo> page(Map map , Pageable pageable) ;
 
     List<UserRouteinfo> routeInfoByUser (Map map);
+
+    List<UserRouteinfo> parentRouteInfo (Map map);
 }

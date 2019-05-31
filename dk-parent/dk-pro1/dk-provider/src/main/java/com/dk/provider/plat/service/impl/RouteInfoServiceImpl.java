@@ -4,6 +4,7 @@ import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
 import com.common.bean.page.Page;
 import com.common.bean.page.Pageable;
+import com.common.utils.StringUtil;
 import com.dk.provider.basis.service.impl.BaseServiceImpl;
 import com.dk.provider.plat.entity.RouteInfo;
 import com.dk.provider.plat.entity.RouteUser;
@@ -12,6 +13,7 @@ import com.dk.provider.plat.mapper.RouteInfoMapper;
 import com.dk.provider.plat.service.RouteInfoService;
 import com.dk.provider.user.entity.CardInfo;
 import com.dk.provider.user.entity.User;
+import com.dk.provider.user.mapper.UserMapper;
 import com.dk.provider.user.service.IUserService;
 import edu.emory.mathcs.backport.java.util.LinkedList;
 import org.slf4j.Logger;
@@ -37,6 +39,9 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
 
     @Resource
     private IUserService userService;
+
+    @Resource
+    private UserMapper userMapper;
     /**
      * 分页条件查询  根据用户id userId 查询等级id 对应等级费率
      * @param map
@@ -101,5 +106,15 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
         return restResult;
     }
 
-
+    @Override
+    public RestResult parentRouteInfo(Map map) {
+        RestResult restResult = new RestResult();
+        Long userId = userMapper.searchParent(map);
+        if (StringUtil.isNotEmpty(userId)) {
+            List<UserRouteinfo> userRouteinfo = routeInfoMapper.parentRouteInfo(map);
+            return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",userRouteinfo);
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"该用户没有上级");
+        }
+    }
 }

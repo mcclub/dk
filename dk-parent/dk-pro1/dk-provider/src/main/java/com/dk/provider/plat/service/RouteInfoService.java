@@ -30,4 +30,12 @@ public interface RouteInfoService extends BaseServiceI<RouteInfo> {
      * @return
      */
     RestResult routeInfoByUser (Map map);
+
+
+    /**
+     * 查询上级费率
+     * @param map
+     * @return
+     */
+    RestResult parentRouteInfo (Map map);
 }
