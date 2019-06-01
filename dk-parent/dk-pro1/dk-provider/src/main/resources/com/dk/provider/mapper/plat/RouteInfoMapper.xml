@@ -316,4 +316,13 @@
     left join t_routeinfo tr on tc.route_id = tr.id
     where tc.class_id = #{classId}
   </select>
+
+
+  <select id="routeInfoByUser" parameterType="Map" resultMap="BaseResultMap">
+  select tr.*
+      from t_user tu
+      left join t_class_rate tc on tu.class_id = tc.class_id
+      left join t_routeinfo tr on tc.route_id = tr.id
+      where tu.id = #{userId}
+  </select>
 </mapper>

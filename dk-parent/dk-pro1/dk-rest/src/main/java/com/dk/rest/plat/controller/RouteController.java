@@ -462,5 +462,28 @@ public class RouteController extends BaseController {
         }
         return restResult;
     }
+
+
+    /**
+     * 根据用户查询对应的通道信息
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = {"/routeInfoByUser"},method = RequestMethod.POST)
+    public RestResult routeInfoByUser(@RequestBody Map map){
+        logger.info("进入RouteController的"+"routeInfoByUser"+"方法,参数为:{}",map);
+        RestResult restResult = new RestResult();
+        try {
+            if (StringUtil.isNotEmpty(map)) {
+                return routeInfoService.routeInfoByUser(map);
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数异常");
+            }
+        }catch (Exception e){
+            logger.error("routeInfoByUser"+"执行出错:{}",e.getMessage());
+            e.printStackTrace();
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"服务器处理异常");
+        }
+    }
 }
 
