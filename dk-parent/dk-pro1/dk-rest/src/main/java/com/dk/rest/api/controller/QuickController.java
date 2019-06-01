@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.common.controller.BaseController;
 import com.dk.provider.repay.entity.ReceiveRecord;
 import com.dk.provider.repay.service.ReceiveRecordService;
+import com.dk.provider.user.entity.User;
+import com.dk.provider.user.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,9 @@ public class QuickController extends BaseController {
 
     @Resource
     private ReceiveRecordService receiveRecordService;
+
+    @Resource
+    private IUserService userService;
 
     /**
      * 快捷K3异步通知
@@ -64,7 +69,13 @@ public class QuickController extends BaseController {
             json.put("orderNo",orderNo);
             json.put("respMsg",respMsg);
             json.put("states",states);
-            return getreturnResult(json);
+            int updat = receiveRecordService.updateReceiveOrder(json);
+
+            if(updat >0){
+                return "success";
+            }else{
+                return "fail";
+            }
             /*Map<String,Object> map = new HashMap<>();
             map.put("orderNo",orderNo);
             List<ReceiveRecord> receiveRecordList = receiveRecordService.query(map);
@@ -130,7 +141,14 @@ public class QuickController extends BaseController {
             json.put("orderNo",orderNo);
             json.put("respMsg",respMsg);
             json.put("states",states);
-            return getreturnResult(json);
+
+            int updat = receiveRecordService.updateReceiveOrder(json);
+
+            if(updat >0){
+                return "success";
+            }else{
+                return "fail";
+            }
         }
         return "fail";
     }
@@ -140,7 +158,7 @@ public class QuickController extends BaseController {
      * @param jsonObject
      * @return
      * @throws Exception
-     */
+     *//*
     public String getreturnResult(JSONObject jsonObject) throws Exception{
         String orderNo = jsonObject.getString("orderNo");
         String states = jsonObject.getString("states");
@@ -151,18 +169,39 @@ public class QuickController extends BaseController {
         List<ReceiveRecord> receiveRecordList = receiveRecordService.query(map);
         if(receiveRecordList.size() >0){
             if(!"1".equals(receiveRecordList.get(0).getStates())){
-                /**
+                *//**
                  * 修改订单状态和描述
-                 */
+                 *//*
                 ReceiveRecord updaRece = new ReceiveRecord();
                 updaRece.setOrderNo(orderNo);
                 updaRece.setStates(Long.valueOf(states));
                 updaRece.setOrderDesc(respMsg);
                 int updat = receiveRecordService.updateStates(updaRece);
 
-                /**
+                *//**
                  * 订单成功 计算返佣 并新增 返佣记录
-                 */
+                 *//*
+                if("1".equals(states)){
+                    //查询当前人的通道费率和等级
+                    String routeId = receiveRecordList.get(0).getRouteId();//大类通道id
+                    String userId = receiveRecordList.get(0).getUserId();//用户id
+                    String rate = receiveRecordList.get(0).getRate();//刷卡时的费率
+
+                    User user = userService.queryByid(Long.valueOf(userId));
+                    if(user != null){
+                        Long classId = user.getClassId();//该用户的等级id
+                    }
+                    *//**
+                     * 查询用户等级等级类型(1普通等级,2代理商等级)
+                     * 普通等级返给上一级用户
+                     * 代理商等级返给上两级用户
+                     *//*
+
+
+                    *//**
+                     * 查看用户上级 并查出上级的等级费率
+                     *//*
+                }
 
 
                 if(updat >0){
@@ -173,5 +212,5 @@ public class QuickController extends BaseController {
             }
         }
         return "fail";
-    }
+    }*/
 }

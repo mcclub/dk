@@ -15,4 +15,6 @@ public interface ReceiveRecordService extends BaseServiceI<ReceiveRecord> {
     int updateStates(ReceiveRecord receiveRecord) throws Exception;
 
     RestResult pageHistory (Map map , Pageable pageable);
+
+    int updateReceiveOrder(JSONObject json);
 }
