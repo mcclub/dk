@@ -34,14 +34,33 @@
       <if test="orderNo != null and orderNo != ''">
         and order_no = #{orderNo,jdbcType=BIGINT}
       </if>
+      <if test="userId != null and userId != ''">
+        and user_id = #{userId}
+      </if>
     </where>
   </sql>
+
+  <sql id="sqlPage">
+    <choose>
+      <when test="orderby!=null and orderby!=''">
+        <![CDATA[ ORDER BY ${orderby}]]>
+      </when>
+      <otherwise>
+        <![CDATA[ ORDER BY create_time DESC]]>
+      </otherwise>
+    </choose>
+    <if test="start!=null and max!=null">
+      <![CDATA[ LIMIT #{start}, #{max}]]>
+    </if>
+  </sql>
+
   <select id="query" parameterType="map" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from
     <include refid="table_name"/>
     <include refid="sqlWhere"/>
+    <include refid="sqlPage"/>
   </select>
 
 
@@ -268,6 +287,7 @@
     SELECT count(1)
     FROM t_receive_record
     where user_id = #{userId}
+    <include refid="sqlPage"/>
   </select>
 
 
@@ -276,5 +296,6 @@
     <include refid="Base_Column_List" />
     FROM t_receive_record
     where user_id = #{userId}
+    <include refid="sqlPage"/>
   </select>
 </mapper>

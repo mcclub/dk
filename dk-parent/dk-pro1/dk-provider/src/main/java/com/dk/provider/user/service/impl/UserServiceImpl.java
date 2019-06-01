@@ -161,6 +161,16 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         return userMapper.udpOpautopay(map);
     }
 
+    /**
+     * 根据用户id查询所有上级用户
+     * @param map
+     * @return
+     */
+    @Override
+    public List<String> findSuperior(Map map) {
+        return userMapper.findSuperior(map);
+    }
+
     @Override
     public CardInfo queryCard(Map map) throws Exception {
         return cardInfoMapper.queryByuserId(map);

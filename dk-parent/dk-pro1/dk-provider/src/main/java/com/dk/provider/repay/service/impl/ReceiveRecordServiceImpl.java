@@ -8,9 +8,13 @@ import com.common.bean.page.Pageable;
 import com.common.utils.CommonUtils;
 import com.dk.provider.basis.service.impl.BaseServiceImpl;
 import com.dk.provider.plat.entity.RouteInfo;
+import com.dk.provider.plat.mapper.RouteInfoMapper;
 import com.dk.provider.plat.service.RouteInfoService;
+import com.dk.provider.rake.entity.RakeRecord;
+import com.dk.provider.rake.mapper.RakeRecordMapper;
 import com.dk.provider.repay.entity.ReceiveHistory;
 import com.dk.provider.repay.entity.ReceiveRecord;
+import com.dk.provider.repay.entity.RecordUserRate;
 import com.dk.provider.repay.mapper.ReceiveRecordMapper;
 import com.dk.provider.repay.service.ReceiveRecordService;
 import com.dk.provider.user.entity.User;
@@ -22,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -43,6 +48,13 @@ public class ReceiveRecordServiceImpl extends BaseServiceImpl<ReceiveRecord> imp
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private RouteInfoMapper routeInfoMapper;
+
+    private DecimalFormat df = new DecimalFormat("#.00");
+
+    @Resource
+    private RakeRecordMapper rakeRecordMapper;
 
     /**
      * 新增快捷订单 关联用户、费率信息
@@ -150,14 +162,17 @@ public class ReceiveRecordServiceImpl extends BaseServiceImpl<ReceiveRecord> imp
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int updateReceiveOrder(JSONObject jsonObject) {
-        String orderNo = jsonObject.getString("orderNo");
-        String states = jsonObject.getString("states");
-        String respMsg = jsonObject.getString("respMsg");
+        String orderNo = jsonObject.getString("orderNo");//订单号
+        String states = jsonObject.getString("states");//订单状态
+        String respMsg = jsonObject.getString("respMsg");//订单描述
+        String orderType = jsonObject.getString("orderType");//订单类型(1快捷，2代还)
 
         Map<String,Object> map = new HashMap<>();
         map.put("orderNo",orderNo);
         List<ReceiveRecord> receiveRecordList = receiveRecordMapper.query(map);
         if(receiveRecordList.size() >0) {
+            String amount = receiveRecordList.get(0).getAmount();//订单金额
+
             if (!"1".equals(receiveRecordList.get(0).getStates())) {
                 /**
                  * 修改订单状态和描述
@@ -166,7 +181,7 @@ public class ReceiveRecordServiceImpl extends BaseServiceImpl<ReceiveRecord> imp
                 updaRece.setOrderNo(orderNo);
                 updaRece.setStates(Long.valueOf(states));
                 updaRece.setOrderDesc(respMsg);
-                int updat = receiveRecordMapper.updateStates(updaRece);
+                receiveRecordMapper.updateStates(updaRece);
 
                 /**
                  * 订单成功 计算返佣 并新增 返佣记录
@@ -175,26 +190,67 @@ public class ReceiveRecordServiceImpl extends BaseServiceImpl<ReceiveRecord> imp
                     //查询当前人的通道费率和等级
                     String routeId = receiveRecordList.get(0).getRouteId();//大类通道id
                     String userId = receiveRecordList.get(0).getUserId();//用户id
-                    String rate = receiveRecordList.get(0).getRate();//刷卡时的费率
 
-                    User user = userMapper.queryByid(Long.valueOf(userId));
-                    if (user != null) {
-                        Long classId = user.getClassId();//该用户的等级id
+
+                    /**
+                     * 查询用户所有上级
+                     */
+                    map.put("userId",userId);
+                    List<String> list = userMapper.findSuperior(map);
+                    if(list != null){//
+                        List<RecordUserRate> recordUserRateList = new LinkedList<>();//获取所有上级用户费率
+                        for(int i = 0 ; i < list.size() ;i++){//循环遍历上级用户费率(逐级递增)
+                            User user = userMapper.queryByid(Long.valueOf(list.get(i)));//查询用户等级
+                            if (user != null) {
+                                String classId = user.getClassId().toString();
+                                map.put("classId",classId);//等级id
+                                map.put("routeId",routeId);//大类通道id
+                                List<RouteInfo> routeInfoList = routeInfoMapper.query(map);//根据用户等级查通道费率
+                                String rate = routeInfoList.get(0).getRate();
+
+                                RecordUserRate recordUserRate = new RecordUserRate();
+                                recordUserRate.setUserId(userId);
+                                recordUserRate.setClassId(classId);
+                                recordUserRate.setRate(rate);
+                                recordUserRate.setRouteId(routeId);
+                                recordUserRateList.add(recordUserRate);
+                            }
+                        }
+                        /**
+                         * 级别费率差
+                         */
+                        if(recordUserRateList != null){//遍历用户费率
+                            for(int j = 0;j <recordUserRateList.size();j++){
+                                if(j+1 < recordUserRateList.size()){
+                                    Double ben = Double.valueOf(recordUserRateList.get(j).getRate());//本级
+                                    Double sha = Double.valueOf(recordUserRateList.get(j+1).getRate());//上级
+                                    Double rateerr = ben - sha ;//费率差
+                                    if(rateerr > 0){
+                                        //返佣金额
+                                        Double rakeamount = Double.valueOf(amount) * rateerr;
+                                        String rakeamounts = df.format(rakeamount);
+                                        //新增每笔返佣金额 记录
+                                        RakeRecord rakeRecord = new RakeRecord();
+                                        rakeRecord.setOrderNo(orderNo);//订单号
+                                        rakeRecord.setOrderType(Long.valueOf(orderType));//订单类型
+                                        rakeRecord.setOrderUserId(Long.valueOf(recordUserRateList.get(j).getUserId()));//得到返佣用户id
+                                        rakeRecord.setUserId(Long.valueOf(userId));//订单用户id
+                                        rakeRecord.setRokeAmt(rakeamounts);//返佣金额
+                                        int rake = rakeRecordMapper.insert(rakeRecord);
+
+                                        return rake;
+                                    }
+                                }
+
+
+                            }
+                        }
+
                     }
-                    /**
-                     * 查询用户等级等级类型(1普通等级,2代理商等级)
-                     * 普通等级返给上一级用户
-                     * 代理商等级返给上两级用户
-                     */
 
-
-                    /**
-                     s* 查看用户上级 并查出上级的等级费率
-                     */
                 }
             }
         }
-
      return 0;
     }
 

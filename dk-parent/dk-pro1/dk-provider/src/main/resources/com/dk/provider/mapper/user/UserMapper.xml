@@ -297,4 +297,20 @@
       and is_delete=1
       and id = #{userId}
   </select>
+
+
+  <!-- 根据用户id查询所有上级的用户id -->
+  <select id="findSuperior" parameterType="Map" resultType="String">
+    SELECT T2.id FROM (
+		SELECT
+			@r AS _id,
+			(SELECT @r := refer_no FROM t_user WHERE id = _id) AS 2v2,
+			@l := @l + 1 AS lvl
+		FROM
+			(SELECT @r := #{userId}) vars,
+			t_user h
+		WHERE @r > 0
+	  ) T1
+	JOIN t_user T2 ON T1._id = T2.id
+  </select>
 </mapper>

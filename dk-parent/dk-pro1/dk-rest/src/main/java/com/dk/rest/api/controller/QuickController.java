@@ -69,6 +69,7 @@ public class QuickController extends BaseController {
             json.put("orderNo",orderNo);
             json.put("respMsg",respMsg);
             json.put("states",states);
+            json.put("orderType",1);//订单类型(1快捷，2代还)
             int updat = receiveRecordService.updateReceiveOrder(json);
 
             if(updat >0){
@@ -141,7 +142,7 @@ public class QuickController extends BaseController {
             json.put("orderNo",orderNo);
             json.put("respMsg",respMsg);
             json.put("states",states);
-
+            json.put("orderType",1);//订单类型(1快捷，2代还)
             int updat = receiveRecordService.updateReceiveOrder(json);
 
             if(updat >0){

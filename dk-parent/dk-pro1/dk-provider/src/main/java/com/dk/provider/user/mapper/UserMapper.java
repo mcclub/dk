@@ -66,4 +66,11 @@ public interface UserMapper extends BaseMapper<User> {
      */
     Long searchClassId(Map map);
 
+    /**
+     * 根据用户id查询所有上级用户
+     * @param map
+     * @return
+     */
+    List<String> findSuperior(Map map);
+
 }

@@ -5,6 +5,7 @@ import com.dk.provider.basis.service.BaseServiceI;
 import com.dk.provider.user.entity.CardInfo;
 import com.dk.provider.user.entity.User;
 
+import java.util.List;
 import java.util.Map;
 
 public interface IUserService extends BaseServiceI<User> {
@@ -71,4 +72,11 @@ public interface IUserService extends BaseServiceI<User> {
     boolean comparePassword (Map map);
 
     int udpOpautopay(Map map);
+
+    /**
+     * 根据用户id查询所有上级用户
+     * @param map
+     * @return
+     */
+    List<String> findSuperior(Map map);
 }
