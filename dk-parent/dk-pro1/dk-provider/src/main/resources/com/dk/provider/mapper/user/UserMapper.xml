@@ -288,4 +288,13 @@
       and is_delete=1
       and id = #{userId}
   </select>
+
+  <select id="searchClassId" parameterType="Map" resultType="java.lang.Long">
+    select
+      class_id
+      from t_user
+      where states=1
+      and is_delete=1
+      and id = #{userId}
+  </select>
 </mapper>

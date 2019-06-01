@@ -59,4 +59,11 @@ public interface UserMapper extends BaseMapper<User> {
      */
     Long searchParent(Map map);
 
+    /**
+     * 查询等级id
+     * @param map
+     * @return
+     */
+    Long searchClassId(Map map);
+
 }

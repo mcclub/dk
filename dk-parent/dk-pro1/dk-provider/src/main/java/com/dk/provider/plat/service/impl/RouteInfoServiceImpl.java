@@ -109,12 +109,17 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
     @Override
     public RestResult parentRouteInfo(Map map) {
         RestResult restResult = new RestResult();
-        Long userId = userMapper.searchParent(map);
-        if (StringUtil.isNotEmpty(userId)) {
-            List<UserRouteinfo> userRouteinfo = routeInfoMapper.parentRouteInfo(map);
-            return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",userRouteinfo);
+        Long classId = userMapper.searchClassId(map);
+        if (StringUtil.isNotEmpty(classId)) {
+            if (!classId.equals(6l)) {
+                map.put("classId",classId+1);
+                List<UserRouteinfo> userRouteinfo = routeInfoMapper.parentRouteInfo(map);
+                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",userRouteinfo);
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户等级已为最高");
+            }
         } else {
-            return restResult.setCodeAndMsg(ResultEnume.FAIL,"该用户没有上级");
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户等级查询失败");
         }
     }
 }

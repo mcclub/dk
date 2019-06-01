@@ -312,9 +312,8 @@
 
   <select id="parentRouteInfo" parameterType="Map" resultMap="BaseResultMap">
   select tr.*
-    from t_user u
-    left join t_class_rate tc on u.class_id = tc.class_id
+    from t_class_rate tc
     left join t_routeinfo tr on tc.route_id = tr.id
-    where u.id = #{userId}
+    where tc.class_id = #{classId}
   </select>
 </mapper>
