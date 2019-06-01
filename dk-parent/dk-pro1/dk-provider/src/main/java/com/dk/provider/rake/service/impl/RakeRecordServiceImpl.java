@@ -27,6 +27,7 @@ import java.util.*;
 public class RakeRecordServiceImpl extends BaseServiceImpl<RakeRecord> implements IRakeRecordService {
     private Logger logger = LoggerFactory.getLogger(RakeRecordServiceImpl.class);
     private SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+    private static List<Long> idList;
 
     @Resource
     private RakeRecordMapper rakeRecordMapper;
@@ -71,16 +72,17 @@ public class RakeRecordServiceImpl extends BaseServiceImpl<RakeRecord> implement
         //计算总返佣
         map.put("createTime",null);
         double allRebate = this.countRebate(map);
+        int totalPeople = idList.size();
         RebateSum rebateSum = new RebateSum();
         rebateSum.setTodayRebate(todayRebate);
         rebateSum.setAllRebate(allRebate);
+        rebateSum.setTotalPeople(totalPeople);
         return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",rebateSum);
     }
 
 
     @Override
     public double countRebate(Map map) {
-        List<Long> idList;
         if (this.isVip(map)) {
             idList = userMapper.searchTwoThreeId(map);
         } else {
@@ -133,7 +135,6 @@ public class RakeRecordServiceImpl extends BaseServiceImpl<RakeRecord> implement
         RestResult restResult = new RestResult();
         List<Map<String,Object>> result = new ArrayList<>();
         Map<String,Object> resultMap = new HashMap<>();
-        List<Long> idList;
         if (this.isVip(map)) {
             //查询一级好友
             idList = userMapper.searchTwoId(map);

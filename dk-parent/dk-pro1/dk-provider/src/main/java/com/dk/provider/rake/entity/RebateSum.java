@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class RebateSum implements Serializable {
     private double todayRebate;//当日返佣
     private double allRebate;//总返佣
+    private int totalPeople;//总人数
 
 
     public double getTodayRebate() {
@@ -21,5 +22,13 @@ public class RebateSum implements Serializable {
 
     public void setAllRebate(double allRebate) {
         this.allRebate = allRebate;
+    }
+
+    public int getTotalPeople() {
+        return totalPeople;
+    }
+
+    public void setTotalPeople(int totalPeople) {
+        this.totalPeople = totalPeople;
     }
 }
