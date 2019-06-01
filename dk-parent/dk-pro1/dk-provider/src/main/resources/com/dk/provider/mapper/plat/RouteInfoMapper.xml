@@ -20,6 +20,10 @@
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
     <result column="is_delete" jdbcType="BIGINT" property="isDelete" />
   </resultMap>
+  <resultMap id="DetailRouteInfoMap" type="com.dk.provider.plat.entity.DetailRouteInfo" extends="BaseResultMap">
+    <result column="classId" jdbcType="BIGINT" property="classId" />
+    <result column="className" jdbcType="VARCHAR" property="className" />
+  </resultMap>
   <sql id="Base_Column_List">
     id, `name`, rate, fee, norm_min, norm_max, time_begin, time_end, is_free, states, `type`,
     remark, create_time, update_time, create_by, update_by, is_delete
@@ -310,16 +314,17 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="parentRouteInfo" parameterType="Map" resultMap="BaseResultMap">
-  select tr.*
-    from t_class_rate tc
+  <select id="parentRouteInfo" parameterType="Map" resultMap="DetailRouteInfoMap">
+  select tr.*,tci.id classId,tci.name className
+    from t_classinfo tci
+    left join t_class_rate tc on  tci.id = tc.class_id
     left join t_routeinfo tr on tc.route_id = tr.id
-    where tc.class_id = #{classId}
+    where tci.id = #{classId}
   </select>
 
 
-  <select id="routeInfoByUser" parameterType="Map" resultMap="BaseResultMap">
-  select tr.*
+  <select id="routeInfoByUser" parameterType="Map" resultMap="DetailRouteInfoMap">
+  select tr.*,tu.class_id classId,tu.class_name className
       from t_user tu
       left join t_class_rate tc on tu.class_id = tc.class_id
       left join t_routeinfo tr on tc.route_id = tr.id

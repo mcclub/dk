@@ -6,6 +6,7 @@ import com.common.bean.page.Page;
 import com.common.bean.page.Pageable;
 import com.common.utils.StringUtil;
 import com.dk.provider.basis.service.impl.BaseServiceImpl;
+import com.dk.provider.plat.entity.DetailRouteInfo;
 import com.dk.provider.plat.entity.RouteInfo;
 import com.dk.provider.plat.entity.RouteUser;
 import com.dk.provider.plat.entity.UserRouteinfo;
@@ -101,8 +102,14 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
     @Override
     public RestResult routeInfoByUser(Map map) {
         RestResult restResult = new RestResult();
-        List<UserRouteinfo> userRouteinfo = routeInfoMapper.routeInfoByUser(map);
-        restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",userRouteinfo);
+        Map<String,Object> resultMap = new HashMap<>();
+        List<DetailRouteInfo> userRouteinfo = routeInfoMapper.routeInfoByUser(map);
+        if (userRouteinfo != null && userRouteinfo.size() > 0) {
+            resultMap.put("classId",userRouteinfo.get(0).getClassId());
+            resultMap.put("className",userRouteinfo.get(0).getClassName());
+        }
+        resultMap.put("info",userRouteinfo);
+        restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",resultMap);
         return restResult;
     }
 
@@ -113,8 +120,14 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
         if (StringUtil.isNotEmpty(classId)) {
             if (!classId.equals(6l)) {
                 map.put("classId",classId+1);
-                List<UserRouteinfo> userRouteinfo = routeInfoMapper.parentRouteInfo(map);
-                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",userRouteinfo);
+                Map<String,Object> resultMap = new HashMap<>();
+                List<DetailRouteInfo> userRouteinfo = routeInfoMapper.parentRouteInfo(map);
+                if (userRouteinfo != null && userRouteinfo.size() > 0) {
+                    resultMap.put("classId",userRouteinfo.get(0).getClassId());
+                    resultMap.put("className",userRouteinfo.get(0).getClassName());
+                }
+                resultMap.put("info",userRouteinfo);
+                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",resultMap);
             } else {
                 return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户等级已为最高");
             }

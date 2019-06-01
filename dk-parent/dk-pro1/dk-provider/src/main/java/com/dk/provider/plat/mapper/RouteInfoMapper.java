@@ -3,6 +3,7 @@ package com.dk.provider.plat.mapper;
 import com.common.bean.page.Page;
 import com.common.bean.page.Pageable;
 import com.dk.provider.basis.mapper.BaseMapper;
+import com.dk.provider.plat.entity.DetailRouteInfo;
 import com.dk.provider.plat.entity.RouteInfo;
 import com.dk.provider.plat.entity.UserRouteinfo;
 import org.apache.ibatis.annotations.Mapper;
@@ -27,7 +28,7 @@ public interface RouteInfoMapper extends BaseMapper<RouteInfo> {
 
     Page<RouteInfo> page(Map map , Pageable pageable) ;
 
-    List<UserRouteinfo> routeInfoByUser (Map map);
+    List<DetailRouteInfo> routeInfoByUser (Map map);
 
-    List<UserRouteinfo> parentRouteInfo (Map map);
+    List<DetailRouteInfo> parentRouteInfo (Map map);
 }
