@@ -11,6 +11,28 @@
   <sql id="Base_Column_List">
     id, class_id, route_id, rate, fee
   </sql>
+
+  <sql id="table_name">
+    t_sub_user
+  </sql>
+  <sql id="sqlWhere">
+    <where>
+      <if test="classId != null and classId != ''">
+        and class_id = #{classId}
+      </if>
+      <if test="routeId != null and routeId != ''">
+        and route_id = #{routeId}
+      </if>
+    </where>
+  </sql>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    <include refid="table_name"/>
+    <include refid="sqlWhere"/>
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
