@@ -30,6 +30,8 @@ public class PaymentDetail {
 
     private String cardNo;
 
+    private String orderNo;
+
     public Long getId() {
         return id;
     }
@@ -124,5 +126,13 @@ public class PaymentDetail {
 
     public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 }
