@@ -1,5 +1,6 @@
 package com.dk.provider.repay.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.common.bean.RestResult;
 import com.dk.provider.basis.service.BaseServiceI;
 import com.dk.provider.repay.entity.PaymentDetail;
@@ -22,5 +23,12 @@ public interface IPaymentDetailService extends BaseServiceI<PaymentDetail> {
      * @return
      */
     List<PaymentDetail> searchNotPerformed(Map map);
+
+    /**
+     * 修改状态并 添加返佣记录
+     * @param jsonObject
+     * @return
+     */
+    int updateDetailState(JSONObject jsonObject);
 
 }

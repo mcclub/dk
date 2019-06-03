@@ -38,4 +38,11 @@ public interface RouteInfoService extends BaseServiceI<RouteInfo> {
      * @return
      */
     RestResult parentRouteInfo (Map map);
+
+    /**
+     * 查询用户通道费率
+     * @param map
+     * @return
+     */
+    List<RouteInfo> findUserrate(Map map) throws Exception;
 }

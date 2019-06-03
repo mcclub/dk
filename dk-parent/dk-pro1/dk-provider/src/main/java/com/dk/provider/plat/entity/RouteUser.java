@@ -14,6 +14,8 @@ public class RouteUser implements Serializable {
 
     private String settleCard;
 
+    private String realName;
+
     public String getUserId() {
         return userId;
     }
@@ -52,5 +54,13 @@ public class RouteUser implements Serializable {
 
     public void setSettleCard(String settleCard) {
         this.settleCard = settleCard;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 }

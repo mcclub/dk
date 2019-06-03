@@ -66,5 +66,6 @@
 	<dubbo:service interface="com.dk.provider.repay.service.RepayPlanService" ref="repayPlanService"/>
 	<dubbo:service interface="com.dk.provider.rake.service.IRakeRecordService" ref="rakeRecordServiceImpl"/>
 	<dubbo:service interface="com.dk.provider.repay.service.IPaymentDetailService" ref="paymentDetailServiceImpl"/>
+	<dubbo:service interface="com.dk.provider.classI.service.ClassRateService" ref="classRateService"/>
 </beans>
 

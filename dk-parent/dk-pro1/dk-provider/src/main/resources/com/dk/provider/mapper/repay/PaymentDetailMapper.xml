@@ -20,6 +20,26 @@
     id, plan_id, amount, industry_id, industry_name, active_time, create_time, `type`, 
     `status`, remark, user_id, card_no ,order_no
   </sql>
+
+  <sql id="table_name">
+    t_payment_detail
+  </sql>
+  <sql id="sqlWhere">
+    <where>
+      <if test="orderNo != null and orderNo != ''">
+        and order_no = #{orderNo}
+      </if>
+    </where>
+  </sql>
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    <include refid="table_name"/>
+    <include refid="sqlWhere"/>
+  </select>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -216,9 +236,9 @@
     from t_payment_detail tp
     where 1=1
     and tp.status = 1
-    <if test="time != null and time!= ''">
+    <!--<if test="time != null and time!= ''">
       and DATE_FORMAT(tp.active_time, '%Y-%m-%d  %H:%i:00') = #{time}
-    </if>
+    </if>-->
   </select>
 
   <update id="updatePantStatus" parameterType="java.util.List">

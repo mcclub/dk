@@ -79,7 +79,6 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
         User user = userService.queryByid(userId);
         map.put("classId",user.getClassId());
         List<RouteInfo> routeInfoList = super.query(map);
-
         /**
          * 用户id查询绑定储蓄卡
          */
@@ -94,6 +93,7 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
             routeUser.setRate(routeInfoList.get(0).getRate());
             routeUser.setFee(routeInfoList.get(0).getFee());
             routeUser.setSettleCard(cardInfo.getCardCode());
+            routeUser.setRealName(cardInfo.getRealName());
         }
 
         return routeUser;
@@ -134,5 +134,27 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
         } else {
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户等级查询失败");
         }
+    }
+
+    /**
+     * 根据用户查询通道等级费率
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<RouteInfo> findUserrate(Map map){
+        /**
+         * 根据用户id查询用户等级id
+         */
+        if(map != null){
+            Long userId = (Long) map.get("userId");
+            User user = userMapper.queryByid(userId);
+            if(user != null){
+                map.put("classId",user.getClassId());
+                return  routeInfoMapper.query(map);
+            }
+        }
+        return null;
     }
 }
