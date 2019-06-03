@@ -15,7 +15,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     id, plan_id, amount, industry_id, industry_name, active_time, create_time, `type`, 
-    `status`, remark
+    `status`, remark, user_id, card_no
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -153,9 +153,9 @@
 
 
   <insert id="insertList" parameterType="java.util.List">
-    INSERT INTO user
+    INSERT INTO t_payment_detail
     ( plan_id, amount, industry_id, industry_name, active_time, create_time, `type`,
-    `status`, remark )
+    `status`, remark, user_id, card_no )
     VALUES
     <foreach collection="list" item="item" index="index" separator=",">
      (
@@ -167,8 +167,65 @@
       #{item.create_time,jdbcType=TIMESTAMP},
       #{item.type,jdbcType=BIGINT},
       #{item.status,jdbcType=BIGINT},
-      #{item.remark,jdbcType=VARCHAR}
+      #{item.remark,jdbcType=VARCHAR},
+      #{item.userId,jdbcType=BIGINT},
+      #{item.cardNo,jdbcType=VARCHAR}
       )
     </foreach>
   </insert>
+
+
+  <select id="searchNotPerformed" parameterType="Map" resultMap="BaseResultMap">
+  select
+    <include refid="Base_Column_List" />
+    from t_payment_detail tp
+    where 1=1
+    and tp.status = 1
+    <if test="time != null and time!= ''">
+      and DATE_FORMAT(tp.active_time, '%Y-%m-%d  %H:%i:00') = #{time}
+    </if>
+  </select>
+
+  <update id="updatePantStatus" parameterType="java.util.List">
+  update t_repay_plan
+  set states = 1
+  where 1=1
+    and id in
+    <foreach collection="list" item="item" separator=","
+             open="(" close=")">
+      #{item}
+    </foreach>
+  </update>
+
+
+  <update id="updateDetailStatus" parameterType="java.util.List">
+  update t_payment_detail
+  set status = 2
+    where 1=1
+    and id in
+    <foreach collection="list" item="item" separator=","
+             open="(" close=")">
+      #{item}
+    </foreach>
+  </update>
+
+
+  <select id="searchDetailIfFinish" parameterType="Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_payment_detail tp
+    where 1=1
+    and tp.status = 1
+    <if test="plantId != null and plantId!= ''">
+      and tp.plan_id = #{plantId}
+    </if>
+  </select>
+
+
+  <update id="updatePlantFinish" parameterType="Map">
+  update t_repay_plan
+  set states = 2
+  where 1=1
+  and id = #{id}
+  </update>
 </mapper>

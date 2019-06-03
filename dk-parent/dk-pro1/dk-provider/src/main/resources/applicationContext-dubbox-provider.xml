@@ -65,5 +65,6 @@
 	<dubbo:service interface="com.dk.provider.basic.service.AreaService" ref="areaService"/>
 	<dubbo:service interface="com.dk.provider.repay.service.RepayPlanService" ref="repayPlanService"/>
 	<dubbo:service interface="com.dk.provider.rake.service.IRakeRecordService" ref="rakeRecordServiceImpl"/>
+	<dubbo:service interface="com.dk.provider.repay.service.IPaymentDetailService" ref="paymentDetailServiceImpl"/>
 </beans>
 

@@ -26,6 +26,10 @@ public class PaymentDetail {
 
     private String remark;
 
+    private Long userId;
+
+    private String cardNo;
+
     public Long getId() {
         return id;
     }
@@ -47,7 +51,7 @@ public class PaymentDetail {
     }
 
     public void setAmount(String amount) {
-        this.amount = amount == null ? null : amount.trim();
+        this.amount = amount;
     }
 
     public Long getIndustryId() {
@@ -63,7 +67,7 @@ public class PaymentDetail {
     }
 
     public void setIndustryName(String industryName) {
-        this.industryName = industryName == null ? null : industryName.trim();
+        this.industryName = industryName;
     }
 
     public Date getActiveTime() {
@@ -103,6 +107,22 @@ public class PaymentDetail {
     }
 
     public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+        this.remark = remark;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getCardNo() {
+        return cardNo;
+    }
+
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
     }
 }

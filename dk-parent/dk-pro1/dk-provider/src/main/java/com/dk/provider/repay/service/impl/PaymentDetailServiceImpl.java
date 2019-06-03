@@ -1,20 +1,29 @@
 package com.dk.provider.repay.service.impl;
 
 import com.common.bean.RestResult;
+import com.common.bean.ResultEnume;
+import com.dk.provider.basis.service.impl.BaseServiceImpl;
 import com.dk.provider.repay.entity.PaymentDetail;
 import com.dk.provider.repay.mapper.PaymentDetailMapper;
 import com.dk.provider.repay.service.IPaymentDetailService;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.shiro.crypto.hash.Hash;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 
+import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 
 @Service
-public class PaymentDetailServiceImpl implements IPaymentDetailService {
+public class PaymentDetailServiceImpl extends BaseServiceImpl<PaymentDetail> implements IPaymentDetailService {
+    private Logger logger = LoggerFactory.getLogger(PaymentDetailServiceImpl.class);
+    @Resource
     private PaymentDetailMapper paymentDetailMapper;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:00");
 
 
     @Override
@@ -45,8 +54,75 @@ public class PaymentDetailServiceImpl implements IPaymentDetailService {
     @Override
     public RestResult insertList(List<PaymentDetail> list) {
         RestResult restResult = new RestResult();
-        paymentDetailMapper.insertList(list);
-        return restResult;
+        if (list != null && list.size() >0) {
+            int num = paymentDetailMapper.insertList(list);
+            if (num > 0) {
+                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"新增计划成功");
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"新增计划失败");
+            }
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误，还款计划拆分失败");
+        }
+    }
+
+    @Override
+    public List<PaymentDetail> searchNotPerformed(Map map) {
+        Map<String,Object> parm = new HashMap<>();
+        String time = simpleDateFormat.format(new Date());
+        List<Long> palantIdList = new ArrayList<>();//计划id List
+        List<Long> detailIdList = new ArrayList<>();//详情id List
+        parm.put("time",time);
+        //查询即将执行的订单
+        List<PaymentDetail> list = paymentDetailMapper.searchNotPerformed(parm);
+        if (list != null && list.size() > 0) {
+            for (PaymentDetail bean:list) {
+                try {
+                    if ((bean.getType()).equals(0)) {
+                        //TODO 调用快捷接口
+                        logger.info("调用快捷接口");
+                    }
+                    if ((bean.getType()).equals(1)) {
+                        //TODO 调用代还接口
+                        logger.info("调用代还接口");
+                    }
+                    palantIdList.add(bean.getPlanId());
+                    detailIdList.add(bean.getId());
+                } catch (Exception e) {
+                    logger.info("错误信息="+e.getMessage());
+                    logger.info("错误计划id="+bean.getPlanId()+"\t"+"错误详情id="+bean.getId());
+                }
+            }
+            //更新计划以及详情状态
+            int updatePantStatusNum = paymentDetailMapper.updatePantStatus(palantIdList);
+            if (updatePantStatusNum > 0) {
+                logger.info("计划订单状态更新成功");
+            }
+
+            //更新详情状态
+            int updateDetailNum = paymentDetailMapper.updateDetailStatus(detailIdList);
+            if (updateDetailNum > 0) {
+                logger.info("详情订单状态更新成功");
+            }
+
+
+
+
+            for (Long plantId : palantIdList) {
+                //查询计划下的详情是否执行完
+                Map<String,Object> plantParm = new HashMap<>();
+                plantParm.put("plantId",plantId);
+                List<PaymentDetail> paymentDetailList = paymentDetailMapper.searchDetailIfFinish(plantParm);
+                if (!(paymentDetailList != null && paymentDetailList.size()>0)) {
+                    Map<String,Object> idParm = new HashMap<>();
+                    idParm.put("id",plantId);
+                    paymentDetailMapper.updatePlantFinish(idParm);
+                }
+            }
+
+
+        }
+        return null;
     }
 
 

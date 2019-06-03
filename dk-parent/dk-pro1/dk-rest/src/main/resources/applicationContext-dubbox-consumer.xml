@@ -34,4 +34,5 @@
 	<dubbo:reference id="areaService" interface="com.dk.provider.basic.service.AreaService" check="false"/>
 	<dubbo:reference id="rakeRecordServiceImpl" interface="com.dk.provider.rake.service.IRakeRecordService" check="false"/>
 	<dubbo:reference id="repayPlanService" interface="com.dk.provider.repay.service.RepayPlanService" check="false"/>
+	<dubbo:reference id="paymentDetailServiceImpl" interface="com.dk.provider.repay.service.IPaymentDetailService" check="false"/>
 </beans>
