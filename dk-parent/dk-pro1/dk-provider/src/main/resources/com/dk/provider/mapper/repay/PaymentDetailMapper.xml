@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dk.provider.repay.mapper.PaymentDetailMapper">
+  <resultMap id="BaseResultMap" type="com.dk.provider.repay.entity.PaymentDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="plan_id" jdbcType="BIGINT" property="planId" />
+    <result column="amount" jdbcType="VARCHAR" property="amount" />
+    <result column="industry_id" jdbcType="BIGINT" property="industryId" />
+    <result column="industry_name" jdbcType="VARCHAR" property="industryName" />
+    <result column="active_time" jdbcType="TIMESTAMP" property="activeTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="type" jdbcType="BIGINT" property="type" />
+    <result column="status" jdbcType="BIGINT" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, plan_id, amount, industry_id, industry_name, active_time, create_time, `type`, 
+    `status`, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_payment_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_payment_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dk.provider.repay.entity.PaymentDetail">
+    insert into t_payment_detail (id, plan_id, amount, 
+      industry_id, industry_name, active_time, 
+      create_time, `type`, `status`, 
+      remark)
+    values (#{id,jdbcType=BIGINT}, #{planId,jdbcType=BIGINT}, #{amount,jdbcType=VARCHAR}, 
+      #{industryId,jdbcType=BIGINT}, #{industryName,jdbcType=VARCHAR}, #{activeTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{type,jdbcType=BIGINT}, #{status,jdbcType=BIGINT}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dk.provider.repay.entity.PaymentDetail">
+    insert into t_payment_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="planId != null">
+        plan_id,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="industryId != null">
+        industry_id,
+      </if>
+      <if test="industryName != null">
+        industry_name,
+      </if>
+      <if test="activeTime != null">
+        active_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="planId != null">
+        #{planId,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="industryId != null">
+        #{industryId,jdbcType=BIGINT},
+      </if>
+      <if test="industryName != null">
+        #{industryName,jdbcType=VARCHAR},
+      </if>
+      <if test="activeTime != null">
+        #{activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dk.provider.repay.entity.PaymentDetail">
+    update t_payment_detail
+    <set>
+      <if test="planId != null">
+        plan_id = #{planId,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="industryId != null">
+        industry_id = #{industryId,jdbcType=BIGINT},
+      </if>
+      <if test="industryName != null">
+        industry_name = #{industryName,jdbcType=VARCHAR},
+      </if>
+      <if test="activeTime != null">
+        active_time = #{activeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dk.provider.repay.entity.PaymentDetail">
+    update t_payment_detail
+    set plan_id = #{planId,jdbcType=BIGINT},
+      amount = #{amount,jdbcType=VARCHAR},
+      industry_id = #{industryId,jdbcType=BIGINT},
+      industry_name = #{industryName,jdbcType=VARCHAR},
+      active_time = #{activeTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      `type` = #{type,jdbcType=BIGINT},
+      `status` = #{status,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+  <insert id="insertList" parameterType="java.util.List">
+    INSERT INTO user
+    ( plan_id, amount, industry_id, industry_name, active_time, create_time, `type`,
+    `status`, remark )
+    VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+     (
+      #{item.planId,jdbcType=BIGINT},
+      #{item.amount,jdbcType=VARCHAR},
+      #{item.industryId,jdbcType=BIGINT},
+      #{item.industry_name,jdbcType=VARCHAR},
+      #{item.active_time,jdbcType=TIMESTAMP},
+      #{item.create_time,jdbcType=TIMESTAMP},
+      #{item.type,jdbcType=BIGINT},
+      #{item.status,jdbcType=BIGINT},
+      #{item.remark,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+</mapper>
