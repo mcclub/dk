@@ -37,6 +37,10 @@ public class RepayPlan implements Serializable {
 
     private Date createTime;
 
+    private String routId;
+
+    private String subId;
+
     public Long getId() {
         return id;
     }
@@ -155,5 +159,21 @@ public class RepayPlan implements Serializable {
 
     public void setPlanCity(String planCity) {
         this.planCity = planCity;
+    }
+
+    public String getRoutId() {
+        return routId;
+    }
+
+    public void setRoutId(String routId) {
+        this.routId = routId;
+    }
+
+    public String getSubId() {
+        return subId;
+    }
+
+    public void setSubId(String subId) {
+        this.subId = subId;
     }
 }

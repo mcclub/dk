@@ -17,10 +17,12 @@
     <result column="parn_id" jdbcType="BIGINT" property="parnId" />
     <result column="states" jdbcType="BIGINT" property="states" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="rout_id" jdbcType="VARCHAR" property="routId" />
+    <result column="sub_id" jdbcType="VARCHAR" property="subId" />
   </resultMap>
   <sql id="Base_Column_List">
     id, user_id, card_code, bill_time, rep_time, plan_begin, plan_end, amount, rese_amt, return_amt,
-    plan_area, plan_city, parn_id, states, create_time
+    plan_area, plan_city, parn_id, states, create_time, rout_id, sub_id
   </sql>
 
   <sql id="table_name">
@@ -58,12 +60,12 @@
       bill_time, rep_time, plan_begin, 
       plan_end, amount, rese_amt, return_amt,
       plan_area, plan_city, parn_id, states,
-      create_time)
+      create_time,rout_id, sub_id)
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{cardCode,jdbcType=VARCHAR}, 
       #{billTime,jdbcType=VARCHAR}, #{repTime,jdbcType=VARCHAR}, #{planBegin,jdbcType=VARCHAR}, 
       #{planEnd,jdbcType=VARCHAR}, #{amount,jdbcType=VARCHAR}, #{reseAmt,jdbcType=VARCHAR}, #{returnAmt,jdbcType=VARCHAR},
       #{planArea,jdbcType=VARCHAR}, #{planCity,jdbcType=VARCHAR}, #{parnId,jdbcType=BIGINT}, #{states,jdbcType=BIGINT},
-      #{createTime,jdbcType=TIMESTAMP})
+      #{createTime,jdbcType=TIMESTAMP},#{routId,jdbcType=VARCHAR}, #{subId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dk.provider.repay.entity.RepayPlan">
     insert into t_repay_plan
@@ -113,6 +115,12 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="routId != null">
+        rout_id,
+      </if>
+      <if test="subId != null">
+        sub_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -159,6 +167,12 @@
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="routId != null">
+        #{routId,jdbcType=VARCHAR},
+      </if>
+      <if test="subId != null">
+        #{subId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -207,6 +221,12 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="routId != null">
+        rout_id = #{routId,jdbcType=VARCHAR},
+      </if>
+      <if test="subId != null">
+        sub_id = #{subId,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -225,7 +245,9 @@
       plan_city = #{planCity,jdbcType=VARCHAR},
       parn_id = #{parnId,jdbcType=BIGINT},
       states = #{states,jdbcType=BIGINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      rout_id = #{routId,jdbcType=VARCHAR},
+      sub_id = #{subId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
