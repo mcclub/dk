@@ -285,4 +285,17 @@
   where 1=1
   and id = #{planId}
   </update>
+
+
+
+  <select id="queryPlanByUser" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    <include refid="table_name"/>
+    where 1=1
+    <if test="userId != null and userId != ''">
+      and user_id = #{userId}
+    </if>
+  </select>
 </mapper>

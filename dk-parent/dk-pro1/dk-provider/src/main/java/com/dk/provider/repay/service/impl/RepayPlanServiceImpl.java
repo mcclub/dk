@@ -16,7 +16,6 @@ import com.dk.provider.repay.entity.RepayPlan;
 import com.dk.provider.repay.mapper.PaymentDetailMapper;
 import com.dk.provider.repay.mapper.RepayPlanMapper;
 import com.dk.provider.repay.service.RepayPlanService;
-import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -149,25 +148,40 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
             if (insertDetailNum > 0) {
                 logger.info("新增明细成功");
             }
-            //查询代还汇总
-            Map<String,Object> planMap = new HashMap<>();
-            planMap.put("id",repayPlan.getId());
-            RepayPlan repayPlanBean = repayPlanMapper.queryPlan(planMap);
 
-            //查询代还明细
-            Map<String,Object> planDetailMap = new HashMap<>();
-            planDetailMap.put("plantId",repayPlan.getId());
-            List<PaymentDetail> paymentDetailsBean = paymentDetailMapper.queryDetail(planDetailMap);
+            //查询计划汇总以及详情
+            Map resultMap = this.searchPlanAndDetail(repayPlan.getId());
 
-            Map resulMap = new HashMap();
-            resulMap.put("repayPlan",repayPlanBean);
-            resulMap.put("paymentDetails",paymentDetailsBean);
-
-            return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"新增成功",resulMap);
+            return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"新增成功",resultMap);
         } else {
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"新增失败");
         }
     }
+
+
+    /**
+     * 查询计划汇总以及详情
+     * @param id
+     * @return
+     */
+    @Override
+    public Map searchPlanAndDetail (Long id) {
+        //查询代还汇总
+        Map<String,Object> planMap = new HashMap<>();
+        planMap.put("id",id);
+        RepayPlan repayPlanBean = repayPlanMapper.queryPlan(planMap);
+
+        //查询代还明细
+        Map<String,Object> planDetailMap = new HashMap<>();
+        planDetailMap.put("plantId",id);
+        List<PaymentDetail> paymentDetailsBean = paymentDetailMapper.queryDetail(planDetailMap);
+
+        Map resultMap = new HashMap();
+        resultMap.put("repayPlan",repayPlanBean);
+        resultMap.put("paymentDetails",paymentDetailsBean);
+        return resultMap;
+    }
+
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -179,6 +193,22 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
             return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"激活成功");
         } else {
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"激活失败");
+        }
+    }
+
+    @Override
+    public RestResult queryPlanByUser(Map map) {
+        RestResult restResult = new RestResult();
+        try{
+            List<RepayPlan> repayPlans = repayPlanMapper.queryPlanByUser(map);
+            if (repayPlans != null && repayPlans.size() >0) {
+                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",repayPlans);
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"暂无记录");
+            }
+        } catch (Exception e) {
+            logger.info("错误信息："+e.getMessage());
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"查询失败");
         }
     }
 }

@@ -13,6 +13,7 @@ import com.dk.provider.plat.entity.Subchannel;
 import com.dk.provider.plat.service.RouteInfoService;
 import com.dk.provider.plat.service.SubchannelService;
 import com.dk.provider.repay.entity.AddPlanParm;
+import com.dk.provider.repay.entity.PaymentDetail;
 import com.dk.provider.repay.entity.RepayPlan;
 import com.dk.provider.repay.service.ReceiveRecordService;
 import com.dk.provider.repay.service.RepayPlanService;
@@ -418,6 +419,57 @@ public class RepayController extends BaseController {
                     return repayPlanService.activePlan(map);
                 }catch (Exception e){
                     logger.error("activePlan"+"执行出错:{}",e.getMessage());
+                    e.printStackTrace();
+                    return getFailRes();
+                }
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"计划ID不能为空");
+            }
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+        }
+
+    }
+
+
+
+    @ResponseBody
+    @RequestMapping(value = {"/queryPlanByUser"},method = RequestMethod.POST)
+    public RestResult queryPlanByUser(@RequestBody Map map){
+        RestResult restResult = new RestResult();
+        logger.info("进入RepayController的"+"queryPlanByUser"+"方法,参数为:{}",map);
+        if (StringUtil.isNotEmpty(map)) {
+            if (StringUtil.isNotEmpty(map.get("userId"))) {
+                try {
+                    return repayPlanService.queryPlanByUser(map);
+                }catch (Exception e){
+                    logger.error("queryPlanByUser"+"执行出错:{}",e.getMessage());
+                    e.printStackTrace();
+                    return getFailRes();
+                }
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户ID不能为空");
+            }
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+        }
+
+    }
+
+
+
+    @ResponseBody
+    @RequestMapping(value = {"/searchPlanAndDetail"},method = RequestMethod.POST)
+    public RestResult searchPlanAndDetail(@RequestBody PaymentDetail vo){
+        RestResult restResult = new RestResult();
+        logger.info("进入RepayController的"+"searchPlanAndDetail"+"方法,参数为:{}",vo.getPlanId());
+        if (StringUtil.isNotEmpty(vo)) {
+            if (StringUtil.isNotEmpty(vo.getPlanId())) {
+                try {
+                    Map map = repayPlanService.searchPlanAndDetail(vo.getPlanId());
+                    return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",map);
+                }catch (Exception e){
+                    logger.error("searchPlanAndDetail"+"执行出错:{}",e.getMessage());
                     e.printStackTrace();
                     return getFailRes();
                 }

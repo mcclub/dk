@@ -4,6 +4,7 @@ import com.dk.provider.basis.mapper.BaseMapper;
 import com.dk.provider.repay.entity.RepayPlan;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
 import java.util.Map;
 
 @Mapper
@@ -41,4 +42,12 @@ public interface RepayPlanMapper extends BaseMapper<RepayPlan> {
      * @return
      */
     int activePlan(Map map);
+
+
+    /**
+     * 根据用户查询代还订单汇总
+     * @param map
+     * @return
+     */
+    List<RepayPlan> queryPlanByUser(Map map);
 }

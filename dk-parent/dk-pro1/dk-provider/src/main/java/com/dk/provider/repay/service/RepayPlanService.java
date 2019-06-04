@@ -22,4 +22,20 @@ public interface RepayPlanService extends BaseServiceI<RepayPlan> {
      * @return
      */
     RestResult activePlan (Map map);
+
+    /**
+     * 根据用户查询代还订单汇总
+     * @param map
+     * @return
+     */
+    RestResult queryPlanByUser(Map map);
+
+
+
+    /**
+     * 查询计划汇总以及详情
+     * @param id
+     * @return
+     */
+    Map searchPlanAndDetail (Long id);
 }
