@@ -12,6 +12,7 @@ import com.dk.provider.plat.entity.SubUser;
 import com.dk.provider.plat.entity.Subchannel;
 import com.dk.provider.plat.service.RouteInfoService;
 import com.dk.provider.plat.service.SubchannelService;
+import com.dk.provider.repay.entity.AddPlanParm;
 import com.dk.provider.repay.entity.RepayPlan;
 import com.dk.provider.repay.service.ReceiveRecordService;
 import com.dk.provider.repay.service.RepayPlanService;
@@ -356,6 +357,77 @@ public class RepayController extends BaseController {
             e.printStackTrace();
             return getFailRes();
         }
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = {"/addPlan"},method = RequestMethod.POST)
+    public RestResult addPlan(@RequestBody AddPlanParm parm){
+        RestResult restResult = new RestResult();
+        logger.info("进入RepayController的"+"addPlan"+"方法,参数为:{}",JSONObject.toJSONString(parm));
+        try {
+                if (!StringUtil.isNotEmpty(parm.getSetAmount())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"预留金额不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getStartDate())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"还款开始时间不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getBillDate())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"还款结束时间不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getBillAmount())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"还款总额不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getDateListStr())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"执行日期的字符串不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getUserId())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getCardCode())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"卡号不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getProvince())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"省份不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getCity())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"地市不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getRoutId())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"大类通道id不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getSubId())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"肖类通道id不能为空");
+                }
+                return repayPlanService.addPlan(parm);
+        }catch (Exception e){
+            logger.error("addPlan"+"执行出错:{}",e.getMessage());
+            e.printStackTrace();
+            return getFailRes();
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = {"/activePlan"},method = RequestMethod.POST)
+    public RestResult activePlan(@RequestBody Map map){
+        RestResult restResult = new RestResult();
+        logger.info("进入RepayController的"+"activePlan"+"方法,参数为:{}",map);
+        if (StringUtil.isNotEmpty(map)) {
+            if (StringUtil.isNotEmpty(map.get("planId"))) {
+                try {
+                    return repayPlanService.activePlan(map);
+                }catch (Exception e){
+                    logger.error("activePlan"+"执行出错:{}",e.getMessage());
+                    e.printStackTrace();
+                    return getFailRes();
+                }
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"计划ID不能为空");
+            }
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+        }
+
     }
 
 }

@@ -19,10 +19,15 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="rout_id" jdbcType="VARCHAR" property="routId" />
     <result column="sub_id" jdbcType="VARCHAR" property="subId" />
+    <result column="notyet_amt" jdbcType="VARCHAR" property="notyetAmt" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="return_times" jdbcType="VARCHAR" property="returnTimes" />
+    <result column="ree_time" jdbcType="VARCHAR" property="reeTime" />
+    <result column="handling_fee" jdbcType="VARCHAR" property="handlingFee" />
   </resultMap>
   <sql id="Base_Column_List">
     id, user_id, card_code, bill_time, rep_time, plan_begin, plan_end, amount, rese_amt, return_amt,
-    plan_area, plan_city, parn_id, states, create_time, rout_id, sub_id
+    plan_area, plan_city, parn_id, states, create_time, rout_id, sub_id, notyet_amt, order_no, return_times, ree_time, handling_fee
   </sql>
 
   <sql id="table_name">
@@ -55,17 +60,18 @@
     delete from t_repay_plan
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.dk.provider.repay.entity.RepayPlan">
+  <insert id="insert" parameterType="com.dk.provider.repay.entity.RepayPlan"  keyProperty="id" keyColumn="id" useGeneratedKeys="true">
     insert into t_repay_plan (id, user_id, card_code, 
       bill_time, rep_time, plan_begin, 
       plan_end, amount, rese_amt, return_amt,
       plan_area, plan_city, parn_id, states,
-      create_time,rout_id, sub_id)
+      create_time,rout_id, sub_id, notyet_amt, order_no, return_times, ree_time, handling_fee)
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{cardCode,jdbcType=VARCHAR}, 
       #{billTime,jdbcType=VARCHAR}, #{repTime,jdbcType=VARCHAR}, #{planBegin,jdbcType=VARCHAR}, 
       #{planEnd,jdbcType=VARCHAR}, #{amount,jdbcType=VARCHAR}, #{reseAmt,jdbcType=VARCHAR}, #{returnAmt,jdbcType=VARCHAR},
       #{planArea,jdbcType=VARCHAR}, #{planCity,jdbcType=VARCHAR}, #{parnId,jdbcType=BIGINT}, #{states,jdbcType=BIGINT},
-      #{createTime,jdbcType=TIMESTAMP},#{routId,jdbcType=VARCHAR}, #{subId,jdbcType=VARCHAR})
+      #{createTime,jdbcType=TIMESTAMP},#{routId,jdbcType=VARCHAR}, #{subId,jdbcType=VARCHAR}, #{notyetAmt,jdbcType=VARCHAR},
+      #{orderNo,jdbcType=VARCHAR},#{returnTimes,jdbcType=VARCHAR}, #{reeTime,jdbcType=VARCHAR}, #{handlingFee,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dk.provider.repay.entity.RepayPlan">
     insert into t_repay_plan
@@ -249,5 +255,34 @@
       rout_id = #{routId,jdbcType=VARCHAR},
       sub_id = #{subId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="queryPlan" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from
+    <include refid="table_name"/>
+    where 1=1
+    <if test="id != null and id != ''">
+     and id = #{id}
+    </if>
+  </select>
+
+
+
+  <update id="activeDetail" parameterType="Map">
+    update t_payment_detail
+    set status = 1
+    where 1=1
+    and plan_id = #{planId}
+  </update>
+
+
+  <update id="activePlan" parameterType="Map">
+  update t_repay_plan
+  set states = 1
+  where 1=1
+  and id = #{planId}
   </update>
 </mapper>
