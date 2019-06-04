@@ -44,4 +44,11 @@ public interface RepayPlanService extends BaseServiceI<RepayPlan> {
      * @return
      */
     int updreturnAmt(Map map);
+
+    /**
+     * 取消还款计划
+     * @param map
+     * @return
+     */
+    RestResult cancelPlan(Map map);
 }

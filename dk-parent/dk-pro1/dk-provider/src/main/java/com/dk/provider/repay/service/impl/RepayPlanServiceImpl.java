@@ -192,6 +192,7 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
     @Transactional(rollbackFor = Exception.class)
     public RestResult activePlan(Map map) {
         RestResult restResult = new RestResult();
+        map.put("status","1");
         int planNum = repayPlanMapper.activePlan(map);
         int detailNum = repayPlanMapper.activeDetail(map);
         if (planNum > 0 && detailNum > 0) {
@@ -214,6 +215,25 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
         } catch (Exception e) {
             logger.info("错误信息："+e.getMessage());
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"查询失败");
+        }
+    }
+
+    /**
+     * 取消还款计划
+     * @param map
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public RestResult cancelPlan(Map map) {
+        RestResult restResult = new RestResult();
+        map.put("status","3");
+        int planNum = repayPlanMapper.activePlan(map);
+        int detailNum = repayPlanMapper.activeDetail(map);
+        if (planNum > 0 && detailNum > 0) {
+            return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"取消成功");
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"取消失败");
         }
     }
 }

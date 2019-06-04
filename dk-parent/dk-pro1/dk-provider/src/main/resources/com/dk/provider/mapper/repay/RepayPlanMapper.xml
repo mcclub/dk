@@ -273,7 +273,7 @@
 
   <update id="activeDetail" parameterType="Map">
     update t_payment_detail
-    set status = 1
+    set status = #{status}
     where 1=1
     and plan_id = #{planId}
   </update>
@@ -281,7 +281,7 @@
 
   <update id="activePlan" parameterType="Map">
   update t_repay_plan
-  set states = 1
+  set states = #{status}
   where 1=1
   and id = #{planId}
   </update>
