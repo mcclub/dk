@@ -20,7 +20,6 @@ import com.dk.provider.user.service.ICardInfoService;
 import com.dk.provider.user.service.IUserService;
 import com.dk.rest.api.inter.XSReplaceApi;
 import com.dk.rest.repay.bean.RepayBindBean;
-import com.dk.rest.repay.bean.SplitRepayBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -326,7 +325,7 @@ public class RepayController extends BaseController {
              *
              * 金额  执行时间  类型
              */
-            List<SplitRepayBean> reList = new LinkedList<>();
+            /*List<SplitRepayBean> reList = new LinkedList<>();
             for(int i = 0;i< 10 ; i++){
                 SplitRepayBean splitRepayBean = new SplitRepayBean();
                 splitRepayBean.setPeramount("5"+i);
@@ -335,7 +334,7 @@ public class RepayController extends BaseController {
                 splitRepayBean.setSpltype("1");
                 reList.add(splitRepayBean);
             }
-            jsonRes.put("repaylist",reList);
+            jsonRes.put("repaylist",reList);*/
 
 
             return getRestResult(ResultEnume.SUCCESS,"计划生成成功",jsonRes);
