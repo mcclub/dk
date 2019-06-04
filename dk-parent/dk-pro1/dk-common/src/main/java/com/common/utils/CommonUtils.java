@@ -170,6 +170,7 @@ public class CommonUtils {
             repaySplit.setRepamt(repaymentAmount*((double)num/hkTimes));
             repaySplit.setTimeList(this.onceRepaymentTime(num,allDate.get(i)+" 08:00:00",allDate.get(i)+" 20:00:00"));
             repaySplit.setAmtList(this.singleSplit(repaymentAmount*((double)num/hkTimes),(int) reservedAmount,num));
+            repaySplit.setReservedAmount((int)reservedAmount);
             result.add(repaySplit);
             i ++ ;
         }
@@ -268,19 +269,42 @@ public class CommonUtils {
      * @param num   拆分笔数
      * @return
      */
-    public List singleSplit (double totalCount,double bound,Integer num) {
-        List<Double> list = new ArrayList<>();
+    public List<Double> singleSplit (double totalCount,Integer bound,Integer num) {
+        List<Double> list;
         Random random = new Random();
         double tempTotal = 0;
         double temp = 0;
+        double beforeTempTotal = 0;
+        double lastTemp = 0;
 
-        for(int i=0;i<num;i++){
+        while (true) {
+            int splitSize = 0;
+            list = new ArrayList<>();
+            for(int i=0;i<num;i++) {
+                if (tempTotal < totalCount) {
+                    beforeTempTotal = tempTotal;
+                    temp = random.nextInt(bound);
+                    list.add(temp);
+                    tempTotal = tempTotal + temp;
+                } else {
+                    list.set(list.size()-1,temp);
+                    temp = totalCount - beforeTempTotal;
+                    tempTotal = tempTotal + temp;
+                    lastTemp = totalCount - beforeTempTotal;
+                }
+                splitSize ++;
+            }
+            if (splitSize == num && tempTotal == totalCount && lastTemp < bound) {
+                break;
+            }
+        }
+        /*for(int i=0;i<num;i++){
             if(tempTotal>totalCount){
                 list.set(list.size()-1, list.get(list.size()-1)-(tempTotal-totalCount));
                 tempTotal = totalCount;
             }else if(tempTotal<totalCount){
                 while (true) {
-                    temp =  random.nextDouble() * bound ;
+                    temp =  random.nextInt(bound) ;
 
                     if (temp < bound) {
                         break;
@@ -296,9 +320,9 @@ public class CommonUtils {
         double checkTotalCount = 0;
         for (double temp1 : list) {
             checkTotalCount = checkTotalCount + temp1;
-            System.out.println(temp1);
+            //System.out.println(temp1);
         }
-        System.out.println("-----------");
+        //System.out.println("-----------");
 
         if(checkTotalCount<totalCount){
             double surplus = totalCount -checkTotalCount;
@@ -308,12 +332,18 @@ public class CommonUtils {
             }
             list.set(list.size()-1, list.get(list.size()-1)+surplus-floor*num);
         }
-        checkTotalCount= 0;
+
+        *//*if (checkTotalCount == totalCount && list.size() == num) {
+            break;
+        }*//*
+        System.out.println("checkTotalCount="+checkTotalCount+"\tlist.size()="+list.size());*/
+
+        /*checkTotalCount= 0;
         for (double temp1 : list) {
             checkTotalCount = checkTotalCount + temp1;
             System.out.println(temp1);
         }
-        System.out.println("总数为"+checkTotalCount);
+        System.out.println("总数为"+checkTotalCount);*/
         return list;
     }
 
@@ -321,29 +351,59 @@ public class CommonUtils {
      * 拆分每次还款金额-----消费金额
      * @param patlist
      */
-    public void splitmon(List<RepaySplit> patlist){
-        for(int i = 0;i<patlist.size();i++){
-            //每次还款金额
-            List s = patlist.get(i).getAmtList();
-            for(int j=0;j<s.size();j++){
-                Double amt = (Double) s.get(j);
-
-                int sad = randomOne(3)+1;
-                List patamt = singleSplit(Double.valueOf(amt),Double.valueOf(amt)/sad,sad);
-                System.out.println();
+    public List<RepaySplit> splitmon(List<RepaySplit> patlist){
+        Random random = new Random();
+        int num = 0;
+        List<RepaySplit> list = new ArrayList<>();
+        if (StringUtil.isNotEmpty(patlist)) {
+            for (RepaySplit bean : patlist) {
+                for (int i = 0 ; i < bean.getTimeList().size() ; i++) {
+                    RepaySplit repaySplit = new RepaySplit();
+                    repaySplit.setRepamt(bean.getRepamt());
+                    repaySplit.setRepnum(bean.getRepnum());
+                    repaySplit.setTime(bean.getTimeList().get(i));
+                    repaySplit.setAmt(bean.getAmtList().get(i));
+                    repaySplit.setReservedAmount(bean.getReservedAmount());
+                    repaySplit.setType(2);
+                    list.add(repaySplit);
+                }
             }
         }
-
+        if (StringUtil.isNotEmpty(list)) {
+            for (RepaySplit bean:list) {
+                List<RepaySplit> childList = new ArrayList<>();
+                RepaySplit childBean = new RepaySplit();
+                num = random.nextInt(3)+1;
+                //拆分收款时间
+                List<String> timeList = this.onceRepaymentTime(num,bean.getTime().substring(0,10)+" 08:00:00",bean.getTime());
+                //拆分收款金额
+                List<Double> amtList = this.singleSplit(bean.getAmt(),bean.getReservedAmount(),num);
+                if (!(timeList.size() == amtList.size())) {
+                    System.out.println("时间个数="+timeList.size()+"\t金额个数="+amtList.size()+"\t拆分金额="+bean.getAmt()+"\t限制="+bean.getReservedAmount()+"\t拆分个数="+num);
+                }
+                for (int i = 0 ; i < timeList.size() ; i ++) {
+                    childBean.setTime(timeList.get(i));
+                    childBean.setAmt(amtList.get(i));
+                    //交易类型
+                    childBean.setType(1);
+                    childList.add(childBean);
+                }
+                bean.setRepaySplits(childList);
+            }
+        }
+        return list;
     }
 
 
     public static void main(String[] args) throws Exception {
         CommonUtils com = new CommonUtils();
         //随机计划笔数
-        List penList = randomplan(10,4);
+        /*List penList = randomplan(10,4);
         //随机每笔计划金额
-        List listMoney = com.splitMoney(penList,1000,200,"2019-05-26","2019-05-30");
-        com.splitmon(listMoney);
+        List listMoney = com.splitMoney(penList,1000,110,"2019-05-26","2019-05-30");
+        List<RepaySplit> repaySplits = com.splitmon(listMoney);*/
+
+        List<Double> list = com.singleSplit(123.0,110,3);
 
         System.out.println();
 
