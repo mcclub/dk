@@ -250,4 +250,10 @@
       sub_id = #{subId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <update id="updreturnAmt" parameterType="map">
+    update t_repay_plan
+    set return_amt = return_amt + #{returnAmt},
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 </mapper>

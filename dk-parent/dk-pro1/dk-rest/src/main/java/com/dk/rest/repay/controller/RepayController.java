@@ -20,6 +20,7 @@ import com.dk.provider.user.service.ICardInfoService;
 import com.dk.provider.user.service.IUserService;
 import com.dk.rest.api.inter.XSReplaceApi;
 import com.dk.rest.repay.bean.RepayBindBean;
+import com.dk.rest.repay.bean.SplitRepayBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -298,6 +299,9 @@ public class RepayController extends BaseController {
             jsonRes.put("totalfee",totalfee);
             jsonRes.put("totreseAmt",totreseAmt);
             jsonRes.put("cardCode",cardCode);
+            jsonRes.put("rate", Double.valueOf(routeUser.getRate()));
+            jsonRes.put("fee",routeUser.getFee());
+
 
 
             /**
@@ -315,15 +319,26 @@ public class RepayController extends BaseController {
              * 首先确定还款时间
              */
 
+            /**
+             * 计划详情
+             *
+             * 每笔拆分的消费金额，和拆分的还款金额 的集合
+             *
+             * 金额  执行时间  类型
+             */
+            List<SplitRepayBean> reList = new LinkedList<>();
+            for(int i = 0;i< 10 ; i++){
+                SplitRepayBean splitRepayBean = new SplitRepayBean();
+                splitRepayBean.setPeramount("5"+i);
+                splitRepayBean.setIndustry("");
+                splitRepayBean.setSplTime("2019-06-04 11:00");
+                splitRepayBean.setSpltype("1");
+                reList.add(splitRepayBean);
+            }
+            jsonRes.put("repaylist",reList);
 
 
-
-
-
-
-
-
-            return getRestResult(ResultEnume.SUCCESS,"计划汇总",jsonRes);
+            return getRestResult(ResultEnume.SUCCESS,"计划生成成功",jsonRes);
         }catch (Exception e){
             logger.error(method+"执行出错:{}",e.getMessage());
             e.printStackTrace();
@@ -358,4 +373,103 @@ public class RepayController extends BaseController {
         }
     }
 
+    /**
+     * 查询正在执行的还款计划(当前计划) 和 计划详情
+     * @param jsonObject
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = {"/curplan"},method = RequestMethod.POST)
+    public RestResult curplan(JSONObject jsonObject){
+        String method = "curplan";
+        logger.info("进入RepayController的"+method+"方法,参数为:{}",jsonObject);
+        try {
+            /**
+             * 查询结果：
+             * 当前计划：
+             *      单号
+             *      执行状态(-1预览,0未执行,1执行中,2执行完成,3已取消)
+             *      银行卡号
+             *      还款总金额
+             *      还款总笔数
+             *      手续费
+             *      已扣手续费
+             *      已还金额
+             *      未还金额
+             *      计划执行周期(开始 - 结束)
+             *      实际执行周期(开始 - 结束)
+             * 计划详情
+             *      类型
+             *      金额
+             *      行业
+             *      时间
+             *      执行状态
+             */
+
+            String a ="";
+            return null;
+        }catch (Exception e){
+            logger.error(method+"执行出错:{}",e.getMessage());
+            e.printStackTrace();
+            return getFailRes();
+        }
+    }
+    /**
+     * 取消当前还款计划
+     * @param jsonObject
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = {"/cancalplan"},method = RequestMethod.POST)
+    public RestResult cancalplan(JSONObject jsonObject){
+        String method = "cancalplan";
+        logger.info("进入RepayController的"+method+"方法,参数为:{}",jsonObject);
+        try {
+            /**
+             * 计划单号
+             * planId
+             */
+            String planId = jsonObject.getString("planId");
+
+            return getRestResult(ResultEnume.SUCCESS,"取消计划成功",new JSONObject());
+        }catch (Exception e){
+            logger.error(method+"执行出错:{}",e.getMessage());
+            e.printStackTrace();
+            return getFailRes();
+        }
+    }
+
+    /**
+     * 查询历史还款计划
+     * @param jsonObject
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = {"/histplan"},method = RequestMethod.POST)
+    public RestResult histplan(JSONObject jsonObject){
+        String method = "histplan";
+        logger.info("进入RepayController的"+method+"方法,参数为:{}",jsonObject);
+        try {
+            /**
+             * 卡号
+             * cardCode
+             */
+            String cardCode = jsonObject.getString("cardCode");
+            /**
+             * 还款计划
+             *      还款总额
+             *      手续费
+             *      实际开始日期
+             *      实际完成日期
+             *      还款状态
+             */
+
+
+            return getRestResult(ResultEnume.SUCCESS,"查询成功",new JSONObject());
+        }catch (Exception e){
+            logger.error(method+"执行出错:{}",e.getMessage());
+            e.printStackTrace();
+            return getFailRes();
+        }
+    }
 }

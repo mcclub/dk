@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 @Service("repayPlanService")
 public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements RepayPlanService {
@@ -23,5 +24,8 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
     }
 
 
-
+    @Override
+    public int updreturnAmt(Map map) {
+        return repayPlanMapper.updreturnAmt(map);
+    }
 }

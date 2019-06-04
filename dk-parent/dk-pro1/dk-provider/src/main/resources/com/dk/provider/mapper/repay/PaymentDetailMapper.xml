@@ -146,7 +146,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.dk.provider.repay.entity.PaymentDetail">
+  <update id="update" parameterType="com.dk.provider.repay.entity.PaymentDetail">
     update t_payment_detail
     <set>
       <if test="planId != null">

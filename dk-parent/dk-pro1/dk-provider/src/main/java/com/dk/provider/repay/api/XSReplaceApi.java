@@ -15,6 +15,7 @@ import com.dk.provider.plat.service.RouteInfoService;
 import com.dk.provider.plat.service.SubchannelService;
 import com.dk.provider.repay.entity.PaymentDetail;
 import com.dk.provider.repay.entity.RepayPlan;
+import com.dk.provider.repay.mapper.PaymentDetailMapper;
 import com.dk.provider.repay.service.IPaymentDetailService;
 import com.dk.provider.user.entity.CardInfo;
 import com.dk.provider.user.service.IUserService;
@@ -58,6 +59,9 @@ public class XSReplaceApi {
 
     @Resource
     private IPaymentDetailService paymentDetailServiceImpl;
+
+    @Resource
+    private PaymentDetailMapper paymentDetailMapper;
 
 
     /**上游密钥**/
@@ -290,6 +294,7 @@ public class XSReplaceApi {
          */
         Map<String ,Object> mapr = new HashMap<>();
         mapr.put("userId",paymentDetail.getUserId());
+        mapr.put("routId",repayPlan.getRoutId());
         List<RouteInfo> routeInfoList = routeInfoService.findUserrate(mapr);
         String rate = "";
         if(routeInfoList != null){
@@ -333,7 +338,7 @@ public class XSReplaceApi {
         PaymentDetail paymentDetail1 = new PaymentDetail();
         paymentDetail1.setId(paymentDetail.getId());
         paymentDetail1.setOrderNo(orderNode);
-        paymentDetailServiceImpl.update(paymentDetail1);
+        paymentDetailMapper.update(paymentDetail1);
 
 
         return null;
@@ -399,6 +404,7 @@ public class XSReplaceApi {
          */
         Map<String ,Object> map1 = new HashMap<>();
         map1.put("userId",paymentDetail.getUserId());
+        map1.put("routId",repayPlan.getRoutId());
         RouteUser routeUser = routeInfoService.queryUserRout(map1);
         String fee = "";
         if(routeUser != null){
@@ -413,9 +419,10 @@ public class XSReplaceApi {
         jsonData.put("amount",paymentDetail.getAmount());//金额
         jsonData.put("extraFee",fee);//单笔手续费（从付款金额扣）
         jsonData.put("realName",routeUser.getRealName());//收款人姓名
-        jsonData.put("cardCode",paymentDetail.getCardNo());//收款人卡号
+        jsonData.put("cardCode",repayPlan.getCardCode());//收款人卡号
         jsonData.put("userId",subUserId);//用户 ID
         jsonData.put("notifyUrl","http://"+serverip+"/app/replace/xspaynotify");//通知地址
+        logger.info("请求参数jsonData：{}",jsonData);
         /**
          * data:业务参数base64后的字符串
          */
@@ -434,7 +441,7 @@ public class XSReplaceApi {
         PaymentDetail paymentDetail1 = new PaymentDetail();
         paymentDetail1.setId(paymentDetail.getId());
         paymentDetail1.setOrderNo(orderNode);
-        paymentDetailServiceImpl.update(paymentDetail1);
+        paymentDetailMapper.update(paymentDetail1);
 
         return null;
     }

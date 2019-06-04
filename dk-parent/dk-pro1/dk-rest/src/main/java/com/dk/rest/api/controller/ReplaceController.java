@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.common.controller.BaseController;
 import com.dk.provider.repay.entity.PaymentDetail;
 import com.dk.provider.repay.service.IPaymentDetailService;
+import com.dk.provider.repay.service.RepayPlanService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,9 @@ public class ReplaceController extends BaseController {
 
     @Resource
     private IPaymentDetailService paymentDetailServiceImpl;
+
+    @Resource
+    private RepayPlanService repayPlanService;
 
     /**
      * 1 新生代还收款请求的异步通知
@@ -104,6 +108,13 @@ public class ReplaceController extends BaseController {
                 String pmStates = paymentDetailList.get(0).getStatus().toString();
                 logger.info("平台订单状态pmStates:{}",pmStates);
                 if(!pmStates.equals("1")) {//平台成功
+                    /**
+                     * 修改已还金额
+                     */
+                    Map<String ,Object> maprp = new HashMap<>();
+                    maprp.put("id",paymentDetailList.get(0).getPlanId());
+                    maprp.put("returnAmt",paymentDetailList.get(0).getAmount());
+                    repayPlanService.updreturnAmt(maprp);
                     /**
                      * 根据计划id 修改该笔详情的订单号
                      */

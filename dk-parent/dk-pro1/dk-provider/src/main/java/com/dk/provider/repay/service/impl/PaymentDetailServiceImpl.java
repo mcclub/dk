@@ -35,11 +35,18 @@ import java.util.*;
 @Service
 public class PaymentDetailServiceImpl extends BaseServiceImpl<PaymentDetail> implements IPaymentDetailService {
     private Logger logger = LoggerFactory.getLogger(PaymentDetailServiceImpl.class);
-    @Resource
-    private XSReplaceApi xsReplaceApi;
 
     @Resource
     private PaymentDetailMapper paymentDetailMapper;
+    @Resource
+    public void setSqlMapper (PaymentDetailMapper paymentDetailMapper)
+    {
+        super.setBaseMapper (paymentDetailMapper);
+    }
+
+    @Resource
+    private XSReplaceApi xsReplaceApi;
+
 
     @Resource
     private RepayPlanMapper repayPlanMapper;
@@ -61,17 +68,17 @@ public class PaymentDetailServiceImpl extends BaseServiceImpl<PaymentDetail> imp
 
     @Override
     public List<PaymentDetail> query(Map map) throws Exception {
-        return null;
+        return this.query(map);
     }
 
     @Override
     public int insert(PaymentDetail paymentDetail) throws Exception {
-        return 0;
+        return this.insert(paymentDetail);
     }
 
     @Override
     public int update(PaymentDetail paymentDetail) throws Exception {
-        return 0;
+        return this.update(paymentDetail);
     }
 
     @Override
@@ -81,7 +88,7 @@ public class PaymentDetailServiceImpl extends BaseServiceImpl<PaymentDetail> imp
 
     @Override
     public PaymentDetail queryByid(Long id) {
-        return null;
+        return this.queryByid(id);
     }
 
     @Override
@@ -211,7 +218,7 @@ public class PaymentDetailServiceImpl extends BaseServiceImpl<PaymentDetail> imp
                 paymentDetail1.setId(paymentDetailList.get(0).getId());
                 paymentDetail1.setRemark(respMsg);
                 paymentDetail1.setStatus(Long.valueOf(states));
-                paymentDetailMapper.update(paymentDetail1);
+                paymentDetailMapper.updateByPrimaryKeySelective(paymentDetail1);
 
                 /**
                  * 订单成功 计算返佣 并新增 返佣记录

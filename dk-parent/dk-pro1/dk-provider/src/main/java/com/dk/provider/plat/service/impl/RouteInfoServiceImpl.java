@@ -146,6 +146,7 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
     public List<RouteInfo> findUserrate(Map map){
         /**
          * 根据用户id查询用户等级id
+         * 大类通道id
          */
         if(map != null){
             Long userId = (Long) map.get("userId");

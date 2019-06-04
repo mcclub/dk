@@ -4,6 +4,8 @@ import com.dk.provider.basis.mapper.BaseMapper;
 import com.dk.provider.repay.entity.RepayPlan;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Map;
+
 @Mapper
 public interface RepayPlanMapper extends BaseMapper<RepayPlan> {
     int deleteByPrimaryKey(Long id);
@@ -17,4 +19,6 @@ public interface RepayPlanMapper extends BaseMapper<RepayPlan> {
     int updateByPrimaryKeySelective(RepayPlan record);
 
     int updateByPrimaryKey(RepayPlan record);
+
+    int updreturnAmt(Map map);
 }
