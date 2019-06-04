@@ -302,7 +302,7 @@ public class PaymentDetailServiceImpl extends BaseServiceImpl<PaymentDetail> imp
      * 根据时间对list元素排序
      * @param list
      */
-    private static void ListSort(List<PaymentDetail> list) {
+    public static void ListSort(List<PaymentDetail> list) {
         Collections.sort(list, new Comparator<PaymentDetail>() {
              public int compare(PaymentDetail o1, PaymentDetail o2) {
                  try {

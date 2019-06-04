@@ -41,6 +41,16 @@ public class RepayPlan implements Serializable {
 
     private String subId;
 
+    private String notyetAmt;
+
+    private String orderNo;
+
+    private String returnTimes;
+
+    private String reeTime;
+
+    private String handlingFee;
+
     public Long getId() {
         return id;
     }
@@ -62,7 +72,7 @@ public class RepayPlan implements Serializable {
     }
 
     public void setCardCode(String cardCode) {
-        this.cardCode = cardCode == null ? null : cardCode.trim();
+        this.cardCode = cardCode;
     }
 
     public String getBillTime() {
@@ -70,7 +80,7 @@ public class RepayPlan implements Serializable {
     }
 
     public void setBillTime(String billTime) {
-        this.billTime = billTime == null ? null : billTime.trim();
+        this.billTime = billTime;
     }
 
     public String getRepTime() {
@@ -78,7 +88,7 @@ public class RepayPlan implements Serializable {
     }
 
     public void setRepTime(String repTime) {
-        this.repTime = repTime == null ? null : repTime.trim();
+        this.repTime = repTime;
     }
 
     public String getPlanBegin() {
@@ -86,7 +96,7 @@ public class RepayPlan implements Serializable {
     }
 
     public void setPlanBegin(String planBegin) {
-        this.planBegin = planBegin == null ? null : planBegin.trim();
+        this.planBegin = planBegin;
     }
 
     public String getPlanEnd() {
@@ -94,7 +104,7 @@ public class RepayPlan implements Serializable {
     }
 
     public void setPlanEnd(String planEnd) {
-        this.planEnd = planEnd == null ? null : planEnd.trim();
+        this.planEnd = planEnd;
     }
 
     public String getAmount() {
@@ -102,7 +112,7 @@ public class RepayPlan implements Serializable {
     }
 
     public void setAmount(String amount) {
-        this.amount = amount == null ? null : amount.trim();
+        this.amount = amount;
     }
 
     public String getReseAmt() {
@@ -110,7 +120,15 @@ public class RepayPlan implements Serializable {
     }
 
     public void setReseAmt(String reseAmt) {
-        this.reseAmt = reseAmt == null ? null : reseAmt.trim();
+        this.reseAmt = reseAmt;
+    }
+
+    public String getReturnAmt() {
+        return returnAmt;
+    }
+
+    public void setReturnAmt(String returnAmt) {
+        this.returnAmt = returnAmt;
     }
 
     public String getPlanArea() {
@@ -118,7 +136,15 @@ public class RepayPlan implements Serializable {
     }
 
     public void setPlanArea(String planArea) {
-        this.planArea = planArea == null ? null : planArea.trim();
+        this.planArea = planArea;
+    }
+
+    public String getPlanCity() {
+        return planCity;
+    }
+
+    public void setPlanCity(String planCity) {
+        this.planCity = planCity;
     }
 
     public Long getParnId() {
@@ -145,22 +171,6 @@ public class RepayPlan implements Serializable {
         this.createTime = createTime;
     }
 
-    public String getReturnAmt() {
-        return returnAmt;
-    }
-
-    public void setReturnAmt(String returnAmt) {
-        this.returnAmt = returnAmt;
-    }
-
-    public String getPlanCity() {
-        return planCity;
-    }
-
-    public void setPlanCity(String planCity) {
-        this.planCity = planCity;
-    }
-
     public String getRoutId() {
         return routId;
     }
@@ -175,5 +185,45 @@ public class RepayPlan implements Serializable {
 
     public void setSubId(String subId) {
         this.subId = subId;
+    }
+
+    public String getNotyetAmt() {
+        return notyetAmt;
+    }
+
+    public void setNotyetAmt(String notyetAmt) {
+        this.notyetAmt = notyetAmt;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public String getReturnTimes() {
+        return returnTimes;
+    }
+
+    public void setReturnTimes(String returnTimes) {
+        this.returnTimes = returnTimes;
+    }
+
+    public String getReeTime() {
+        return reeTime;
+    }
+
+    public void setReeTime(String reeTime) {
+        this.reeTime = reeTime;
+    }
+
+    public String getHandlingFee() {
+        return handlingFee;
+    }
+
+    public void setHandlingFee(String handlingFee) {
+        this.handlingFee = handlingFee;
     }
 }

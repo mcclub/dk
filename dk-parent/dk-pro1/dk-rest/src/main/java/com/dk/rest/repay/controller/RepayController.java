@@ -12,6 +12,8 @@ import com.dk.provider.plat.entity.SubUser;
 import com.dk.provider.plat.entity.Subchannel;
 import com.dk.provider.plat.service.RouteInfoService;
 import com.dk.provider.plat.service.SubchannelService;
+import com.dk.provider.repay.entity.AddPlanParm;
+import com.dk.provider.repay.entity.PaymentDetail;
 import com.dk.provider.repay.entity.RepayPlan;
 import com.dk.provider.repay.service.ReceiveRecordService;
 import com.dk.provider.repay.service.RepayPlanService;
@@ -298,9 +300,6 @@ public class RepayController extends BaseController {
             jsonRes.put("totalfee",totalfee);
             jsonRes.put("totreseAmt",totreseAmt);
             jsonRes.put("cardCode",cardCode);
-            jsonRes.put("rate", Double.valueOf(routeUser.getRate()));
-            jsonRes.put("fee",routeUser.getFee());
-
 
 
             /**
@@ -318,26 +317,15 @@ public class RepayController extends BaseController {
              * 首先确定还款时间
              */
 
-            /**
-             * 计划详情
-             *
-             * 每笔拆分的消费金额，和拆分的还款金额 的集合
-             *
-             * 金额  执行时间  类型
-             */
-            /*List<SplitRepayBean> reList = new LinkedList<>();
-            for(int i = 0;i< 10 ; i++){
-                SplitRepayBean splitRepayBean = new SplitRepayBean();
-                splitRepayBean.setPeramount("5"+i);
-                splitRepayBean.setIndustry("");
-                splitRepayBean.setSplTime("2019-06-04 11:00");
-                splitRepayBean.setSpltype("1");
-                reList.add(splitRepayBean);
-            }
-            jsonRes.put("repaylist",reList);*/
 
 
-            return getRestResult(ResultEnume.SUCCESS,"计划生成成功",jsonRes);
+
+
+
+
+
+
+            return getRestResult(ResultEnume.SUCCESS,"计划汇总",jsonRes);
         }catch (Exception e){
             logger.error(method+"执行出错:{}",e.getMessage());
             e.printStackTrace();
@@ -372,103 +360,126 @@ public class RepayController extends BaseController {
         }
     }
 
-    /**
-     * 查询正在执行的还款计划(当前计划) 和 计划详情
-     * @param jsonObject
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping(value = {"/curplan"},method = RequestMethod.POST)
-    public RestResult curplan(JSONObject jsonObject){
-        String method = "curplan";
-        logger.info("进入RepayController的"+method+"方法,参数为:{}",jsonObject);
-        try {
-            /**
-             * 查询结果：
-             * 当前计划：
-             *      单号
-             *      执行状态(-1预览,0未执行,1执行中,2执行完成,3已取消)
-             *      银行卡号
-             *      还款总金额
-             *      还款总笔数
-             *      手续费
-             *      已扣手续费
-             *      已还金额
-             *      未还金额
-             *      计划执行周期(开始 - 结束)
-             *      实际执行周期(开始 - 结束)
-             * 计划详情
-             *      类型
-             *      金额
-             *      行业
-             *      时间
-             *      执行状态
-             */
 
-            String a ="";
-            return null;
-        }catch (Exception e){
-            logger.error(method+"执行出错:{}",e.getMessage());
-            e.printStackTrace();
-            return getFailRes();
-        }
-    }
-    /**
-     * 取消当前还款计划
-     * @param jsonObject
-     * @return
-     */
     @ResponseBody
-    @RequestMapping(value = {"/cancalplan"},method = RequestMethod.POST)
-    public RestResult cancalplan(JSONObject jsonObject){
-        String method = "cancalplan";
-        logger.info("进入RepayController的"+method+"方法,参数为:{}",jsonObject);
+    @RequestMapping(value = {"/addPlan"},method = RequestMethod.POST)
+    public RestResult addPlan(@RequestBody AddPlanParm parm){
+        RestResult restResult = new RestResult();
+        logger.info("进入RepayController的"+"addPlan"+"方法,参数为:{}",JSONObject.toJSONString(parm));
         try {
-            /**
-             * 计划单号
-             * planId
-             */
-            String planId = jsonObject.getString("planId");
-
-            return getRestResult(ResultEnume.SUCCESS,"取消计划成功",new JSONObject());
+                if (!StringUtil.isNotEmpty(parm.getSetAmount())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"预留金额不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getStartDate())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"还款开始时间不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getBillDate())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"还款结束时间不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getBillAmount())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"还款总额不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getDateListStr())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"执行日期的字符串不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getUserId())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getCardCode())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"卡号不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getProvince())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"省份不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getCity())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"地市不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getRoutId())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"大类通道id不能为空");
+                }
+                if (!StringUtil.isNotEmpty(parm.getSubId())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"肖类通道id不能为空");
+                }
+                return repayPlanService.addPlan(parm);
         }catch (Exception e){
-            logger.error(method+"执行出错:{}",e.getMessage());
+            logger.error("addPlan"+"执行出错:{}",e.getMessage());
             e.printStackTrace();
             return getFailRes();
         }
     }
 
-    /**
-     * 查询历史还款计划
-     * @param jsonObject
-     * @return
-     */
     @ResponseBody
-    @RequestMapping(value = {"/histplan"},method = RequestMethod.POST)
-    public RestResult histplan(JSONObject jsonObject){
-        String method = "histplan";
-        logger.info("进入RepayController的"+method+"方法,参数为:{}",jsonObject);
-        try {
-            /**
-             * 卡号
-             * cardCode
-             */
-            String cardCode = jsonObject.getString("cardCode");
-            /**
-             * 还款计划
-             *      还款总额
-             *      手续费
-             *      实际开始日期
-             *      实际完成日期
-             *      还款状态
-             */
-
-
-            return getRestResult(ResultEnume.SUCCESS,"查询成功",new JSONObject());
-        }catch (Exception e){
-            logger.error(method+"执行出错:{}",e.getMessage());
-            e.printStackTrace();
-            return getFailRes();
+    @RequestMapping(value = {"/activePlan"},method = RequestMethod.POST)
+    public RestResult activePlan(@RequestBody Map map){
+        RestResult restResult = new RestResult();
+        logger.info("进入RepayController的"+"activePlan"+"方法,参数为:{}",map);
+        if (StringUtil.isNotEmpty(map)) {
+            if (StringUtil.isNotEmpty(map.get("planId"))) {
+                try {
+                    return repayPlanService.activePlan(map);
+                }catch (Exception e){
+                    logger.error("activePlan"+"执行出错:{}",e.getMessage());
+                    e.printStackTrace();
+                    return getFailRes();
+                }
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"计划ID不能为空");
+            }
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
         }
+
     }
+
+
+
+    @ResponseBody
+    @RequestMapping(value = {"/queryPlanByUser"},method = RequestMethod.POST)
+    public RestResult queryPlanByUser(@RequestBody Map map){
+        RestResult restResult = new RestResult();
+        logger.info("进入RepayController的"+"queryPlanByUser"+"方法,参数为:{}",map);
+        if (StringUtil.isNotEmpty(map)) {
+            if (StringUtil.isNotEmpty(map.get("userId"))) {
+                try {
+                    return repayPlanService.queryPlanByUser(map);
+                }catch (Exception e){
+                    logger.error("queryPlanByUser"+"执行出错:{}",e.getMessage());
+                    e.printStackTrace();
+                    return getFailRes();
+                }
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户ID不能为空");
+            }
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+        }
+
+    }
+
+
+
+    @ResponseBody
+    @RequestMapping(value = {"/searchPlanAndDetail"},method = RequestMethod.POST)
+    public RestResult searchPlanAndDetail(@RequestBody PaymentDetail vo){
+        RestResult restResult = new RestResult();
+        logger.info("进入RepayController的"+"searchPlanAndDetail"+"方法,参数为:{}",vo.getPlanId());
+        if (StringUtil.isNotEmpty(vo)) {
+            if (StringUtil.isNotEmpty(vo.getPlanId())) {
+                try {
+                    Map map = repayPlanService.searchPlanAndDetail(vo.getPlanId());
+                    return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",map);
+                }catch (Exception e){
+                    logger.error("searchPlanAndDetail"+"执行出错:{}",e.getMessage());
+                    e.printStackTrace();
+                    return getFailRes();
+                }
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"计划ID不能为空");
+            }
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+        }
+
+    }
+
 }

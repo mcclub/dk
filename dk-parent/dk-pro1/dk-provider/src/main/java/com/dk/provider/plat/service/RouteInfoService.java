@@ -44,5 +44,5 @@ public interface RouteInfoService extends BaseServiceI<RouteInfo> {
      * @param map
      * @return
      */
-    List<RouteInfo> findUserrate(Map map) throws Exception;
+    List<RouteInfo> findUserrate(Map map);
 }

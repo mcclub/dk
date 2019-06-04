@@ -64,4 +64,12 @@ public interface PaymentDetailMapper extends BaseMapper<PaymentDetail> {
      */
     int updatePlantFinish(Map map);
 
+
+    /**
+     * 查询代还详情
+     * @param map
+     * @return
+     */
+    List<PaymentDetail> queryDetail(Map map);
+
 }
