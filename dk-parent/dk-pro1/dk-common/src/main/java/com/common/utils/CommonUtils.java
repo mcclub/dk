@@ -1,7 +1,9 @@
 package com.common.utils;
 
+import com.common.bean.PageResult;
 import com.common.bean.RepaySplit;
-import com.common.bean.RestResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
@@ -13,6 +15,7 @@ public class CommonUtils {
 
     private static SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
     private static String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+    private static Logger logger = LoggerFactory.getLogger(CommonUtils.class);
 
     /**
      * 随机生成串数字字符串
@@ -42,15 +45,20 @@ public class CommonUtils {
      * @param e
      * @throws Exception
      */
-    public static void reflect(Object e) throws Exception{
-        Class cls = e.getClass();
-        Field[] fields = cls.getDeclaredFields();
-        for(int i=0; i<fields.length; i++){
-            Field f = fields[i];
-            f.setAccessible(true);
-            if(StringUtils.isEmpty(f.get(e))){
-                f.set(e,"");
+    public static void reflect(Object e){
+        try {
+            Class cls = e.getClass();
+            Field[] fields = cls.getDeclaredFields();
+            for (int i = 0; i < fields.length; i++) {
+                Field f = fields[i];
+                f.setAccessible(true);
+                if (StringUtils.isEmpty(f.get(e)) && (f.getType().getName()).equals("java.lang.String")) {
+                    f.set(e, "");
+                }
             }
+        } catch (Exception e1) {
+            logger.info(e1.getMessage());
+            logger.info("null转空字符串报错");
         }
     }
 
@@ -403,8 +411,9 @@ public class CommonUtils {
         List listMoney = com.splitMoney(penList,1000,110,"2019-05-26","2019-05-30");
         List<RepaySplit> repaySplits = com.splitmon(listMoney);*/
 
-        List<Double> list = com.singleSplit(123.0,110,3);
-
+        //List<Double> list = com.singleSplit(123.0,110,3);
+        PageResult pageResult = new PageResult();
+        com.reflect(pageResult);
         System.out.println();
 
 

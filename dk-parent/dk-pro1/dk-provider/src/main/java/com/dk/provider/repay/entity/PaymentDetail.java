@@ -23,7 +23,11 @@ public class PaymentDetail implements Serializable {
 
     private Long type;
 
+    private String typeStr;
+
     private Long status;
+
+    private String statusStr;
 
     private String remark;
 
@@ -97,12 +101,28 @@ public class PaymentDetail implements Serializable {
         this.type = type;
     }
 
+    public String getTypeStr() {
+        return typeStr;
+    }
+
+    public void setTypeStr(String typeStr) {
+        this.typeStr = typeStr;
+    }
+
     public Long getStatus() {
         return status;
     }
 
     public void setStatus(Long status) {
         this.status = status;
+    }
+
+    public String getStatusStr() {
+        return statusStr;
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
     }
 
     public String getRemark() {

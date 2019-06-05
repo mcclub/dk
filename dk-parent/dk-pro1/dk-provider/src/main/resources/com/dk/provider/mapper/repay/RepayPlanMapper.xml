@@ -264,8 +264,17 @@
     from
     <include refid="table_name"/>
     where 1=1
-    <if test="id != null and id != ''">
-     and id = #{id}
+    <if test="plantId != null and plantId != ''">
+     and id = #{plantId}
+    </if>
+    <if test="userId != null and userId != ''">
+      and user_id = #{userId}
+    </if>
+    <if test="cardNo != null and cardNo != ''">
+      and card_code = #{cardNo}
+    </if>
+    <if test="status != null and status != ''">
+      and states = #{status}
     </if>
   </select>
 

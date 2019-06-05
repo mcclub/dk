@@ -35,6 +35,8 @@ public class RepayPlan implements Serializable {
 
     private Long states;
 
+    private String statesStr;
+
     private Date createTime;
 
     private String routId;
@@ -161,6 +163,14 @@ public class RepayPlan implements Serializable {
 
     public void setStates(Long states) {
         this.states = states;
+    }
+
+    public String getStatesStr() {
+        return statesStr;
+    }
+
+    public void setStatesStr(String statesStr) {
+        this.statesStr = statesStr;
     }
 
     public Date getCreateTime() {

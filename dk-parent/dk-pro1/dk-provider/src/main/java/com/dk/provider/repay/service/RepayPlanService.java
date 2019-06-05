@@ -37,7 +37,7 @@ public interface RepayPlanService extends BaseServiceI<RepayPlan> {
      * @param id
      * @return
      */
-    Map searchPlanAndDetail (Long id);
+    Map searchPlanAndDetail (Long id,Long userId,String cardNo,Long status);
     /**
      * 修改已返金额
      * @param map

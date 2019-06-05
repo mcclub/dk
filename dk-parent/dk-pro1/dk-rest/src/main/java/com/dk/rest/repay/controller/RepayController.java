@@ -468,7 +468,7 @@ public class RepayController extends BaseController {
         if (StringUtil.isNotEmpty(vo)) {
             if (StringUtil.isNotEmpty(vo.getPlanId())) {
                 try {
-                    Map map = repayPlanService.searchPlanAndDetail(vo.getPlanId());
+                    Map map = repayPlanService.searchPlanAndDetail(vo.getPlanId(),null,null,null);
                     return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",map);
                 }catch (Exception e){
                     logger.error("searchPlanAndDetail"+"执行出错:{}",e.getMessage());
@@ -512,4 +512,29 @@ public class RepayController extends BaseController {
 
     }
 
+
+    @ResponseBody
+    @RequestMapping(value = {"/searchActivePlan"},method = RequestMethod.POST)
+    public RestResult searchActivePlan(@RequestBody RepayPlan vo){
+        try {
+            RestResult restResult = new RestResult();
+            logger.info("进入RepayController的"+"searchActivePlan"+"方法,参数为:{}",vo.getUserId(),vo.getCardCode(),1);
+            if (StringUtil.isNotEmpty(vo)) {
+                if (!StringUtil.isNotEmpty(vo.getUserId())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+                }
+                if (!StringUtil.isNotEmpty(vo.getCardCode())) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"卡号不能为空");
+                }
+                Map map = repayPlanService.searchPlanAndDetail(null,vo.getUserId(),vo.getCardCode(),1l);
+                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",map);
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+            }
+        } catch (Exception e){
+            logger.error("searchActivePlan"+"执行出错:{}",e.getMessage());
+            e.printStackTrace();
+            return getFailRes();
+        }
+    }
 }

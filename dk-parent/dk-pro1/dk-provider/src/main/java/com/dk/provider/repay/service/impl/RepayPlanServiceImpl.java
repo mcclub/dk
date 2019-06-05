@@ -1,5 +1,6 @@
 package com.dk.provider.repay.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.common.Bill.BillPaymentHandler;
 import com.common.Bill.BillPaymentParam;
 import com.common.Bill.BillPaymentPlan;
@@ -155,7 +156,7 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
             }
 
             //查询计划汇总以及详情
-            Map resultMap = this.searchPlanAndDetail(repayPlan.getId());
+            Map resultMap = this.searchPlanAndDetail(repayPlan.getId(),null,null,null);
 
             return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"新增成功",resultMap);
         } else {
@@ -166,24 +167,81 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
 
     /**
      * 查询计划汇总以及详情
-     * @param id
+     * @param plantId 计划id
+     * @param userId 用户id
+     * @param cardNo 用户卡号
+     * @param status 状态
      * @return
      */
     @Override
-    public Map searchPlanAndDetail (Long id) {
+    public Map searchPlanAndDetail (Long plantId,Long userId,String cardNo,Long status) {
+        List<PaymentDetail> paymentDetailsBean = new ArrayList<>();
         //查询代还汇总
-        Map<String,Object> planMap = new HashMap<>();
-        planMap.put("id",id);
-        RepayPlan repayPlanBean = repayPlanMapper.queryPlan(planMap);
+        Map<String,Object> parmMap = new HashMap<>();
+        parmMap.put("plantId",plantId);
+        parmMap.put("userId",userId);
+        parmMap.put("cardNo",cardNo);
+        parmMap.put("status",status);
+        RepayPlan repayPlanBean = repayPlanMapper.queryPlan(parmMap);
+        if (repayPlanBean != null) {
+            if (repayPlanBean.getStates() == -1) {
+                repayPlanBean.setStatesStr("预览");
+            }
+            if (repayPlanBean.getStates() == 0) {
+                repayPlanBean.setStatesStr("未执行");
+            }
+            if (repayPlanBean.getStates() == 1) {
+                repayPlanBean.setStatesStr("执行中");
+            }
+            if (repayPlanBean.getStates() == 2) {
+                repayPlanBean.setStatesStr("完成");
+            }
+            if (repayPlanBean.getStates() == 3) {
+                repayPlanBean.setStatesStr("已取消");
+            }
 
-        //查询代还明细
-        Map<String,Object> planDetailMap = new HashMap<>();
-        planDetailMap.put("plantId",id);
-        List<PaymentDetail> paymentDetailsBean = paymentDetailMapper.queryDetail(planDetailMap);
+            CommonUtils.reflect(repayPlanBean);
+
+
+            //查询代还明细
+            parmMap.put("plantId",repayPlanBean.getId());
+            paymentDetailsBean = paymentDetailMapper.queryDetail(parmMap);
+            if (paymentDetailsBean!= null && !paymentDetailsBean.isEmpty()) {
+                for (PaymentDetail bean : paymentDetailsBean) {
+                    if (bean.getStatus() == -1) {
+                        bean.setStatusStr("预览");
+                    }
+                    if (bean.getStatus() == -1) {
+                        bean.setStatusStr("未执行");
+                    }
+                    if (bean.getStatus() == -1) {
+                        bean.setStatusStr("执行中");
+                    }
+                    if (bean.getStatus() == -1) {
+                        bean.setStatusStr("完成");
+                    }
+                    if (bean.getStatus() == -1) {
+                        bean.setStatusStr("已取消");
+                    }
+                    if (bean.getStatus() == -1) {
+                        bean.setStatusStr("失败");
+                    }
+                    if (bean.getType() == 0) {
+                        bean.setTypeStr("消费");
+                    }
+                    if (bean.getType() == 0) {
+                        bean.setTypeStr("还款");
+                    }
+                    CommonUtils.reflect(bean);
+                }
+            }
+        }
+
+
 
         Map resultMap = new HashMap();
-        resultMap.put("repayPlan",repayPlanBean);
-        resultMap.put("paymentDetails",paymentDetailsBean);
+        resultMap.put("repayPlan",repayPlanBean!=null?repayPlanBean:new JSONObject());
+        resultMap.put("paymentDetails",(paymentDetailsBean!=null && paymentDetailsBean.size()>0)?paymentDetailsBean:new JSONObject());
         return resultMap;
     }
 
@@ -208,6 +266,9 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
         try{
             List<RepayPlan> repayPlans = repayPlanMapper.queryPlanByUser(map);
             if (repayPlans != null && repayPlans.size() >0) {
+                for (RepayPlan bean : repayPlans) {
+                    CommonUtils.reflect(bean);
+                }
                 return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",repayPlans);
             } else {
                 return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"暂无记录");
