@@ -276,6 +276,9 @@
     set status = #{status}
     where 1=1
     and plan_id = #{planId}
+    <if test="state != null and state != ''">
+      and status = #{state}
+    </if>
   </update>
 
 

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
+import com.common.controller.BaseController;
 import com.common.utils.AuthenUtils;
 import com.common.utils.CommonUtils;
 import com.common.utils.StringUtil;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -28,7 +30,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/cardInfo")
-public class CardInfoController {
+public class CardInfoController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(CardInfoController.class);
 
     @Resource
@@ -173,6 +175,36 @@ public class CardInfoController {
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"查询结果为空!");
         } else {
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误!");
+        }
+    }
+
+    /**
+     * 设置账单日和还款日
+     * @param map
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/setBill")
+    public RestResult setBill(@RequestBody Map map){
+        RestResult restResult = new RestResult();
+        logger.info("进入CardInfoController的"+"setBill"+"方法,参数为:{}",map);
+        if (StringUtil.isNotEmpty(map)) {
+            if (StringUtil.isNotEmpty(map.get("userId")) || StringUtil.isNotEmpty(map.get("cardCode"))) {
+                try {
+                    if(cardInfoServiceImpl.setbill(map) >0){
+                        return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"设置成功");
+                    }
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"设置失败");
+                }catch (Exception e){
+                    logger.error("setBill"+"执行出错:{}",e.getMessage());
+                    e.printStackTrace();
+                    return getFailRes();
+                }
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户ID不能为空");
+            }
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
         }
     }
 }

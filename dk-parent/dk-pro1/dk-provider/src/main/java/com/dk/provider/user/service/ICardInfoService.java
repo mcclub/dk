@@ -38,4 +38,11 @@ public interface ICardInfoService extends BaseServiceI<CardInfo> {
      */
     List<CardInfo> search (Map map);
 
+    /**
+     * 修改设置账单日和还款日
+     * @param map
+     * @return
+     */
+    int setbill(Map map);
+
 }

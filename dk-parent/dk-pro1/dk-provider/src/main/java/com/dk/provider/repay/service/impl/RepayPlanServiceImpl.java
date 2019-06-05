@@ -229,6 +229,7 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
         RestResult restResult = new RestResult();
         map.put("status","3");
         int planNum = repayPlanMapper.activePlan(map);
+        map.put("state","1");
         int detailNum = repayPlanMapper.activeDetail(map);
         if (planNum > 0 && detailNum > 0) {
             return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"取消成功");

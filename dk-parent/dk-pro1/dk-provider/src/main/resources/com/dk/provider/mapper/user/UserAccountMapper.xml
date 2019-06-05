@@ -190,4 +190,11 @@
     and states = 1
     and is_delete = 1
   </select>
+
+  <!-- 操作用户账户余额。俗称打钱 -->
+  <update id="updBalance" parameterType="map">
+    update t_user_account
+    set balance = balance + #{balance}
+    where user_id = #{userId}
+  </update>
 </mapper>

@@ -178,6 +178,8 @@ public class RepayController extends BaseController {
                     repayBindBean.setCardCode(e.getCardCode());
                     repayBindBean.setBankName(e.getBankName());
                     repayBindBean.setBankCode(e.getBankCode());
+                    repayBindBean.setBillTime(e.getBillTime());
+                    repayBindBean.setRepTime(e.getRepTime());
                     /**
                      * 查询该卡号最后一笔还款计划
                      */
@@ -482,6 +484,11 @@ public class RepayController extends BaseController {
 
     }
 
+    /**
+     * 取消还款计划
+     * @param map
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = {"/cancalPlan"},method = RequestMethod.POST)
     public RestResult cancalplan(@RequestBody Map map){

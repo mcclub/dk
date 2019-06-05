@@ -28,6 +28,16 @@ public class RepayBindBean {
      */
     private String notyetAmt;
 
+    /**
+     * 账单日
+     */
+    private String billTime;
+
+    /**
+     * 还款日
+     */
+    private String repTime;
+
     public String getCardCode() {
         return cardCode;
     }
@@ -87,5 +97,29 @@ public class RepayBindBean {
 
     public void setBankCode(String bankCode) {
         this.bankCode = bankCode;
+    }
+
+    public String getBillTime() {
+        if(StringUtils.isEmpty(billTime)){
+            return "";
+        }else{
+            return billTime;
+        }
+    }
+
+    public void setBillTime(String billTime) {
+        this.billTime = billTime;
+    }
+
+    public String getRepTime() {
+        if(StringUtils.isEmpty(repTime)){
+            return "";
+        }else{
+            return repTime;
+        }
+    }
+
+    public void setRepTime(String repTime) {
+        this.repTime = repTime;
     }
 }

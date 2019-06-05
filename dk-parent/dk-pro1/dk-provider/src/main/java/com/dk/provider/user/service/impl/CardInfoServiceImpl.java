@@ -82,5 +82,11 @@ public class CardInfoServiceImpl extends BaseServiceImpl<CardInfo> implements IC
         }
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int setbill(Map map) {
+        return cardInfoMapper.setbill(map);
+    }
+
 
 }

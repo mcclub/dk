@@ -1,21 +1,27 @@
 package com.dk.provider.rake.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
 import com.common.utils.StringUtil;
 import com.dk.provider.basis.service.impl.BaseServiceImpl;
+import com.dk.provider.plat.entity.RouteInfo;
+import com.dk.provider.plat.mapper.RouteInfoMapper;
 import com.dk.provider.rake.entity.FriendInfo;
 import com.dk.provider.rake.entity.RakeRecord;
 import com.dk.provider.rake.entity.RebateSum;
 import com.dk.provider.rake.mapper.RakeRecordMapper;
 import com.dk.provider.rake.service.IRakeRecordService;
+import com.dk.provider.repay.entity.RecordUserRate;
 import com.dk.provider.user.entity.User;
+import com.dk.provider.user.mapper.UserAccountMapper;
 import com.dk.provider.user.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -33,6 +39,12 @@ public class RakeRecordServiceImpl extends BaseServiceImpl<RakeRecord> implement
     private RakeRecordMapper rakeRecordMapper;
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private UserAccountMapper userAccountMapper;
+    @Resource
+    private RouteInfoMapper routeInfoMapper;
+
+    private DecimalFormat df = new DecimalFormat("#.00");
 
     @Override
     public List<RakeRecord> query(Map map) throws Exception {
@@ -190,5 +202,76 @@ public class RakeRecordServiceImpl extends BaseServiceImpl<RakeRecord> implement
             logger.info("佣金为0");
             return 0;
         }
+    }
+
+    /**
+     * 操作返佣公共方法
+     * @param map
+     * @return
+     */
+    @Override
+    public int operatRakerecod(JSONObject map){
+        String userId = map.get("userId").toString();//用户id
+        String routeId = map.get("routeId").toString();//大类通道id
+        String amount = map.get("amount").toString();//订单金额
+        String orderNo = map.get("orderNo").toString();//订单号
+        String orderType = map.get("orderType").toString();//订单类型(1快捷，2代还)
+        /**
+         * 查询用户所有上级
+         */
+        List<String> list = userMapper.findSuperior(map);
+        if(list != null){//
+            List<RecordUserRate> recordUserRateList = new LinkedList<>();//获取所有上级用户费率
+            for(int i = 0 ; i < list.size() ;i++){//循环遍历上级用户费率(逐级递增)
+                User user = userMapper.queryByid(Long.valueOf(list.get(i)));//查询用户等级
+                if (user != null) {
+                    String classId = user.getClassId().toString();
+                    map.put("classId",classId);//等级id
+                    map.put("routeId",routeId);//大类通道id
+                    List<RouteInfo> routeInfoList = routeInfoMapper.query(map);//根据用户等级查通道费率
+                    String rate = routeInfoList.get(0).getRate();
+
+                    RecordUserRate recordUserRate = new RecordUserRate();
+                    recordUserRate.setUserId(userId);
+                    recordUserRate.setClassId(classId);
+                    recordUserRate.setRate(rate);
+                    recordUserRate.setRouteId(routeId);
+                    recordUserRateList.add(recordUserRate);
+                }
+            }
+            /**
+             * 级别费率差
+             */
+            if(recordUserRateList != null){//遍历用户费率
+                for(int j = 0;j <recordUserRateList.size();j++){
+                    if(j+1 < recordUserRateList.size()){
+                        Double ben = Double.valueOf(recordUserRateList.get(j).getRate());//本级
+                        Double sha = Double.valueOf(recordUserRateList.get(j+1).getRate());//上级
+                        Double rateerr = ben - sha ;//费率差
+                        if(rateerr > 0){
+                            //返佣金额
+                            Double rakeamount = Double.valueOf(amount) * rateerr;
+                            String rakeamounts = df.format(rakeamount);
+                            //新增每笔返佣金额 记录
+                            RakeRecord rakeRecord = new RakeRecord();
+                            rakeRecord.setOrderNo(orderNo);//订单号
+                            rakeRecord.setOrderType(Long.valueOf(orderType));//订单类型
+                            rakeRecord.setOrderUserId(Long.valueOf(recordUserRateList.get(j).getUserId()));//得到返佣用户id
+                            rakeRecord.setUserId(Long.valueOf(userId));//订单用户id
+                            rakeRecord.setRokeAmt(rakeamounts);//返佣金额
+                            int rake = rakeRecordMapper.insert(rakeRecord);
+                            if(rake>0){//加上级账户余额
+                                Map<String ,Object> mapbal = new HashMap<>();
+                                mapbal.put("balance",rakeamounts);
+                                mapbal.put("userId",Long.valueOf(userId));
+                                return userAccountMapper.updBalance(mapbal);
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
     }
 }

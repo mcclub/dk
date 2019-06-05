@@ -1,6 +1,7 @@
 package com.dk.provider.rake.service;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.common.bean.RestResult;
 import com.dk.provider.basis.service.BaseServiceI;
 import com.dk.provider.rake.entity.RakeRecord;
@@ -45,4 +46,11 @@ public interface IRakeRecordService extends BaseServiceI<RakeRecord> {
      * @return
      */
     RestResult friendList (Map map);
+
+    /**
+     * 公共操作返佣
+     * @param jsonObject
+     * @return
+     */
+    int operatRakerecod(JSONObject jsonObject);
 }

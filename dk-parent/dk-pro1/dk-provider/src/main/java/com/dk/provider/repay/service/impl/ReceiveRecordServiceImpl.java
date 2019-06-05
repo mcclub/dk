@@ -12,12 +12,15 @@ import com.dk.provider.plat.mapper.RouteInfoMapper;
 import com.dk.provider.plat.service.RouteInfoService;
 import com.dk.provider.rake.entity.RakeRecord;
 import com.dk.provider.rake.mapper.RakeRecordMapper;
+import com.dk.provider.rake.service.IRakeRecordService;
 import com.dk.provider.repay.entity.ReceiveHistory;
 import com.dk.provider.repay.entity.ReceiveRecord;
 import com.dk.provider.repay.entity.RecordUserRate;
 import com.dk.provider.repay.mapper.ReceiveRecordMapper;
 import com.dk.provider.repay.service.ReceiveRecordService;
 import com.dk.provider.user.entity.User;
+import com.dk.provider.user.entity.UserAccount;
+import com.dk.provider.user.mapper.UserAccountMapper;
 import com.dk.provider.user.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,18 +46,7 @@ public class ReceiveRecordServiceImpl extends BaseServiceImpl<ReceiveRecord> imp
     }
 
     @Resource
-    private RouteInfoService routeInfoService;
-
-    @Resource
-    private UserMapper userMapper;
-
-    @Resource
-    private RouteInfoMapper routeInfoMapper;
-
-    private DecimalFormat df = new DecimalFormat("#.00");
-
-    @Resource
-    private RakeRecordMapper rakeRecordMapper;
+    private IRakeRecordService rakeRecordService;
 
     /**
      * 新增快捷订单 关联用户、费率信息
@@ -73,8 +65,6 @@ public class ReceiveRecordServiceImpl extends BaseServiceImpl<ReceiveRecord> imp
         Map<String ,Object> map = new HashMap<>();
         map.put("userId",userId);
         map.put("routId",routId);
-
-
 
 
         /**
@@ -190,68 +180,14 @@ public class ReceiveRecordServiceImpl extends BaseServiceImpl<ReceiveRecord> imp
                     //查询当前人的通道费率和等级
                     String routeId = receiveRecordList.get(0).getRouteId();//大类通道id
                     String userId = receiveRecordList.get(0).getUserId();//用户id
-
-
-                    /**
-                     * 查询用户所有上级
-                     */
-                    map.put("userId",userId);
-                    List<String> list = userMapper.findSuperior(map);
-                    if(list != null){//
-                        List<RecordUserRate> recordUserRateList = new LinkedList<>();//获取所有上级用户费率
-                        for(int i = 0 ; i < list.size() ;i++){//循环遍历上级用户费率(逐级递增)
-                            User user = userMapper.queryByid(Long.valueOf(list.get(i)));//查询用户等级
-                            if (user != null) {
-                                String classId = user.getClassId().toString();
-                                map.put("classId",classId);//等级id
-                                map.put("routeId",routeId);//大类通道id
-                                List<RouteInfo> routeInfoList = routeInfoMapper.query(map);//根据用户等级查通道费率
-                                String rate = routeInfoList.get(0).getRate();
-
-                                RecordUserRate recordUserRate = new RecordUserRate();
-                                recordUserRate.setUserId(userId);
-                                recordUserRate.setClassId(classId);
-                                recordUserRate.setRate(rate);
-                                recordUserRate.setRouteId(routeId);
-                                recordUserRateList.add(recordUserRate);
-                            }
-                        }
-                        /**
-                         * 级别费率差
-                         */
-                        if(recordUserRateList != null){//遍历用户费率
-                            for(int j = 0;j <recordUserRateList.size();j++){
-                                if(j+1 < recordUserRateList.size()){
-                                    Double ben = Double.valueOf(recordUserRateList.get(j).getRate());//本级
-                                    Double sha = Double.valueOf(recordUserRateList.get(j+1).getRate());//上级
-                                    Double rateerr = ben - sha ;//费率差
-                                    if(rateerr > 0){
-                                        //返佣金额
-                                        Double rakeamount = Double.valueOf(amount) * rateerr;
-                                        String rakeamounts = df.format(rakeamount);
-                                        //新增每笔返佣金额 记录
-                                        RakeRecord rakeRecord = new RakeRecord();
-                                        rakeRecord.setOrderNo(orderNo);//订单号
-                                        rakeRecord.setOrderType(Long.valueOf(orderType));//订单类型
-                                        rakeRecord.setOrderUserId(Long.valueOf(recordUserRateList.get(j).getUserId()));//得到返佣用户id
-                                        rakeRecord.setUserId(Long.valueOf(userId));//订单用户id
-                                        rakeRecord.setRokeAmt(rakeamounts);//返佣金额
-                                        int rake = rakeRecordMapper.insert(rakeRecord);
-
-                                        return rake;
-                                    }
-                                }
-
-
-                            }
-                        }
-
-                    }
-
+                    jsonObject.put("routeId",routeId);
+                    jsonObject.put("userId",userId);
+                    return rakeRecordService.operatRakerecod(jsonObject);
                 }
             }
         }
      return 0;
     }
+
 
 }

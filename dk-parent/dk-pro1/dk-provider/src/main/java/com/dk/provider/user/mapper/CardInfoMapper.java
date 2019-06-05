@@ -43,4 +43,6 @@ public interface CardInfoMapper extends BaseMapper<CardInfo> {
      * @return
      */
     List<CardInfo> search (Map map);
+
+    int setbill(Map map);
 }

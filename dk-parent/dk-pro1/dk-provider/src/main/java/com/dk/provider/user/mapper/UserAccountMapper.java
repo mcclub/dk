@@ -26,4 +26,6 @@ public interface UserAccountMapper extends BaseMapper<UserAccount> {
     UserAccount payVerification (Map map);
 
     UserAccount queryByUserId (Map map);
+
+    int updBalance(Map map);
 }

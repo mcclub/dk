@@ -266,4 +266,12 @@
       and type = #{type}
     </if>
   </select>
+
+  <update id="setbill" parameterType="map">
+    update t_cardinfo
+    set bill_time = #{billTime,jdbcType=VARCHAR},
+    rep_time = #{repTime,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+    and card_code = #{cardCode,jdbcType=BIGINT}
+  </update>
 </mapper>
