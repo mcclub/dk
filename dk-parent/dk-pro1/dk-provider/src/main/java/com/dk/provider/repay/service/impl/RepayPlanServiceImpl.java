@@ -17,12 +17,14 @@ import com.dk.provider.repay.entity.RepayPlan;
 import com.dk.provider.repay.mapper.PaymentDetailMapper;
 import com.dk.provider.repay.mapper.RepayPlanMapper;
 import com.dk.provider.repay.service.RepayPlanService;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.math.BigDecimal;
 import java.util.*;
@@ -30,6 +32,8 @@ import java.util.*;
 @Service("repayPlanService")
 public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements RepayPlanService {
     private Logger logger = LoggerFactory.getLogger(ReceiveRecordServiceImpl.class);
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
     @Resource
@@ -184,6 +188,7 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
         parmMap.put("status",status);
         RepayPlan repayPlanBean = repayPlanMapper.queryPlan(parmMap);
         if (repayPlanBean != null) {
+
             if (repayPlanBean.getStates() == -1) {
                 repayPlanBean.setStatesStr("预览");
             }
@@ -208,28 +213,29 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
             paymentDetailsBean = paymentDetailMapper.queryDetail(parmMap);
             if (paymentDetailsBean!= null && !paymentDetailsBean.isEmpty()) {
                 for (PaymentDetail bean : paymentDetailsBean) {
+
                     if (bean.getStatus() == -1) {
                         bean.setStatusStr("预览");
                     }
-                    if (bean.getStatus() == -1) {
+                    if (bean.getStatus() == 0) {
                         bean.setStatusStr("未执行");
                     }
-                    if (bean.getStatus() == -1) {
+                    if (bean.getStatus() == 1) {
                         bean.setStatusStr("执行中");
                     }
-                    if (bean.getStatus() == -1) {
+                    if (bean.getStatus() == 2) {
                         bean.setStatusStr("完成");
                     }
-                    if (bean.getStatus() == -1) {
+                    if (bean.getStatus() == 3) {
                         bean.setStatusStr("已取消");
                     }
-                    if (bean.getStatus() == -1) {
+                    if (bean.getStatus() == 4) {
                         bean.setStatusStr("失败");
                     }
                     if (bean.getType() == 0) {
                         bean.setTypeStr("消费");
                     }
-                    if (bean.getType() == 0) {
+                    if (bean.getType() == 1) {
                         bean.setTypeStr("还款");
                     }
                     CommonUtils.reflect(bean);
@@ -267,6 +273,7 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
             List<RepayPlan> repayPlans = repayPlanMapper.queryPlanByUser(map);
             if (repayPlans != null && repayPlans.size() >0) {
                 for (RepayPlan bean : repayPlans) {
+                    bean.setCreateTime(DateUtils.parseDate(sdf.format(bean.getCreateTime()),DATE_FORMAT));
                     CommonUtils.reflect(bean);
                 }
                 return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",repayPlans);

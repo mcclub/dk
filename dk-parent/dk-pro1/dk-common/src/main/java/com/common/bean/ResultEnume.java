@@ -17,6 +17,11 @@ public class ResultEnume {
     public static final String FAIL="1001";
     public static final String FAILSTR ="请求失败";
     /**
+     * 失败
+     */
+    public static final String PROCESSFAIL="1002";
+    public static final String PROCESSFAILSTR ="流程不正确";
+    /**
      * 系统繁忙
      */
     public static final String BUSY="9999";
