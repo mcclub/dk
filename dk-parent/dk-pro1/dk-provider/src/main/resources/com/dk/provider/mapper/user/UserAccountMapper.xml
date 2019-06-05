@@ -197,4 +197,10 @@
     set balance = balance + #{balance}
     where user_id = #{userId}
   </update>
+
+  <update id="deductingBalance" parameterType="com.dk.provider.user.entity.Withdraw">
+  update t_user_account
+      set balance = balance - #{amount}
+      where user_id = #{userId}
+  </update>
 </mapper>

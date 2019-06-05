@@ -1,8 +1,9 @@
 package com.dk.provider.user.mapper;
 
+import com.dk.provider.basis.mapper.BaseMapper;
 import com.dk.provider.user.entity.AccountDetail;
 
-public interface AccountDetailMapper {
+public interface AccountDetailMapper extends BaseMapper<AccountDetail> {
     int deleteByPrimaryKey(Long id);
 
     int insert(AccountDetail record);

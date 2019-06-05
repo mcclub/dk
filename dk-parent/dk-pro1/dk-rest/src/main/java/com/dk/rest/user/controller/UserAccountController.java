@@ -1,10 +1,15 @@
 package com.dk.rest.user.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
+import com.common.controller.BaseController;
 import com.common.utils.StringUtil;
 import com.dk.provider.basis.service.RedisCacheService;
+import com.dk.provider.user.entity.UserAccount;
+import com.dk.provider.user.entity.Withdraw;
 import com.dk.provider.user.service.IUserAccountService;
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,17 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/userAccount")
-public class UserAccountController {
+public class UserAccountController extends BaseController {
     private Logger logger = LoggerFactory.getLogger(UserAccountController.class);
 
     @Resource
     private IUserAccountService userAccountServiceImpl;
-    /*@Resource
-    private RedisCacheService redisCacheService;*/
+    @Resource
+    private RedisCacheService redisCacheService;
 
     /**
      * 用户修改登录密码
@@ -40,9 +46,9 @@ public class UserAccountController {
             if (!StringUtil.isNotEmpty(map.get("phone"))) {
                 return restResult.setCodeAndMsg(ResultEnume.FAIL,"手机号不能为空");
             }
-            /*if ((map.get("verificationCode")).equals(redisCacheService.get((String)map.get("phone")))) {
+            if ((map.get("verificationCode")).equals(redisCacheService.get((String)map.get("phone")))) {
                 restResult.setCodeAndMsg(ResultEnume.FAIL,"验证码输入有误！");
-            }*/
+            }
             if (!StringUtil.isNotEmpty(map.get("newPassword"))) {
                 return restResult.setCodeAndMsg(ResultEnume.FAIL,"新密码不能为空");
             }
@@ -96,6 +102,62 @@ public class UserAccountController {
             return userAccountServiceImpl.hasSetPassword(map);
         } else {
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+        }
+    }
+
+
+    /**
+     * 查询余额
+     * @return
+     */
+    @RequestMapping("/searchBalance")
+    public RestResult searchBalance (@RequestBody Map map) {
+        logger.info("start searchBalance ...");
+        logger.info("参数{}",map);
+        RestResult restResult = new RestResult();
+        if (StringUtil.isNotEmpty(map)) {
+            if (StringUtil.isNotEmpty(map.get("userId"))) {
+                RestResult result = userAccountServiceImpl.queryByUserId(map);
+                if ((result.getRespCode()).equals("1000")) {
+                    Map<String,Object> rep = new HashMap();
+                    rep.put("balance",((UserAccount)result.getData()).getBalance());
+                    return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",rep);
+                } else {
+                    return result;
+                }
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+            }
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+        }
+    }
+
+
+    @RequestMapping("/withdraw")
+    public RestResult withdraw (@RequestBody Withdraw withdraw) {
+        try{
+            RestResult restResult = new RestResult();
+            logger.info("start withdraw ...");
+            logger.info("参数{}", JSON.toJSONString(withdraw));
+            if (StringUtil.isNotEmpty(withdraw)) {
+                if (withdraw.getAmount() == null) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"提现金额为空");
+                }
+                if (withdraw.getAmount() < 0) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"提现金额必须大于0");
+                }
+                if (!StringUtil.isNotEmpty(withdraw)) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+                }
+                return userAccountServiceImpl.withdraw(withdraw);
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+            }
+        } catch (Exception e){
+            logger.error("searchActivePlan"+"执行出错:{}",e.getMessage());
+            e.printStackTrace();
+            return getFailRes();
         }
     }
 }

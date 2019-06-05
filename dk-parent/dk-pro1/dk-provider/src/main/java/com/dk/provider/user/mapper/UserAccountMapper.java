@@ -2,6 +2,7 @@ package com.dk.provider.user.mapper;
 
 import com.dk.provider.basis.mapper.BaseMapper;
 import com.dk.provider.user.entity.UserAccount;
+import com.dk.provider.user.entity.Withdraw;
 import org.apache.ibatis.annotations.Mapper;
 
 import javax.annotation.Resource;
@@ -28,4 +29,8 @@ public interface UserAccountMapper extends BaseMapper<UserAccount> {
     UserAccount queryByUserId (Map map);
 
     int updBalance(Map map);
+
+    int deductingBalance(Withdraw withdraw);
+
+    int addBalance(Withdraw withdraw);
 }

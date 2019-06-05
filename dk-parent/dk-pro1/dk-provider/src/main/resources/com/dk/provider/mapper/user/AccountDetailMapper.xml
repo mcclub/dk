@@ -14,6 +14,21 @@
   <sql id="Base_Column_List">
     id, user_id, order_no, amount, create_time, `status`, operating_type, status_transaction
   </sql>
+
+  <sql id="sqlPage">
+    <choose>
+      <when test="orderby!=null and orderby!=''">
+        <![CDATA[ ORDER BY ${orderby}]]>
+      </when>
+      <otherwise>
+        <![CDATA[ ORDER BY create_time DESC]]>
+      </otherwise>
+    </choose>
+    <if test="start!=null and max!=null">
+      <![CDATA[ LIMIT #{start}, #{max}]]>
+    </if>
+  </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -125,4 +140,25 @@
       status_transaction = #{statusTransaction,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+  <select id="counts" parameterType="Map" resultType="java.lang.Integer">
+  SELECT count(1)
+      FROM t_account_detail
+      where 1=1
+      <if test="userId != null and userId !=''">
+      and user_id = #{userId}
+      </if>
+  </select>
+
+  <select id="query" parameterType="map" resultMap="BaseResultMap">
+  SELECT
+    <include refid="Base_Column_List"/>
+    FROM t_account_detail
+    where 1=1
+    <if test="userId != null and userId !=''">
+      and user_id = #{userId}
+    </if>
+    <include refid="sqlPage"/>
+  </select>
 </mapper>

@@ -393,7 +393,7 @@ public class RepayController extends BaseController {
                 if (!StringUtil.isNotEmpty(parm.getProvince())) {
                     return restResult.setCodeAndMsg(ResultEnume.FAIL,"省份不能为空");
                 }
-                if (!StringUtil.isNotEmpty(parm.getCity())) {
+                if (!StringUtil.isNotEmpty(parm.getCity()) && !(parm.getProvince()).equals("香港") && !(parm.getProvince()).equals("澳门")) {
                     return restResult.setCodeAndMsg(ResultEnume.FAIL,"地市不能为空");
                 }
                 if (!StringUtil.isNotEmpty(parm.getRoutId())) {
