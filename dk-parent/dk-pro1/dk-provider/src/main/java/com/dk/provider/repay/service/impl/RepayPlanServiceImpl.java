@@ -241,7 +241,7 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
 
         Map resultMap = new HashMap();
         resultMap.put("repayPlan",repayPlanBean!=null?repayPlanBean:new JSONObject());
-        resultMap.put("paymentDetails",(paymentDetailsBean!=null && paymentDetailsBean.size()>0)?paymentDetailsBean:new JSONObject());
+        resultMap.put("paymentDetails",(paymentDetailsBean!=null && paymentDetailsBean.size()>0)?paymentDetailsBean:new ArrayList<>());
         return resultMap;
     }
 

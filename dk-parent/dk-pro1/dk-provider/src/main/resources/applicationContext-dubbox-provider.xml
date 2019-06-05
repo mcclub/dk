@@ -67,5 +67,7 @@
 	<dubbo:service interface="com.dk.provider.rake.service.IRakeRecordService" ref="rakeRecordServiceImpl"/>
 	<dubbo:service interface="com.dk.provider.repay.service.IPaymentDetailService" ref="paymentDetailServiceImpl"/>
 	<dubbo:service interface="com.dk.provider.classI.service.ClassRateService" ref="classRateService"/>
+	<dubbo:service interface="com.dk.provider.user.service.IWithdrawRecordService" ref="withdrawRecordServiceImpl"/>
+	<dubbo:service interface="com.dk.provider.user.service.IAccountDetailService" ref="accountDetailServiceImpl"/>
 </beans>
 

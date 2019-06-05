@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dk.provider.user.mapper.AccountDetailMapper">
+  <resultMap id="BaseResultMap" type="com.dk.provider.user.entity.AccountDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="amount" jdbcType="VARCHAR" property="amount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status" jdbcType="BIGINT" property="status" />
+    <result column="operating_type" jdbcType="BIGINT" property="operatingType" />
+    <result column="status_transaction" jdbcType="BIGINT" property="statusTransaction" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, order_no, amount, create_time, `status`, operating_type, status_transaction
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_account_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_account_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dk.provider.user.entity.AccountDetail">
+    insert into t_account_detail (id, user_id, order_no, 
+      amount, create_time, `status`, 
+      operating_type, status_transaction)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=BIGINT}, 
+      #{operatingType,jdbcType=BIGINT}, #{statusTransaction,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dk.provider.user.entity.AccountDetail">
+    insert into t_account_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="operatingType != null">
+        operating_type,
+      </if>
+      <if test="statusTransaction != null">
+        status_transaction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="operatingType != null">
+        #{operatingType,jdbcType=BIGINT},
+      </if>
+      <if test="statusTransaction != null">
+        #{statusTransaction,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dk.provider.user.entity.AccountDetail">
+    update t_account_detail
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIGINT},
+      </if>
+      <if test="operatingType != null">
+        operating_type = #{operatingType,jdbcType=BIGINT},
+      </if>
+      <if test="statusTransaction != null">
+        status_transaction = #{statusTransaction,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dk.provider.user.entity.AccountDetail">
+    update t_account_detail
+    set user_id = #{userId,jdbcType=BIGINT},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      `status` = #{status,jdbcType=BIGINT},
+      operating_type = #{operatingType,jdbcType=BIGINT},
+      status_transaction = #{statusTransaction,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
