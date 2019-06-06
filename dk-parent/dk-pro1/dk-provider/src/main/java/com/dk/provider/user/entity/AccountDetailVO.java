@@ -29,6 +29,8 @@ public class AccountDetailVO implements Serializable {
 
     private Long statusTransaction;
 
+    private String statusTransactionStr;
+
     public Long getId() {
         return id;
     }
@@ -107,5 +109,13 @@ public class AccountDetailVO implements Serializable {
 
     public void setStatusTransaction(Long statusTransaction) {
         this.statusTransaction = statusTransaction;
+    }
+
+    public String getStatusTransactionStr() {
+        return statusTransactionStr;
+    }
+
+    public void setStatusTransactionStr(String statusTransactionStr) {
+        this.statusTransactionStr = statusTransactionStr;
     }
 }

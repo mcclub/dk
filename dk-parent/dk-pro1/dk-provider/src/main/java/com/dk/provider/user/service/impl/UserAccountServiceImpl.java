@@ -165,7 +165,9 @@ public class UserAccountServiceImpl extends BaseServiceImpl<UserAccount> impleme
                     int insertWithdrawNum = withdrawRecordMapper.insert(withdrawRecord);
                     if (insertWithdrawNum > 0) {
                         this.moneyTransfer();
-                        return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"提现功能暂未开放");
+                        JSONObject json = new JSONObject();
+                        json.put("balance",userAccount.getBalance());
+                        return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"提现功能暂未开放",json);
                     } else {
                         return restResult.setCodeAndMsg(ResultEnume.BUSY,ResultEnume.BUSYSTR);
                     }
