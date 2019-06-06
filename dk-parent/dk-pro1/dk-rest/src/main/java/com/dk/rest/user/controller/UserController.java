@@ -214,7 +214,7 @@ public class UserController extends BaseController {
                 restResult.setCodeAndMsg(ResultEnume.FAIL,"手机号码格式有误！");
                 return restResult;
             }
-            if (!((String)map.get("mobilePhone")).equals(redisCacheService.get((String)map.get("mobilePhone")))) {
+            if (!((String)map.get("smsCode")).equals(redisCacheService.get((String)map.get("mobilePhone")))) {
                 restResult.setCodeAndMsg(ResultEnume.FAIL,"验证码输入有误！");
                 return restResult;
             }
