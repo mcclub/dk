@@ -1,5 +1,6 @@
 package com.dk.provider.user.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
 import com.common.utils.CommonUtils;
@@ -106,11 +107,14 @@ public class UserAccountServiceImpl extends BaseServiceImpl<UserAccount> impleme
     public RestResult hasSetPassword(Map map) {
         RestResult result = this.queryByUserId(map);
         if (result.getRespCode().equals("1000")) {
+            JSONObject json = new JSONObject();
             UserAccount userAccount = (UserAccount) result.getData();
             if (!StringUtil.isEmpty(userAccount.getPassword())) {
-                result.setData(true);
+                json.put("ispass","true");
+                result.setData(json);
                 return result;
             } else {
+                json.put("ispass","false");
                 result.setData(false);
                 return result;
             }
