@@ -335,7 +335,7 @@
     from t_classinfo tci
     left join t_class_rate tc on  tci.id = tc.class_id
     left join t_routeinfo tr on tc.route_id = tr.id
-    where tci.id = #{classId}
+    where tr.states = 1 and  tci.id = #{classId}
   </select>
 
 
@@ -348,7 +348,7 @@
     from t_classinfo tci
     left join t_class_rate tc on  tci.id = tc.class_id
     left join t_routeinfo tr on tc.route_id = tr.id
-    where tci.id = #{classId}
+    where tr.states = 1 and tci.id = #{classId}
     <include refid="sqlRoutInfoPage"/>
   </select>
 
@@ -360,7 +360,7 @@
       from t_user tu
       left join t_class_rate tc on tu.class_id = tc.class_id
       left join t_routeinfo tr on tc.route_id = tr.id
-      where tu.id = #{userId}
+      where tr.states = 1 and  tu.id = #{userId}
   </select>
 
 
@@ -373,7 +373,7 @@
       from t_user tu
       left join t_class_rate tc on tu.class_id = tc.class_id
       left join t_routeinfo tr on tc.route_id = tr.id
-      where tu.id = #{userId}
+      where tr.states = 1 and tu.id = #{userId}
       <include refid="sqlRoutInfoPage"/>
   </select>
 </mapper>

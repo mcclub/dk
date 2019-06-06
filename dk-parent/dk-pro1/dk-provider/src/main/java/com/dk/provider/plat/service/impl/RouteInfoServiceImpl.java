@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,7 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
 
     @Resource
     private UserMapper userMapper;
+
     /**
      * 分页条件查询  根据用户id userId 查询等级id 对应等级费率
      * @param map
@@ -105,11 +107,28 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
         RestResult restResult = new RestResult();
         Map<String,Object> resultMap = new HashMap<>();
         Page<DetailRouteInfo> userRouteinfo = this.routeInfoByUserPages(map,pageable);
-        if (userRouteinfo.getContent() != null && userRouteinfo.getContent().size() > 0) {
-            resultMap.put("classId",userRouteinfo.getContent().get(0).getClassId());
-            resultMap.put("className",userRouteinfo.getContent().get(0).getClassName());
+        List<DetailRouteInfo> receList = new LinkedList();//收款
+        List<DetailRouteInfo> repayList = new LinkedList();//代还
+        if(userRouteinfo != null){
+            if(userRouteinfo.getContent() != null){
+                for(DetailRouteInfo e : userRouteinfo.getContent()){
+                    if(e.getType() == 1){//收款
+                        receList.add(e);
+                    }else if(e.getType() == 2){//代还
+                        repayList.add(e);
+                    }
+                }
+                resultMap.put("classId",userRouteinfo.getContent().get(0).getClassId());
+                resultMap.put("className",userRouteinfo.getContent().get(0).getClassName());
+            }
         }
-        resultMap.put("info",userRouteinfo);
+        resultMap.put("receList",receList);
+        resultMap.put("repayList",repayList);
+        resultMap.put("total",userRouteinfo.getTotal());
+        resultMap.put("pageable",userRouteinfo.getPageable());
+        resultMap.put("pageSize",userRouteinfo.getPageSize());
+        resultMap.put("pageNumber",userRouteinfo.getPageNumber());
+        resultMap.put("totalPages",userRouteinfo.getTotalPages());
         restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",resultMap);
         return restResult;
     }
@@ -123,11 +142,28 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
                 map.put("classId",classId+1);
                 Map<String,Object> resultMap = new HashMap<>();
                 Page<DetailRouteInfo> userRouteinfo = this.parentRoutePages(map,pageable);
-                if (userRouteinfo.getContent() != null && userRouteinfo.getContent().size() > 0) {
-                    resultMap.put("classId",userRouteinfo.getContent().get(0).getClassId());
-                    resultMap.put("className",userRouteinfo.getContent().get(0).getClassName());
+                List<DetailRouteInfo> receList = new LinkedList();//收款
+                List<DetailRouteInfo> repayList = new LinkedList();//代还
+                if(userRouteinfo != null){
+                    if(userRouteinfo.getContent() != null){
+                        for(DetailRouteInfo e : userRouteinfo.getContent()){
+                            if(e.getType() == 1){//收款
+                                receList.add(e);
+                            }else if(e.getType() == 2){//代还
+                                repayList.add(e);
+                            }
+                        }
+                        resultMap.put("classId",userRouteinfo.getContent().get(0).getClassId());
+                        resultMap.put("className",userRouteinfo.getContent().get(0).getClassName());
+                    }
                 }
-                resultMap.put("info",userRouteinfo);
+                resultMap.put("receList",receList);
+                resultMap.put("repayList",repayList);
+                resultMap.put("total",userRouteinfo.getTotal());
+                resultMap.put("pageable",userRouteinfo.getPageable());
+                resultMap.put("pageSize",userRouteinfo.getPageSize());
+                resultMap.put("pageNumber",userRouteinfo.getPageNumber());
+                resultMap.put("totalPages",userRouteinfo.getTotalPages());
                 return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",resultMap);
             } else {
                 return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户等级已为最高");
