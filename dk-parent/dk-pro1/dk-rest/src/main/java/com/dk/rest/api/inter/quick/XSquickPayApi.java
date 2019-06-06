@@ -1,4 +1,4 @@
-package com.dk.rest.api.inter;
+package com.dk.rest.api.inter.quick;
 
 import com.alibaba.fastjson.JSONObject;
 import com.common.bean.RestResult;

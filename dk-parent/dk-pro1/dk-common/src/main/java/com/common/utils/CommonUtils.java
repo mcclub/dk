@@ -33,10 +33,20 @@ public class CommonUtils {
 
     /**
      * 随机生成订单号
+     * @param type 类型（1快捷,2代还,3提现）
      * @return
      */
-    public static String getOrderNo(){
-        String orderNo = "DH"+date+ getRandom(4);
+    public static String getOrderNo(Long type){
+        String orderNo = date+ getRandom(4);
+        if(type == 1){
+            orderNo = "DHKJ"+ orderNo;
+        }else if(type == 2){
+            orderNo = "DHDH"+ orderNo;
+        }else if(type == 3){
+            orderNo = "DHTX"+ orderNo;
+        }else{
+            orderNo = "DH"+ orderNo;
+        }
         return orderNo;
     }
 

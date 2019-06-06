@@ -116,7 +116,7 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
         repayPlan.setRoutId(parm.getRoutId());//大类通道
         repayPlan.setSubId(parm.getSubId());//小类通道
         repayPlan.setNotyetAmt(String.valueOf(billAmount));//为还金额
-        repayPlan.setOrderNo(CommonUtils.getOrderNo());//订单号
+        repayPlan.setOrderNo(CommonUtils.getOrderNo(2l));//订单号
         repayPlan.setReturnTimes(String.valueOf(billPaymentPlan.getPaymentTimes()));//还款次数
         repayPlan.setReeTime(billPaymentPlan.getPaymentDates().get(billPaymentPlan.getPaymentDates().size()-1));//实际还款结束日期
         //手续费

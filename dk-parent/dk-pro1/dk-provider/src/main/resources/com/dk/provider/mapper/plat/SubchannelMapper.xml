@@ -14,10 +14,11 @@
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
     <result column="is_delete" jdbcType="BIGINT" property="isDelete" />
+    <result column="expand" jdbcType="VARCHAR" property="expand" />
   </resultMap>
   <sql id="Base_Column_List">
     id, `name`, tab_no, mer_no, mer_key, `type`, states, create_time, update_time, create_by, 
-    update_by, is_delete
+    update_by, is_delete,expand
   </sql>
   <sql id="table_name">
     t_subchannel
@@ -72,12 +73,13 @@
     insert into t_subchannel (id, `name`, tab_no, 
       mer_no, mer_key, `type`, 
       states, create_time, update_time, 
-      create_by, update_by, is_delete
+      create_by, update_by, is_delete,expand
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{tabNo,jdbcType=VARCHAR}, 
       #{merNo,jdbcType=VARCHAR}, #{merKey,jdbcType=VARCHAR}, #{type,jdbcType=BIGINT}, 
       #{states,jdbcType=BIGINT}, SYSDATE(),SYSDATE(),
-      #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIGINT}
+      #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIGINT},
+      #{expand,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.dk.provider.plat.entity.Subchannel">
@@ -119,6 +121,9 @@
       <if test="isDelete != null">
         is_delete,
       </if>
+      <if test="expand != null">
+        expand,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -156,6 +161,9 @@
       </if>
       <if test="isDelete != null">
         #{isDelete,jdbcType=BIGINT},
+      </if>
+      <if test="expand != null">
+        #{expand,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -195,6 +203,9 @@
       <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=BIGINT},
       </if>
+      <if test="expand != null">
+        expand = #{expand,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -210,7 +221,8 @@
       update_time = SYSDATE(),
       create_by = #{createBy,jdbcType=VARCHAR},
       update_by = #{updateBy,jdbcType=VARCHAR},
-      is_delete = #{isDelete,jdbcType=BIGINT}
+      is_delete = #{isDelete,jdbcType=BIGINT},
+      expand = #{expand,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

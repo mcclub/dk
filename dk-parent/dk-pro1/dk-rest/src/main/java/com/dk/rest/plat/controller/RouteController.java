@@ -11,7 +11,6 @@ import com.common.utils.StringUtil;
 import com.dk.provider.basic.entity.Area;
 import com.dk.provider.basic.entity.ProvinceCity;
 import com.dk.provider.basic.service.AreaService;
-import com.dk.provider.basis.service.RedisCacheService;
 import com.dk.provider.plat.entity.RouteInfo;
 import com.dk.provider.plat.entity.RouteUser;
 import com.dk.provider.plat.entity.Subchannel;
@@ -19,10 +18,12 @@ import com.dk.provider.plat.service.RouteInfoService;
 import com.dk.provider.plat.service.SubchannelService;
 import com.dk.provider.repay.entity.ReceiveRecord;
 import com.dk.provider.repay.service.ReceiveRecordService;
-import com.dk.rest.api.inter.BeiduoQuickPayApi;
-import com.dk.rest.api.inter.XSquickPayApi;
+import com.dk.rest.api.inter.quick.BeiduoQuickPayApi;
+import com.dk.rest.api.inter.quick.TenfuTongReplaceApi;
+import com.dk.rest.api.inter.quick.XSquickPayApi;
 import com.dk.rest.plat.bean.AreaBean;
 import com.dk.rest.plat.bean.RouteInfoBean;
+import com.dk.rest.plat.inter.QuickApiProcess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -60,15 +61,21 @@ public class RouteController extends BaseController {
     private SubchannelService subchannelService;
 
     /**
-     * 快捷K3
+     * 公用快捷订单生成
      */
     @Resource
-    private BeiduoQuickPayApi beiduoQuickPayApi;
+    private QuickApiProcess quickApiProcess;
     /**
      * 快捷K1
      */
     @Resource
     private XSquickPayApi xSquickPayApi;
+    /**
+     * 腾付通快捷
+     */
+    @Resource
+    private TenfuTongReplaceApi tenfuTongReplaceApi;
+
     /**
      * 查询大类通道信息（快捷，代还）
      * @param map
@@ -172,7 +179,7 @@ public class RouteController extends BaseController {
                 /**
                  * 根据用户id查询用户 到账卡号，费率等等
                  */
-                String orderNo = CommonUtils.getOrderNo();
+                String orderNo = CommonUtils.getOrderNo(1l);
                 Map<String ,Object> maps = new HashMap<>();
                 maps.put("userId",jsonObject.getString("userId"));
                 maps.put("routId",jsonObject.getString("routId"));
@@ -219,9 +226,11 @@ public class RouteController extends BaseController {
     public RestResult routeSubChan(JSONObject jsonObject) throws Exception{
         String tabNo = jsonObject.getString("tabNo");
         if(tabNo.equals("beiduo")){//快捷K3
-            return beiduoQuickPayApi.BDquickProcess(jsonObject);
+            return quickApiProcess.QuickProcess(jsonObject);
         }else if(tabNo.equals("xskjk1")) {//新生快捷K1
             return xSquickPayApi.XsQuickapply(jsonObject);
+        }else if(tabNo.equals("tftkj")){//腾付通快捷
+            return null;
         }else{
             return getRestResult(ResultEnume.FAIL,"暂无可用路由通道",new JSONObject());
         }
@@ -270,7 +279,7 @@ public class RouteController extends BaseController {
             if(tabNo.equals("xskjk1")) {//新生快捷K1
                 return xSquickPayApi.XsQuickconfirm(jsonObject);
             }else if(tabNo.equals("beiduo")){//快捷K3
-                return beiduoQuickPayApi.BDquickProcess(jsonObject);
+                return null;
             }
 
             return getRestResult(ResultEnume.FAIL,"订单确认失败",new JSONObject());

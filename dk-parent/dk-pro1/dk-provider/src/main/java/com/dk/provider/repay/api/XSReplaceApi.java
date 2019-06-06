@@ -120,7 +120,7 @@ public class XSReplaceApi {
         /**
          * jsonObject:业务参数
          */
-        String orderNode = CommonUtils.getOrderNo();
+        String orderNode = CommonUtils.getOrderNo(2l);
         JSONObject jsonData = new JSONObject();
         jsonData.put("orderCode",orderNode);//唯一订单号
         jsonData.put("businessCode",businessCode);//业务协议号
@@ -203,7 +203,7 @@ public class XSReplaceApi {
         /**
          * jsonObject:业务参数
          */
-        String orderNode = CommonUtils.getOrderNo();
+        String orderNode = CommonUtils.getOrderNo(2l);
         JSONObject jsonData = new JSONObject();
         jsonData.put("orderCode",orderNode);//唯一订单号
         jsonData.put("amount",paymentDetail.getAmount());//金额

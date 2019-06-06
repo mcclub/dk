@@ -31,6 +31,8 @@ public class Subchannel implements Serializable {
 
     private Long isDelete;
 
+    private String expand;
+
     public Long getId() {
         return id;
     }
@@ -125,5 +127,13 @@ public class Subchannel implements Serializable {
 
     public void setIsDelete(Long isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public String getExpand() {
+        return expand;
+    }
+
+    public void setExpand(String expand) {
+        this.expand = expand;
     }
 }

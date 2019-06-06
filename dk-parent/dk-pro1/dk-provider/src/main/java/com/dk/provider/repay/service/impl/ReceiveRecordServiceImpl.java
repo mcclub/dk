@@ -70,7 +70,7 @@ public class ReceiveRecordServiceImpl extends BaseServiceImpl<ReceiveRecord> imp
         /**
          * 自动生成订单号
          */
-        String orderNo = CommonUtils.getOrderNo();
+        String orderNo = CommonUtils.getOrderNo(1l);
         ReceiveRecord receiveRecord = new ReceiveRecord();
         receiveRecord.setOrderNo(orderNo);
         receiveRecord.setUserId(userId.toString());

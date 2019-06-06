@@ -118,7 +118,7 @@ public class UserAccountServiceImpl extends BaseServiceImpl<UserAccount> impleme
     public RestResult withdraw(Withdraw withdraw) {
         RestResult restResult = new RestResult();
         Map<String,Object> map = new HashMap<>();
-        String orderNo = CommonUtils.getOrderNo();
+        String orderNo = CommonUtils.getOrderNo(3l);
         map.put("userId",withdraw.getUserId());
         //查询用户账户余额
         UserAccount userAccount = userAccountMapper.queryByUserId(map);

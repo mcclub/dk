@@ -1,4 +1,4 @@
-package com.dk.rest.api.inter;
+package com.dk.rest.api.inter.replace;
 
 import com.alibaba.fastjson.JSONObject;
 import com.common.bean.RestResult;
@@ -93,7 +93,7 @@ public class XSReplaceApi {
          */
         String url = "http://"+reqIp+"/xinsheng/new/agreement/apply";
 
-        String orderCode = CommonUtils.getOrderNo();
+        String orderCode = CommonUtils.getOrderNo(2l);
         /**
          * jsonObject:业务参数
          */
