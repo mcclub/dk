@@ -31,6 +31,29 @@ public class AccountDetailServiceImpl extends BaseServiceImpl<AccountDetail> imp
     @Override
     public Page<AccountDetail> page(Map map, Pageable pageable) {
         Page<AccountDetail> page = super.findPages(map,pageable);
+        if (page.getContent() != null && !page.getContent().isEmpty()) {
+            for (AccountDetail bean : page.getContent()) {
+                //状态
+                if (bean.getStatus() == 0) {
+                    bean.setStatusStr("失败");
+                }else if (bean.getStatus() == 1) {
+                    bean.setStatusStr("成功");
+                }
+
+                //操作类型
+                if (bean.getOperatingType() == 0) {
+                    bean.setOperatingTypeStr("入账");
+                }else if (bean.getOperatingType() == 1) {
+                    bean.setOperatingTypeStr("出账");
+                }
+
+                //交易类型
+                if (bean.getStatusTransaction() == 0) {
+                    bean.setStatusTransactionStr("入账");
+                }
+
+            }
+        }
         return page;
     }
 }

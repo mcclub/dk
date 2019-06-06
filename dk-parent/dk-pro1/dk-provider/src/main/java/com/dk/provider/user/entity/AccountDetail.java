@@ -16,7 +16,11 @@ public class AccountDetail implements Serializable {
 
     private Long status;
 
+    private String statusStr;
+
     private Long operatingType;
+
+    private String operatingTypeStr;
 
     private Long statusTransaction;
 
@@ -41,7 +45,7 @@ public class AccountDetail implements Serializable {
     }
 
     public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo == null ? null : orderNo.trim();
+        this.orderNo = orderNo;
     }
 
     public String getAmount() {
@@ -49,7 +53,7 @@ public class AccountDetail implements Serializable {
     }
 
     public void setAmount(String amount) {
-        this.amount = amount == null ? null : amount.trim();
+        this.amount = amount;
     }
 
     public Date getCreateTime() {
@@ -68,12 +72,28 @@ public class AccountDetail implements Serializable {
         this.status = status;
     }
 
+    public String getStatusStr() {
+        return statusStr;
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
+
     public Long getOperatingType() {
         return operatingType;
     }
 
     public void setOperatingType(Long operatingType) {
         this.operatingType = operatingType;
+    }
+
+    public String getOperatingTypeStr() {
+        return operatingTypeStr;
+    }
+
+    public void setOperatingTypeStr(String operatingTypeStr) {
+        this.operatingTypeStr = operatingTypeStr;
     }
 
     public Long getStatusTransaction() {
@@ -83,4 +103,18 @@ public class AccountDetail implements Serializable {
     public void setStatusTransaction(Long statusTransaction) {
         this.statusTransaction = statusTransaction;
     }
+
+    public String getStatusTransactionStr() {
+        return statusTransactionStr;
+    }
+
+    public void setStatusTransactionStr(String statusTransactionStr) {
+        this.statusTransactionStr = statusTransactionStr;
+    }
+
+    private String statusTransactionStr;
+
+
+
+
 }

@@ -191,17 +191,13 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
 
             if (repayPlanBean.getStates() == -1) {
                 repayPlanBean.setStatesStr("预览");
-            }
-            if (repayPlanBean.getStates() == 0) {
+            } else if (repayPlanBean.getStates() == 0) {
                 repayPlanBean.setStatesStr("未执行");
-            }
-            if (repayPlanBean.getStates() == 1) {
+            } else if (repayPlanBean.getStates() == 1) {
                 repayPlanBean.setStatesStr("执行中");
-            }
-            if (repayPlanBean.getStates() == 2) {
+            } else if (repayPlanBean.getStates() == 2) {
                 repayPlanBean.setStatesStr("完成");
-            }
-            if (repayPlanBean.getStates() == 3) {
+            } else if (repayPlanBean.getStates() == 3) {
                 repayPlanBean.setStatesStr("已取消");
             }
 
@@ -216,26 +212,22 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
 
                     if (bean.getStatus() == -1) {
                         bean.setStatusStr("预览");
-                    }
-                    if (bean.getStatus() == 0) {
+                    } else if (bean.getStatus() == 0) {
                         bean.setStatusStr("未执行");
-                    }
-                    if (bean.getStatus() == 1) {
+                    } else if (bean.getStatus() == 1) {
                         bean.setStatusStr("执行中");
-                    }
-                    if (bean.getStatus() == 2) {
+                    } else if (bean.getStatus() == 2) {
                         bean.setStatusStr("完成");
-                    }
-                    if (bean.getStatus() == 3) {
+                    } else if (bean.getStatus() == 3) {
                         bean.setStatusStr("已取消");
-                    }
-                    if (bean.getStatus() == 4) {
+                    } else if (bean.getStatus() == 4) {
                         bean.setStatusStr("失败");
                     }
+
+
                     if (bean.getType() == 0) {
                         bean.setTypeStr("消费");
-                    }
-                    if (bean.getType() == 1) {
+                    } else if (bean.getType() == 1) {
                         bean.setTypeStr("还款");
                     }
                     CommonUtils.reflect(bean);
