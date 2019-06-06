@@ -5,6 +5,8 @@ import com.common.bean.ResultEnume;
 import com.common.utils.CommonUtils;
 import com.common.utils.EncryptionUtil;
 import com.common.utils.StringUtil;
+import com.dk.provider.basic.entity.OemConfig;
+import com.dk.provider.basic.service.IOemConfigService;
 import com.dk.provider.basis.service.impl.BaseServiceImpl;
 import com.dk.provider.user.entity.UserAccount;
 import com.dk.provider.user.entity.Withdraw;
@@ -12,6 +14,10 @@ import com.dk.provider.user.entity.WithdrawRecord;
 import com.dk.provider.user.mapper.UserAccountMapper;
 import com.dk.provider.user.mapper.WithdrawRecordMapper;
 import com.dk.provider.user.service.IUserAccountService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +27,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+@EnableAsync
 @Service("userAccountServiceImpl")
 public class UserAccountServiceImpl extends BaseServiceImpl<UserAccount> implements IUserAccountService {
+    private Logger logger = LoggerFactory.getLogger(UserAccountServiceImpl.class);
     @Resource
     private UserAccountMapper userAccountMapper;
 
     @Resource
     private WithdrawRecordMapper withdrawRecordMapper;
+
+    @Resource
+    private IOemConfigService oemConfigServiceImpl;
 
 
     @Override
@@ -123,6 +134,11 @@ public class UserAccountServiceImpl extends BaseServiceImpl<UserAccount> impleme
         //查询用户账户余额
         UserAccount userAccount = userAccountMapper.queryByUserId(map);
         if (StringUtil.isNotEmpty(userAccount)) {
+            Long oemId = this.searchOemIdByUserId(map);
+            //查询费率，等级
+            Map parm = new HashMap();
+            parm.put("oemId",oemId);
+            OemConfig oemConfig = oemConfigServiceImpl.searchByOemid(parm);
             //如果未设置交易密码则提示设置交易密码
             if (StringUtil.isEmpty(userAccount.getPassword())) {
                 return restResult.setCodeAndMsg(ResultEnume.PROCESSFAIL,"请先设置交易密码");
@@ -135,12 +151,13 @@ public class UserAccountServiceImpl extends BaseServiceImpl<UserAccount> impleme
                     withdrawRecord.setAmount(String.valueOf(withdraw.getAmount()));
                     withdrawRecord.setOrderNo(orderNo);
                     withdrawRecord.setUserId(withdraw.getUserId());
-                    withdrawRecord.setRate("0.001");
-                    withdrawRecord.setHandlingFee(String.valueOf(0.001 * withdraw.getAmount()));
+                    withdrawRecord.setRate(oemConfig.getDrawRate());
+                    withdrawRecord.setHandlingFee(String.valueOf(Double.valueOf(oemConfig.getDrawRate()) * withdraw.getAmount()));
                     withdrawRecord.setCreateTime(new Date());
                     withdrawRecord.setStatus(2l);
                     int insertWithdrawNum = withdrawRecordMapper.insert(withdrawRecord);
                     if (insertWithdrawNum > 0) {
+                        this.moneyTransfer();
                         return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"提现功能暂未开放");
                     } else {
                         return restResult.setCodeAndMsg(ResultEnume.BUSY,ResultEnume.BUSYSTR);
@@ -154,5 +171,26 @@ public class UserAccountServiceImpl extends BaseServiceImpl<UserAccount> impleme
         } else {
             return restResult.setCodeAndMsg(ResultEnume.FAIL,"提现失败");
         }
+    }
+
+
+    /**
+     * 通过用户id查询oemid
+     * @param map
+     * @return
+     */
+    @Override
+    public Long searchOemIdByUserId(Map map) {
+        return userAccountMapper.searchOemIdByUserId(map);
+    }
+
+
+    /**
+     * 异步汇款
+     */
+    @Async
+    public void moneyTransfer () {
+        // TODO 异步汇款
+        logger.info("异步汇款");
     }
 }

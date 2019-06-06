@@ -73,4 +73,11 @@ public interface UserMapper extends BaseMapper<User> {
      */
     List<String> findSuperior(Map map);
 
+    /**
+     * 找回密码
+     * @param map
+     * @return
+     */
+    int retrievePassword(Map map);
+
 }

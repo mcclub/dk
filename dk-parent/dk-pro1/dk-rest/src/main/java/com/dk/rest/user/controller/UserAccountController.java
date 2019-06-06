@@ -5,6 +5,8 @@ import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
 import com.common.controller.BaseController;
 import com.common.utils.StringUtil;
+import com.dk.provider.basic.entity.OemConfig;
+import com.dk.provider.basic.service.IOemConfigService;
 import com.dk.provider.basis.service.RedisCacheService;
 import com.dk.provider.user.entity.UserAccount;
 import com.dk.provider.user.entity.Withdraw;
@@ -29,6 +31,8 @@ public class UserAccountController extends BaseController {
     private IUserAccountService userAccountServiceImpl;
     @Resource
     private RedisCacheService redisCacheService;
+    @Resource
+    private IOemConfigService oemConfigServiceImpl;
 
     /**
      * 用户修改登录密码
@@ -118,9 +122,16 @@ public class UserAccountController extends BaseController {
         if (StringUtil.isNotEmpty(map)) {
             if (StringUtil.isNotEmpty(map.get("userId"))) {
                 RestResult result = userAccountServiceImpl.queryByUserId(map);
-                if ((result.getRespCode()).equals("1000")) {
+                //oemId
+                Long oemId = userAccountServiceImpl.searchOemIdByUserId(map);
+                Map<String,Object> parm =new HashMap<>();
+                parm.put("oemId",oemId);
+                OemConfig oemConfig = oemConfigServiceImpl.searchByOemid(parm);
+                if ((result.getRespCode()).equals("1000") && oemConfig != null) {
                     Map<String,Object> rep = new HashMap();
                     rep.put("balance",((UserAccount)result.getData()).getBalance());
+                    rep.put("rate",oemConfig.getDrawRate());
+                    rep.put("fee",oemConfig.getDrawFee());
                     return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",rep);
                 } else {
                     return result;

@@ -79,4 +79,12 @@ public interface IUserService extends BaseServiceI<User> {
      * @return
      */
     List<String> findSuperior(Map map);
+
+
+    /**
+     * 找回密码
+     * @param map
+     * @return
+     */
+    RestResult retrievePassword(Map map);
 }

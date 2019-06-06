@@ -33,4 +33,6 @@ public interface UserAccountMapper extends BaseMapper<UserAccount> {
     int deductingBalance(Withdraw withdraw);
 
     int addBalance(Withdraw withdraw);
+
+    Long searchOemIdByUserId(Map map);
 }

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dk.provider.basic.mapper.OemConfigMapper">
+  <resultMap id="BaseResultMap" type="com.dk.provider.basic.entity.OemConfig">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="oemid" jdbcType="BIGINT" property="oemid" />
+    <result column="draw_rate" jdbcType="VARCHAR" property="drawRate" />
+    <result column="draw_fee" jdbcType="VARCHAR" property="drawFee" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, oemid, draw_rate, draw_fee
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_oem_config
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_oem_config
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dk.provider.basic.entity.OemConfig">
+    insert into t_oem_config (id, oemid, draw_rate, 
+      draw_fee)
+    values (#{id,jdbcType=BIGINT}, #{oemid,jdbcType=BIGINT}, #{drawRate,jdbcType=VARCHAR}, 
+      #{drawFee,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dk.provider.basic.entity.OemConfig">
+    insert into t_oem_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="oemid != null">
+        oemid,
+      </if>
+      <if test="drawRate != null">
+        draw_rate,
+      </if>
+      <if test="drawFee != null">
+        draw_fee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="oemid != null">
+        #{oemid,jdbcType=BIGINT},
+      </if>
+      <if test="drawRate != null">
+        #{drawRate,jdbcType=VARCHAR},
+      </if>
+      <if test="drawFee != null">
+        #{drawFee,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dk.provider.basic.entity.OemConfig">
+    update t_oem_config
+    <set>
+      <if test="oemid != null">
+        oemid = #{oemid,jdbcType=BIGINT},
+      </if>
+      <if test="drawRate != null">
+        draw_rate = #{drawRate,jdbcType=VARCHAR},
+      </if>
+      <if test="drawFee != null">
+        draw_fee = #{drawFee,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dk.provider.basic.entity.OemConfig">
+    update t_oem_config
+    set oemid = #{oemid,jdbcType=BIGINT},
+      draw_rate = #{drawRate,jdbcType=VARCHAR},
+      draw_fee = #{drawFee,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="searchByOemid" parameterType="Map" resultMap="BaseResultMap">
+  select
+    <include refid="Base_Column_List" />
+    from t_oem_config
+    where 1=1
+    <if test="oemId != null and oemId != ''">
+      and oemid = #{oemId}
+    </if>
+  </select>
+</mapper>

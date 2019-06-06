@@ -313,4 +313,15 @@
 	  ) T1
 	JOIN t_user T2 ON T1._id = T2.id
   </select>
+
+
+
+  <update id="retrievePassword" parameterType="Map">
+  update t_user
+    set password = #{newPassword}
+    ,update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where phone = #{mobilePhone}
+    and states = 1
+    and is_delete = 1
+  </update>
 </mapper>

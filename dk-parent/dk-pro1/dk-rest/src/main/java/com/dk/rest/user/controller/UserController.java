@@ -188,6 +188,8 @@ public class UserController extends BaseController {
     }
 
 
+
+
     /**
      * 用户修改登录密码
      * @param map
@@ -197,25 +199,40 @@ public class UserController extends BaseController {
     public RestResult updatePassword (@RequestBody Map map) {
         logger.info("start change password...");
         RestResult restResult = new RestResult();
-        if (StringUtil.isNotEmpty(map)) {
-            if (!StringUtil.isNotEmpty(map.get("userId"))) {
-                return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+
+        if (!StringUtil.isNotEmpty(map.get("newPassword"))) {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"新密码不能为空");
+        }
+        if (!StringUtil.isNotEmpty(map.get("repeatPassword"))) {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"重复密码不能为空");
+        }
+        if (!(map.get("newPassword")).equals(map.get("repeatPassword"))) {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"两次密码输入不同");
+        }
+        if (StringUtil.isNotEmpty(map.get("type"))) {
+            if (!StringUtil.isMobilePhone((String)map.get("mobilePhone"))) {
+                restResult.setCodeAndMsg(ResultEnume.FAIL,"手机号码格式有误！");
+                return restResult;
             }
-            if (!StringUtil.isNotEmpty(map.get("oldPassword"))) {
-                return restResult.setCodeAndMsg(ResultEnume.FAIL,"旧密码不能为空");
+            if (!((String)map.get("mobilePhone")).equals(redisCacheService.get((String)map.get("mobilePhone")))) {
+                restResult.setCodeAndMsg(ResultEnume.FAIL,"验证码输入有误！");
+                return restResult;
             }
-            if (!StringUtil.isNotEmpty(map.get("newPassword"))) {
-                return restResult.setCodeAndMsg(ResultEnume.FAIL,"新密码不能为空");
-            }
-            if (!StringUtil.isNotEmpty(map.get("repeatPassword"))) {
-                return restResult.setCodeAndMsg(ResultEnume.FAIL,"重复密码不能为空");
-            }
-            if (!(map.get("newPassword")).equals(map.get("repeatPassword"))) {
-                return restResult.setCodeAndMsg(ResultEnume.FAIL,"两次密码输入不同");
-            }
-            return userServiceImpl.updatePassword(map);
+
+            return userServiceImpl.retrievePassword(map);
         } else {
-            return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+            if (StringUtil.isNotEmpty(map)) {
+                if (!StringUtil.isNotEmpty(map.get("userId"))) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
+                }
+                if (!StringUtil.isNotEmpty(map.get("oldPassword"))) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"旧密码不能为空");
+                }
+
+                return userServiceImpl.updatePassword(map);
+            } else {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数错误");
+            }
         }
     }
 

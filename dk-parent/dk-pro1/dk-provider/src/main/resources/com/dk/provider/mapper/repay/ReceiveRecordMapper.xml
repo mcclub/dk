@@ -287,7 +287,6 @@
     SELECT count(1)
     FROM t_receive_record
     where user_id = #{userId}
-    <include refid="sqlPage"/>
   </select>
 
 

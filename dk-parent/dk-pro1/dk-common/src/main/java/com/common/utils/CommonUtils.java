@@ -4,6 +4,7 @@ import com.common.bean.PageResult;
 import com.common.bean.RepaySplit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
@@ -12,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class CommonUtils {
-
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
     private static String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
     private static Logger logger = LoggerFactory.getLogger(CommonUtils.class);
@@ -411,6 +412,43 @@ public class CommonUtils {
         }
         return list;
     }
+
+
+    /**
+     * 格式化日期
+     * @param date
+     * @return
+     */
+    public static String getDateYmdhms(Date date) {
+        return sdf.format(date);
+    }
+
+
+    /**
+     *  list  copy转换
+     * @param src 源集合
+     * @param target 目标集合
+     */
+    public static Boolean copyList (List src,List target) {
+        try{
+            if (!StringUtil.isNotEmpty(src) || !StringUtil.isNotEmpty(target)) {
+                logger.info("源集合以及目标集合不能为空");
+                return false;
+            }
+            target = new ArrayList();
+            for (Object srcBean : src) {
+                Object targetBean = new Object();
+                BeanUtils.copyProperties(srcBean,targetBean);
+                target.add(targetBean);
+            }
+            return true;
+        } catch (Exception e) {
+            logger.info(e.getMessage());
+            logger.info("lisy copy fail...");
+            return false;
+        }
+    }
+
 
 
     public static void main(String[] args) throws Exception {

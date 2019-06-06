@@ -15,6 +15,7 @@ import com.dk.provider.rake.mapper.RakeRecordMapper;
 import com.dk.provider.rake.service.IRakeRecordService;
 import com.dk.provider.repay.entity.ReceiveHistory;
 import com.dk.provider.repay.entity.ReceiveRecord;
+import com.dk.provider.repay.entity.ReceiveRecordVO;
 import com.dk.provider.repay.entity.RecordUserRate;
 import com.dk.provider.repay.mapper.ReceiveRecordMapper;
 import com.dk.provider.repay.service.ReceiveRecordService;
@@ -24,6 +25,7 @@ import com.dk.provider.user.mapper.UserAccountMapper;
 import com.dk.provider.user.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -102,24 +104,18 @@ public class ReceiveRecordServiceImpl extends BaseServiceImpl<ReceiveRecord> imp
     public RestResult pageHistory(Map map, Pageable pageable) {
         RestResult restResult = new RestResult();
         Page<ReceiveRecord> page = this.findPage(map,pageable);
-        if (page.getTotal() > 0) {
-            List<ReceiveHistory> list = new ArrayList<>();
-            for (ReceiveRecord receiveRecord : page.getContent()) {
-                ReceiveHistory history = new ReceiveHistory();
-                history.setId(receiveRecord.getId());
-                history.setUserId(receiveRecord.getUserId());
-                history.setAmount(receiveRecord.getAmount());
-                history.setOrderNo(receiveRecord.getOrderNo());
-                history.setReceCard(receiveRecord.getReceCard());
-                history.setStates(receiveRecord.getStates());
-                history.setCreateTime(receiveRecord.getCreateTime());
-                list.add(history);
+        List<ReceiveRecord> list = page.getContent();
+        List<ReceiveRecordVO> resultList = new ArrayList<>();
+        if (list != null && list.size() > 0) {
+            for (ReceiveRecord bean : list) {
+                ReceiveRecordVO receiveRecordVO = new ReceiveRecordVO();
+                BeanUtils.copyProperties(bean,receiveRecordVO);
+                resultList.add(receiveRecordVO);
             }
-            Page<ReceiveHistory> recordPage = new Page<>(list,page.getTotal(),pageable);
-            return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",recordPage);
-        } else {
-            return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",new Page<ReceiveHistory>());
         }
+
+        Page<ReceiveRecordVO> resultPage = new Page<>(resultList,page.getTotal(),page.getPageable());
+        return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",resultPage);
     }
 
 

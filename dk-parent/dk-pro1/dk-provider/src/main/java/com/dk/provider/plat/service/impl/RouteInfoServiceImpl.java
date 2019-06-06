@@ -20,6 +20,7 @@ import edu.emory.mathcs.backport.java.util.LinkedList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -100,13 +101,13 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
     }
 
     @Override
-    public RestResult routeInfoByUser(Map map) {
+    public RestResult routeInfoByUser(Map map, Pageable pageable) {
         RestResult restResult = new RestResult();
         Map<String,Object> resultMap = new HashMap<>();
-        List<DetailRouteInfo> userRouteinfo = routeInfoMapper.routeInfoByUser(map);
-        if (userRouteinfo != null && userRouteinfo.size() > 0) {
-            resultMap.put("classId",userRouteinfo.get(0).getClassId());
-            resultMap.put("className",userRouteinfo.get(0).getClassName());
+        Page<DetailRouteInfo> userRouteinfo = this.routeInfoByUserPages(map,pageable);
+        if (userRouteinfo.getContent() != null && userRouteinfo.getContent().size() > 0) {
+            resultMap.put("classId",userRouteinfo.getContent().get(0).getClassId());
+            resultMap.put("className",userRouteinfo.getContent().get(0).getClassName());
         }
         resultMap.put("info",userRouteinfo);
         restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",resultMap);
@@ -114,17 +115,17 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
     }
 
     @Override
-    public RestResult parentRouteInfo(Map map) {
+    public RestResult parentRouteInfo(Map map, Pageable pageable) {
         RestResult restResult = new RestResult();
         Long classId = userMapper.searchClassId(map);
         if (StringUtil.isNotEmpty(classId)) {
             if (!classId.equals(6l)) {
                 map.put("classId",classId+1);
                 Map<String,Object> resultMap = new HashMap<>();
-                List<DetailRouteInfo> userRouteinfo = routeInfoMapper.parentRouteInfo(map);
-                if (userRouteinfo != null && userRouteinfo.size() > 0) {
-                    resultMap.put("classId",userRouteinfo.get(0).getClassId());
-                    resultMap.put("className",userRouteinfo.get(0).getClassName());
+                Page<DetailRouteInfo> userRouteinfo = this.parentRoutePages(map,pageable);
+                if (userRouteinfo.getContent() != null && userRouteinfo.getContent().size() > 0) {
+                    resultMap.put("classId",userRouteinfo.getContent().get(0).getClassId());
+                    resultMap.put("className",userRouteinfo.getContent().get(0).getClassName());
                 }
                 resultMap.put("info",userRouteinfo);
                 return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",resultMap);
@@ -157,5 +158,60 @@ public class RouteInfoServiceImpl extends BaseServiceImpl<RouteInfo> implements 
             }
         }
         return null;
+    }
+
+
+    /**
+     * 查询自己费率分页方法
+     * @param params
+     * @param pageable
+     * @return
+     */
+    public Page<DetailRouteInfo> routeInfoByUserPages(Map<String, Object> params, Pageable pageable) {
+        if (params == null || ((Map)params).isEmpty()) {
+            params = new HashMap();
+        }
+
+        if (pageable == null) {
+            pageable = new Pageable();
+        } else {
+            String searchProperty = pageable.getSearchProperty();
+            String searchValue = pageable.getSearchValue();
+            if (StringUtils.hasText(searchProperty) && StringUtils.hasText(searchValue)) {
+                ((Map)params).put(searchProperty, searchValue);
+            }
+        }
+
+        long total = (long)routeInfoMapper.routeInfoByUserCount((Map)params);
+        this.setParams((Map)params, (int)total, pageable);
+        return new Page(routeInfoMapper.routeInfoByUser((Map)params), total, pageable);
+    }
+
+
+
+    /**
+     * 查询上个等级费率分页方法
+     * @param params
+     * @param pageable
+     * @return
+     */
+    public Page<DetailRouteInfo> parentRoutePages(Map<String, Object> params, Pageable pageable) {
+        if (params == null || ((Map)params).isEmpty()) {
+            params = new HashMap();
+        }
+
+        if (pageable == null) {
+            pageable = new Pageable();
+        } else {
+            String searchProperty = pageable.getSearchProperty();
+            String searchValue = pageable.getSearchValue();
+            if (StringUtils.hasText(searchProperty) && StringUtils.hasText(searchValue)) {
+                ((Map)params).put(searchProperty, searchValue);
+            }
+        }
+
+        long total = (long)routeInfoMapper.parentRouteCount((Map)params);
+        this.setParams((Map)params, (int)total, pageable);
+        return new Page(routeInfoMapper.parentRouteInfo((Map)params), total, pageable);
     }
 }

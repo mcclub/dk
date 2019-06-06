@@ -31,4 +31,8 @@ public interface RouteInfoMapper extends BaseMapper<RouteInfo> {
     List<DetailRouteInfo> routeInfoByUser (Map map);
 
     List<DetailRouteInfo> parentRouteInfo (Map map);
+
+    int parentRouteCount (Map map);
+
+    int routeInfoByUserCount (Map map);
 }

@@ -69,5 +69,6 @@
 	<dubbo:service interface="com.dk.provider.classI.service.ClassRateService" ref="classRateService"/>
 	<dubbo:service interface="com.dk.provider.user.service.IWithdrawRecordService" ref="withdrawRecordServiceImpl"/>
 	<dubbo:service interface="com.dk.provider.user.service.IAccountDetailService" ref="accountDetailServiceImpl"/>
+	<dubbo:service interface="com.dk.provider.basic.service.IOemConfigService" ref="oemConfigServiceImpl"/>
 </beans>
 

@@ -23,6 +23,8 @@
   <resultMap id="DetailRouteInfoMap" type="com.dk.provider.plat.entity.DetailRouteInfo" extends="BaseResultMap">
     <result column="classId" jdbcType="BIGINT" property="classId" />
     <result column="className" jdbcType="VARCHAR" property="className" />
+    <result column="costRate" jdbcType="VARCHAR" property="costRate" />
+    <result column="costFee" jdbcType="VARCHAR" property="costFee" />
   </resultMap>
   <sql id="Base_Column_List">
     id, `name`, rate, fee, norm_min, norm_max, time_begin, time_end, is_free, states, `type`,
@@ -52,6 +54,17 @@
         <![CDATA[ ORDER BY t.create_time DESC]]>
       </otherwise>
     </choose>
+    <if test="start!=null and max!=null">
+      <![CDATA[ LIMIT #{start}, #{max}]]>
+    </if>
+  </sql>
+
+
+
+  <sql id="sqlRoutInfoPage">
+    <if test="orderby!=null and orderby!=''">
+      <![CDATA[ ORDER BY ${orderby}]]>
+    </if>
     <if test="start!=null and max!=null">
       <![CDATA[ LIMIT #{start}, #{max}]]>
     </if>
@@ -314,8 +327,11 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="parentRouteInfo" parameterType="Map" resultMap="DetailRouteInfoMap">
-  select tr.*,tci.id classId,tci.name className
+
+
+  <select id="parentRouteCount" parameterType="Map" resultType="java.lang.Integer">
+  select
+    count(0)
     from t_classinfo tci
     left join t_class_rate tc on  tci.id = tc.class_id
     left join t_routeinfo tr on tc.route_id = tr.id
@@ -323,11 +339,41 @@
   </select>
 
 
-  <select id="routeInfoByUser" parameterType="Map" resultMap="DetailRouteInfoMap">
-  select tr.*,tu.class_id classId,tu.class_name className
+  <select id="parentRouteInfo" parameterType="Map" resultMap="DetailRouteInfoMap">
+  select
+    tr.id, tr.name, tr.rate costRate, tr.fee costFee, tr.norm_min, tr.norm_max,
+    tr.time_begin, tr.time_end, tr.is_free, tr.states, tr.type,
+    tr.remark, tr.create_time, tr.update_time, tr.create_by, tr.update_by, tr.is_delete,
+    tci.id classId,tci.name className,tc.rate,tc.fee
+    from t_classinfo tci
+    left join t_class_rate tc on  tci.id = tc.class_id
+    left join t_routeinfo tr on tc.route_id = tr.id
+    where tci.id = #{classId}
+    <include refid="sqlRoutInfoPage"/>
+  </select>
+
+
+
+  <select id="routeInfoByUserCount" parameterType="Map" resultType="java.lang.Integer">
+  select
+      count(0)
       from t_user tu
       left join t_class_rate tc on tu.class_id = tc.class_id
       left join t_routeinfo tr on tc.route_id = tr.id
       where tu.id = #{userId}
+  </select>
+
+
+  <select id="routeInfoByUser" parameterType="Map" resultMap="DetailRouteInfoMap">
+  select
+      tr.id, tr.name, tr.rate costRate, tr.fee costFee, tr.norm_min, tr.norm_max,
+      tr.time_begin, tr.time_end, tr.is_free, tr.states, tr.type,
+      tr.remark, tr.create_time, tr.update_time, tr.create_by, tr.update_by, tr.is_delete,
+      tu.class_id classId,tu.class_name className,tc.rate,tc.fee
+      from t_user tu
+      left join t_class_rate tc on tu.class_id = tc.class_id
+      left join t_routeinfo tr on tc.route_id = tr.id
+      where tu.id = #{userId}
+      <include refid="sqlRoutInfoPage"/>
   </select>
 </mapper>

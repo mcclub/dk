@@ -11,15 +11,14 @@ import com.common.utils.CommonUtils;
 import com.dk.provider.basis.service.impl.BaseServiceImpl;
 import com.dk.provider.plat.entity.RouteInfo;
 import com.dk.provider.plat.service.RouteInfoService;
-import com.dk.provider.repay.entity.AddPlanParm;
-import com.dk.provider.repay.entity.PaymentDetail;
-import com.dk.provider.repay.entity.RepayPlan;
+import com.dk.provider.repay.entity.*;
 import com.dk.provider.repay.mapper.PaymentDetailMapper;
 import com.dk.provider.repay.mapper.RepayPlanMapper;
 import com.dk.provider.repay.service.RepayPlanService;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -180,6 +179,7 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
     @Override
     public Map searchPlanAndDetail (Long plantId,Long userId,String cardNo,Long status) {
         List<PaymentDetail> paymentDetailsBean = new ArrayList<>();
+        List<PaymentDetailVO> paymentDetailsVO = new ArrayList<>();
         //查询代还汇总
         Map<String,Object> parmMap = new HashMap<>();
         parmMap.put("plantId",plantId);
@@ -187,6 +187,7 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
         parmMap.put("cardNo",cardNo);
         parmMap.put("status",status);
         RepayPlan repayPlanBean = repayPlanMapper.queryPlan(parmMap);
+        RepayPlanVO repayPlanVO = new RepayPlanVO();
         if (repayPlanBean != null) {
 
             if (repayPlanBean.getStates() == -1) {
@@ -202,14 +203,14 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
             }
 
             CommonUtils.reflect(repayPlanBean);
-
+            BeanUtils.copyProperties(repayPlanBean,repayPlanVO);
 
             //查询代还明细
             parmMap.put("plantId",repayPlanBean.getId());
             paymentDetailsBean = paymentDetailMapper.queryDetail(parmMap);
             if (paymentDetailsBean!= null && !paymentDetailsBean.isEmpty()) {
                 for (PaymentDetail bean : paymentDetailsBean) {
-
+                    PaymentDetailVO paymentDetailVO = new PaymentDetailVO();
                     if (bean.getStatus() == -1) {
                         bean.setStatusStr("预览");
                     } else if (bean.getStatus() == 0) {
@@ -231,6 +232,8 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
                         bean.setTypeStr("还款");
                     }
                     CommonUtils.reflect(bean);
+                    BeanUtils.copyProperties(bean,paymentDetailVO);
+                    paymentDetailsVO.add(paymentDetailVO);
                 }
             }
         }
@@ -238,8 +241,8 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
 
 
         Map resultMap = new HashMap();
-        resultMap.put("repayPlan",repayPlanBean!=null?repayPlanBean:new JSONObject());
-        resultMap.put("paymentDetails",(paymentDetailsBean!=null && paymentDetailsBean.size()>0)?paymentDetailsBean:new ArrayList<>());
+        resultMap.put("repayPlan",repayPlanVO!=null?repayPlanVO:new JSONObject());
+        resultMap.put("paymentDetails",(paymentDetailsVO!=null && paymentDetailsVO.size()>0)?paymentDetailsVO:new ArrayList<>());
         return resultMap;
     }
 
@@ -263,12 +266,16 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
         RestResult restResult = new RestResult();
         try{
             List<RepayPlan> repayPlans = repayPlanMapper.queryPlanByUser(map);
+            List<RepayPlanVO> repayPlansVO = new ArrayList<>();
             if (repayPlans != null && repayPlans.size() >0) {
                 for (RepayPlan bean : repayPlans) {
+                    RepayPlanVO repayPlanVOBean = new RepayPlanVO();
                     bean.setCreateTime(DateUtils.parseDate(sdf.format(bean.getCreateTime()),DATE_FORMAT));
                     CommonUtils.reflect(bean);
+                    BeanUtils.copyProperties(bean,repayPlanVOBean);
+                    repayPlansVO.add(repayPlanVOBean);
                 }
-                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",repayPlans);
+                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",repayPlansVO);
             } else {
                 return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"暂无记录");
             }

@@ -1,6 +1,7 @@
 package com.dk.provider.user.service;
 
 import com.common.bean.RestResult;
+import com.dk.provider.basic.entity.OemConfig;
 import com.dk.provider.basis.service.BaseServiceI;
 import com.dk.provider.user.entity.UserAccount;
 import com.dk.provider.user.entity.Withdraw;
@@ -17,4 +18,6 @@ public interface IUserAccountService extends BaseServiceI<UserAccount> {
     RestResult hasSetPassword (Map map);
 
     RestResult withdraw (Withdraw withdraw);
+
+    Long searchOemIdByUserId (Map map );
 }

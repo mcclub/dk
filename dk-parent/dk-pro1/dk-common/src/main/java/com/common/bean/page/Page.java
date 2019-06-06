@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Page<T> implements Serializable {
     private static final long serialVersionUID = -2053800594583879853L;
-    private final List<T> content = new ArrayList();
+    private List<T> content = new ArrayList();
     private final long total;
     private final Pageable pageable;
     public Page() {
@@ -39,6 +39,10 @@ public class Page<T> implements Serializable {
 
     public List<T> getContent() {
         return this.content;
+    }
+
+    public void setContent(List<T> content) {
+        this.content = content;
     }
 
     public long getTotal() {

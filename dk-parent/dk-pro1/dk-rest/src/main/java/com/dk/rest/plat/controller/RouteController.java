@@ -411,7 +411,14 @@ public class RouteController extends BaseController {
         if (StringUtil.isNotEmpty(map)) {
             try {
                 if (StringUtil.isNotEmpty(map.get("userId"))) {
-                    return routeInfoService.parentRouteInfo(map);
+                    Pageable pageable = new Pageable();
+                    if (StringUtil.isNotEmpty(map.get("pageNumber"))) {
+                        pageable.setPageNumber((int)map.get("pageNumber"));
+                    }
+                    if (StringUtil.isNotEmpty(map.get("pageSize"))) {
+                        pageable.setPageSize((int)map.get("pageSize"));
+                    }
+                    return routeInfoService.parentRouteInfo(map,pageable);
                 } else {
                     return restResult.setCodeAndMsg(ResultEnume.FAIL,"用户id不能为空");
                 }
@@ -484,7 +491,14 @@ public class RouteController extends BaseController {
         RestResult restResult = new RestResult();
         try {
             if (StringUtil.isNotEmpty(map)) {
-                return routeInfoService.routeInfoByUser(map);
+                Pageable pageable = new Pageable();
+                if (StringUtil.isNotEmpty(map.get("pageNumber"))) {
+                    pageable.setPageNumber((int)map.get("pageNumber"));
+                }
+                if (StringUtil.isNotEmpty(map.get("pageSize"))) {
+                    pageable.setPageSize((int)map.get("pageSize"));
+                }
+                return routeInfoService.routeInfoByUser(map,pageable);
             } else {
                 return restResult.setCodeAndMsg(ResultEnume.FAIL,"参数异常");
             }

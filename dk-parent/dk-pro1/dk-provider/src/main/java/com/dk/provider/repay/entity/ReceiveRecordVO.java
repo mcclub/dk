@@ -1,12 +1,17 @@
 package com.dk.provider.repay.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 /**
- * 快捷收款流水记录
+ * 收款纪录试图展示层实体类
  */
-public class ReceiveRecord implements Serializable {
+public class ReceiveRecordVO implements Serializable {
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
     private Long id;
 
     private String orderNo;
@@ -19,14 +24,6 @@ public class ReceiveRecord implements Serializable {
 
     private String fee;
 
-    private String receCard;
-
-    private String settleCard;
-
-    private String routeId;
-
-    private String subId;
-
     private String province;
 
     private String city;
@@ -35,17 +32,20 @@ public class ReceiveRecord implements Serializable {
 
     private String merchant;
 
-    private Long states;
+    private String states;
 
     private String orderDesc;
 
-    private Date createTime;
+    private String createTime;
 
     private Double factAmt;//到账金额
 
     private Double feetotal;//总手续费
 
 
+    public static SimpleDateFormat getSdf() {
+        return sdf;
+    }
 
     public Long getId() {
         return id;
@@ -95,38 +95,6 @@ public class ReceiveRecord implements Serializable {
         this.fee = fee;
     }
 
-    public String getReceCard() {
-        return receCard;
-    }
-
-    public void setReceCard(String receCard) {
-        this.receCard = receCard;
-    }
-
-    public String getSettleCard() {
-        return settleCard;
-    }
-
-    public void setSettleCard(String settleCard) {
-        this.settleCard = settleCard;
-    }
-
-    public String getRouteId() {
-        return routeId;
-    }
-
-    public void setRouteId(String routeId) {
-        this.routeId = routeId;
-    }
-
-    public String getSubId() {
-        return subId;
-    }
-
-    public void setSubId(String subId) {
-        this.subId = subId;
-    }
-
     public String getProvince() {
         return province;
     }
@@ -159,12 +127,25 @@ public class ReceiveRecord implements Serializable {
         this.merchant = merchant;
     }
 
-    public Long getStates() {
+    public String getStates() {
         return states;
     }
 
     public void setStates(Long states) {
-        this.states = states;
+        if (states == 0) {
+            this.states = "处理中";
+        } else if (states == 1) {
+            this.states = "成功";
+        }
+        else if (states == 2) {
+            this.states = "失败";
+        }
+        else if (states == 3) {
+            this.states = "未知";
+        }
+        else if (states == 4) {
+            this.states = "初始";
+        }
     }
 
     public String getOrderDesc() {
@@ -175,16 +156,16 @@ public class ReceiveRecord implements Serializable {
         this.orderDesc = orderDesc;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+        this.createTime = sdf.format(createTime);
     }
 
     public Double getFactAmt() {
-        return Double.parseDouble(amount) - (Double.parseDouble(amount) * Double.parseDouble(rate) + Double.parseDouble(fee));
+        return factAmt;
     }
 
     public void setFactAmt(Double factAmt) {
@@ -192,7 +173,7 @@ public class ReceiveRecord implements Serializable {
     }
 
     public Double getFeetotal() {
-        return Double.parseDouble(amount) * Double.parseDouble(rate) + Double.parseDouble(fee);
+        return feetotal;
     }
 
     public void setFeetotal(Double feetotal) {

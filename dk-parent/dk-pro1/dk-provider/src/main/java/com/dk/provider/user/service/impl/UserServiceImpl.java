@@ -171,6 +171,25 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         return userMapper.findSuperior(map);
     }
 
+
+    /**
+     * 找回密码
+     * @param map
+     * @return
+     */
+    @Override
+    public RestResult retrievePassword(Map map) {
+        RestResult restResult = new RestResult();
+        map.put("updateTime",new Date());
+        map.put("newPassword",EncryptionUtil.md5((String)map.get("newPassword")));
+        int num = userMapper.retrievePassword(map);
+        if (num > 0) {
+            return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"修改成功");
+        } else {
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"修改失败");
+        }
+    }
+
     @Override
     public CardInfo queryCard(Map map) throws Exception {
         return cardInfoMapper.queryByuserId(map);

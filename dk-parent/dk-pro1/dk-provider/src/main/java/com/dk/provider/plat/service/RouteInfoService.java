@@ -29,7 +29,7 @@ public interface RouteInfoService extends BaseServiceI<RouteInfo> {
      * @param map
      * @return
      */
-    RestResult routeInfoByUser (Map map);
+    RestResult routeInfoByUser (Map map, Pageable pageable);
 
 
     /**
@@ -37,7 +37,7 @@ public interface RouteInfoService extends BaseServiceI<RouteInfo> {
      * @param map
      * @return
      */
-    RestResult parentRouteInfo (Map map);
+    RestResult parentRouteInfo (Map map, Pageable pageable);
 
     /**
      * 查询用户通道费率
