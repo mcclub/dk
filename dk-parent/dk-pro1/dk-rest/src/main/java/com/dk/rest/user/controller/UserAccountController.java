@@ -155,6 +155,9 @@ public class UserAccountController extends BaseController {
                 if (withdraw.getAmount() == null) {
                     return restResult.setCodeAndMsg(ResultEnume.FAIL,"提现金额为空");
                 }
+                if (withdraw.getPassWord() == null) {
+                    return restResult.setCodeAndMsg(ResultEnume.FAIL,"密码不能为空");
+                }
                 if (withdraw.getAmount() < 0) {
                     return restResult.setCodeAndMsg(ResultEnume.FAIL,"提现金额必须大于0");
                 }

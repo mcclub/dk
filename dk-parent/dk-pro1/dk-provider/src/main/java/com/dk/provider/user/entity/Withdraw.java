@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class Withdraw implements Serializable {
     private Long userId;
     private Double amount;
+    private String passWord;
 
     public Long getUserId() {
         return userId;
@@ -23,5 +24,13 @@ public class Withdraw implements Serializable {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 }

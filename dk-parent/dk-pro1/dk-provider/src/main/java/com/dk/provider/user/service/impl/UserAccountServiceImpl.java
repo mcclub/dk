@@ -143,6 +143,9 @@ public class UserAccountServiceImpl extends BaseServiceImpl<UserAccount> impleme
             if (StringUtil.isEmpty(userAccount.getPassword())) {
                 return restResult.setCodeAndMsg(ResultEnume.PROCESSFAIL,"请先设置交易密码");
             }
+            if (!(userAccount.getPassword()).equals(EncryptionUtil.md5(withdraw.getPassWord()))) {
+                return restResult.setCodeAndMsg(ResultEnume.FAIL,"密码错误");
+            }
             //如果提现金额大于账户余额
             if (withdraw.getAmount() < Double.parseDouble(userAccount.getBalance())) {
                 int num = userAccountMapper.deductingBalance(withdraw);
@@ -169,7 +172,7 @@ public class UserAccountServiceImpl extends BaseServiceImpl<UserAccount> impleme
                 return restResult.setCodeAndMsg(ResultEnume.FAIL,"余额不足");
             }
         } else {
-            return restResult.setCodeAndMsg(ResultEnume.FAIL,"提现失败");
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"账户不存在，提现失败");
         }
     }
 
