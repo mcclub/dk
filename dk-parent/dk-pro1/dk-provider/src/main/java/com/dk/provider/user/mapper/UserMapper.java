@@ -80,4 +80,17 @@ public interface UserMapper extends BaseMapper<User> {
      */
     int retrievePassword(Map map);
 
+    /**
+     * 根据用户id查询直推的实名认证的用户
+     * @param userId
+     * @return
+     */
+    int bindNumByUserId(Long userId);
+
+    /**
+     * 用户升级
+     * @param map
+     * @return
+     */
+    int updateUserClass(Map map);
 }

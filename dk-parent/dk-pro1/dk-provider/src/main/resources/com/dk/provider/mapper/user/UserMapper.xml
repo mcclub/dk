@@ -195,6 +195,8 @@
     <include refid="Base_Column_List" />
     from t_user
     where id = #{id,jdbcType=BIGINT}
+    and states = 1
+    and is_delete = 1
   </select>
 
   <update id="updateByBindCard" parameterType="Map">
@@ -323,5 +325,25 @@
     where phone = #{mobilePhone}
     and states = 1
     and is_delete = 1
+  </update>
+
+  <select id="bindNumByUserId" parameterType="Map" resultType="java.lang.Integer">
+  select count(0)
+  from t_user
+  where 1=1
+  and states = 1
+  and is_delete = 1
+  and identity != null
+  and refer_no = #{userId,jdbcType=BIGINT}
+  </select>
+
+  <update id="updateUserClass" parameterType="Map">
+  update t_user
+  set class_id = #{classId},
+  class_name = #{className}
+  where 1=1
+  and states = 1
+  and is_delete = 1
+  and id = #{userId}
   </update>
 </mapper>
