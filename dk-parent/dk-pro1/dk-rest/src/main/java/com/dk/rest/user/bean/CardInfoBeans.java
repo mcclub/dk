@@ -29,6 +29,11 @@ public class CardInfoBeans {
      * 还款日
      */
     private String repTime;
+    /**
+     * 卡类型(01储蓄卡，02信用卡)
+     *
+     */
+    private String type;
 
     public Long getId() {
         return id;
@@ -84,5 +89,13 @@ public class CardInfoBeans {
 
     public void setRepTime(String repTime) {
         this.repTime = repTime;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

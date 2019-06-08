@@ -344,10 +344,10 @@ public class RepayController extends BaseController {
             if (StringUtil.isNotEmpty(map.get("userId"))) {
                 Pageable pageable = new Pageable();
                 if (StringUtil.isNotEmpty(map.get("pageNumber"))) {
-                    pageable.setPageNumber((int)map.get("pageNumber"));
+                    pageable.setPageNumber(Integer.valueOf(map.get("pageNumber").toString()));
                 }
                 if (StringUtil.isNotEmpty(map.get("pageSize"))) {
-                    pageable.setPageSize((int)map.get("pageSize"));
+                    pageable.setPageSize(Integer.valueOf(map.get("pageSize").toString()));
                 }
                 return receiveRecordService.pageHistory(map,pageable);
             } else {

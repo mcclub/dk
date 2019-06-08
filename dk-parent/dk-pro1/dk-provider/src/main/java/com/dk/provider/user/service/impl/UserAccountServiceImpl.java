@@ -1,5 +1,6 @@
 package com.dk.provider.user.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.common.bean.RestResult;
 import com.common.bean.ResultEnume;
 import com.common.utils.CommonUtils;
@@ -106,12 +107,15 @@ public class UserAccountServiceImpl extends BaseServiceImpl<UserAccount> impleme
     public RestResult hasSetPassword(Map map) {
         RestResult result = this.queryByUserId(map);
         if (result.getRespCode().equals("1000")) {
+            JSONObject json = new JSONObject();
             UserAccount userAccount = (UserAccount) result.getData();
             if (!StringUtil.isEmpty(userAccount.getPassword())) {
-                result.setData(true);
+                json.put("ispass","true");
+                result.setData(json);
                 return result;
             } else {
-                result.setData(false);
+                json.put("ispass","false");
+                result.setData(json);
                 return result;
             }
         } else {
@@ -161,7 +165,9 @@ public class UserAccountServiceImpl extends BaseServiceImpl<UserAccount> impleme
                     int insertWithdrawNum = withdrawRecordMapper.insert(withdrawRecord);
                     if (insertWithdrawNum > 0) {
                         this.moneyTransfer();
-                        return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"提现功能暂未开放");
+                        JSONObject json = new JSONObject();
+                        json.put("balance",userAccount.getBalance());
+                        return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"提现功能暂未开放",json);
                     } else {
                         return restResult.setCodeAndMsg(ResultEnume.BUSY,ResultEnume.BUSYSTR);
                     }

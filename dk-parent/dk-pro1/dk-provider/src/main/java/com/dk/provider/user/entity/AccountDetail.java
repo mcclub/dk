@@ -24,6 +24,8 @@ public class AccountDetail implements Serializable {
 
     private Long statusTransaction;
 
+    private String statusTransactionStr;
+
     public Long getId() {
         return id;
     }
@@ -112,7 +114,6 @@ public class AccountDetail implements Serializable {
         this.statusTransactionStr = statusTransactionStr;
     }
 
-    private String statusTransactionStr;
 
 
 
