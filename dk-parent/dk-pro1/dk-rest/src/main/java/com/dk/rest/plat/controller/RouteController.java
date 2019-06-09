@@ -23,6 +23,7 @@ import com.dk.rest.api.inter.quick.TenfuTongReplaceApi;
 import com.dk.rest.api.inter.quick.XSquickPayApi;
 import com.dk.rest.plat.bean.AreaBean;
 import com.dk.rest.plat.bean.RouteInfoBean;
+import com.dk.rest.plat.inter.QuickApiConfirm;
 import com.dk.rest.plat.inter.QuickApiProcess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,10 +72,10 @@ public class RouteController extends BaseController {
     @Resource
     private XSquickPayApi xSquickPayApi;
     /**
-     * 腾付通快捷
+     * 公共快捷订单确认
      */
     @Resource
-    private TenfuTongReplaceApi tenfuTongReplaceApi;
+    private QuickApiConfirm quickApiConfirm;
 
     /**
      * 查询大类通道信息（快捷，代还）
@@ -195,7 +196,7 @@ public class RouteController extends BaseController {
                 receiveRecord.setRouteId(jsonObject.getString("routId"));//大类通道id
                 receiveRecord.setSubId(subId.toString());//小类通道id
                 receiveRecord.setSettleCard(routeUser.getSettleCard());//到账储蓄卡
-                receiveRecord.setStates(2L);//状态1成功,2失败,0处理中
+                receiveRecord.setStates(4L);//订单状态(0处理中，1成功，2失败，3未知,4初始状态)
                 receiveRecord.setProvince(jsonObject.getString("province"));//省份
                 receiveRecord.setCity(jsonObject.getString("city"));//城市
                 receiveRecord.setIndustry(jsonObject.getString("industry"));//行业
@@ -208,7 +209,7 @@ public class RouteController extends BaseController {
                 /**
                  * 根据小类通道id
                  */
-                return routeSubChan(jsonObject);
+                return quickApiProcess.QuickProcess(jsonObject);
             }else{
                 return getRestResult(ResultEnume.FAIL,"暂无可用路由通道",new JSONObject());
             }
@@ -218,24 +219,6 @@ public class RouteController extends BaseController {
             return getFailRes();
         }
     }
-
-    /**
-     * 路由小类通道
-     * @param jsonObject
-     */
-    public RestResult routeSubChan(JSONObject jsonObject) throws Exception{
-        String tabNo = jsonObject.getString("tabNo");
-        if(tabNo.equals("beiduo")){//快捷K3
-            return quickApiProcess.QuickProcess(jsonObject);
-        }else if(tabNo.equals("xskjk1")) {//新生快捷K1
-            return xSquickPayApi.XsQuickapply(jsonObject);
-        }else if(tabNo.equals("tftkj")){//腾付通快捷
-            return null;
-        }else{
-            return getRestResult(ResultEnume.FAIL,"暂无可用路由通道",new JSONObject());
-        }
-    }
-
 
     /**
      * 确认支付(快捷)
@@ -258,31 +241,8 @@ public class RouteController extends BaseController {
             if(!jsonObject.containsKey("orderNo") || jsonObject.get("orderNo") == null){
                 return getRestResult(ResultEnume.FAIL,"订单号不能为空",new JSONObject());
             }
-            String orderNo = jsonObject.getString("orderNo");
 
-            Map<String,Object> map = new HashMap<>();
-            map.put("orderNo",orderNo);
-            List<ReceiveRecord> receiveRecordList = receiveRecordService.query(map);
-            if(receiveRecordList ==null){
-                return getRestResult(ResultEnume.FAIL,"未找到订单号",new JSONObject());
-            }
-            jsonObject.put("receCard",receiveRecordList.get(0).getReceCard());
-
-            Map<String,Object> map1=new HashMap<>();
-            map1.put("subId",receiveRecordList.get(0).getSubId());
-            List<Subchannel> subchannelList = subchannelService.query(map1);
-            if(subchannelList == null){
-                return getRestResult(ResultEnume.FAIL,"未找到路由通道",new JSONObject());
-            }
-
-            String tabNo = subchannelList.get(0).getTabNo();
-            if(tabNo.equals("xskjk1")) {//新生快捷K1
-                return xSquickPayApi.XsQuickconfirm(jsonObject);
-            }else if(tabNo.equals("beiduo")){//快捷K3
-                return null;
-            }
-
-            return getRestResult(ResultEnume.FAIL,"订单确认失败",new JSONObject());
+            return quickApiConfirm.QuickConfirm(jsonObject);
         }catch (Exception e){
             logger.error(method+"执行出错:{}",e.getMessage());
             e.printStackTrace();

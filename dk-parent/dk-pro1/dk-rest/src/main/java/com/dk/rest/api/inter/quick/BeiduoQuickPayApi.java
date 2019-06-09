@@ -52,6 +52,8 @@ public class BeiduoQuickPayApi {
          * merchantNo：商户号
          */
         String url = "http://"+reqIp+"/beiduo/merchant/regist";
+        key = jsonObject.getString("key");
+        merchantNo = jsonObject.getString("merchantNo");
         /**
          * jsonObject:业务参数
          */
@@ -95,6 +97,8 @@ public class BeiduoQuickPayApi {
          * merchantNo：商户号
          */
         String url = "http://"+reqIp+"/beiduo/merchant/modify";
+        key = jsonObject.getString("key");
+        merchantNo = jsonObject.getString("merchantNo");
         /**
          * jsonObject:业务参数
          */
@@ -128,7 +132,8 @@ public class BeiduoQuickPayApi {
      */
     public JSONObject BDquickPay(JSONObject jsonObject) throws Exception {
         String url = "http://"+reqIp+"/beiduo/quick/pay";
-
+        key = jsonObject.getString("key");
+        merchantNo = jsonObject.getString("merchantNo");
         /**
          * jsonObject:业务参数
          */

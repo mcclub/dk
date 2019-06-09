@@ -277,7 +277,7 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
                 }
                 return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"查询成功",repayPlansVO);
             } else {
-                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"暂无记录");
+                return restResult.setCodeAndMsg(ResultEnume.SUCCESS,"暂无记录",repayPlansVO);
             }
         } catch (Exception e) {
             logger.info("错误信息："+e.getMessage());

@@ -183,6 +183,7 @@ public class RepayController extends BaseController {
                      */
                     Map<String ,Object> maprepay = new HashMap<>();
                     maprepay.put("cardCode",e.getCardCode());//绑定信用卡
+                    maprepay.put("states","1");
                     List<RepayPlan> repayPlanLit = repayPlanService.query(maprepay);
                     if(repayPlanLit.size() > 0){
                         String totalamt =  repayPlanLit.get(0).getAmount();
@@ -209,129 +210,6 @@ public class RepayController extends BaseController {
             return getFailRes();
         }
     }
-
-    /**
-     * 新增还款计划 （还款汇总）
-     * @param jsonObject
-     * @return
-     *//*
-    @ResponseBody
-    @RequestMapping(value = {"/addplan"},method = RequestMethod.POST)
-    public RestResult addplan(@RequestBody JSONObject jsonObject){
-        String method = "addplan";
-        logger.info("进入RepayController的"+method+"方法,参数为:{}",jsonObject);
-        try {
-            *//**
-             *参数
-             *//*
-            int plandays = 0;//计划实际天数
-            String realbeginTime = "";//实际开始日期
-            String realendTime = "";//实际结束日期
-
-            String amount = jsonObject.getString("amount");//还款金额
-            String reseAmt = jsonObject.getString("reseAmt");//预留金额
-            String planBegin = jsonObject.getString("planBegin");//计划开始日期
-            String planEnd = jsonObject.getString("planEnd");//计划结束日期
-            String datearr = jsonObject.getString("datearr");//实际执行日期字符串
-            if(!StringUtils.isEmpty(datearr)){// 05/29,05/30,
-                datearr = datearr.replace("/","-");
-                String[] dateStrarr = datearr.split(",");//注意分隔符是需要转译,得到日期字符串数组
-                plandays = dateStrarr.length;//计划的实际天数
-
-                //实际开始日期 和 实际结束日期
-                realbeginTime = dateStrarr[0];//实际开始日期
-                realendTime = dateStrarr[dateStrarr.length-1];//实际结束日期
-            }
-
-            String planArea = jsonObject.getString("planArea"); //计划消费地区,省份城市
-            String cardCode = jsonObject.getString("cardCode");//还款信用卡 卡号
-            String userId = jsonObject.getString("userId");//用户id
-            String routId = jsonObject.getString("routId");//大类通道id
-            String subId = jsonObject.getString("subId");//小类通道id
-
-            *//**
-             * 费率手续费 还款金额 * 费率  + 单笔 * 笔数
-             * 计算出笔数  天数 日期来算
-             * 计算笔数（还款金额/预留金额 ， 如果商等于整数，则笔数=商+1.如果商不等于整数有余数，则笔数=商+1+1）
-             * 根据还款金额和卡内预留金额拆分笔数
-             *//*
-            int yunum = Integer.valueOf(amount) % Integer.valueOf(reseAmt);
-            int pennum = Integer.valueOf(amount) / Integer.valueOf(reseAmt);//还款笔数
-            if(yunum != 0){
-                pennum = pennum+2;
-            }else{
-                pennum = pennum+1;
-            }
-            *//**
-             * 笔数和天数的关系  一天最多三笔,
-             * 笔数/3笔 + 1= 最多天数 ，最多天数 <= 计划天数
-             *//*
-            //plandays = CommonUtils.daysOfTwo(planBegin,planEnd);//计划实际天数
-            int actdays = pennum/3 + 1;//执行实际天数
-            if( actdays > plandays){
-                String msg = "当前卡内预留金额,还款"+amount+"元至少需要"+actdays+"天,请增加还款天数或提高卡内预留金额";
-                return getRestResult(ResultEnume.FAIL,msg,new JSONObject());
-            }
-
-            *//**
-             * 计算还款需要的手续费
-             * 根据用户id查询选择的大类通道费率
-             *//*
-            Map<String ,Object> maps = new HashMap<>();
-            maps.put("userId",userId);
-            maps.put("routId",routId);
-            RouteUser routeUser = routeInfoService.queryUserRout(maps);
-            if(routeUser == null){
-                return getRestResult(ResultEnume.FAIL,"未找到还款通道",new JSONObject());
-            }
-            //还款需要的总手续费 = 还款金额 * 费率 + 笔数 * 单笔
-            Double totalfee = Double.valueOf(amount) * Double.valueOf(routeUser.getRate()) + pennum * Double.valueOf(routeUser.getFee());
-            totalfee = Double.valueOf(df.format(totalfee));
-            //执行计划需预留的余额为 预留金额+ 总手续费
-            Double totreseAmt = Double.valueOf(reseAmt) + totalfee;
-            totreseAmt = Double.valueOf(df.format(totreseAmt));
-
-
-            JSONObject jsonRes = new JSONObject();
-            jsonRes.put("realbeginTime",realbeginTime);
-            jsonRes.put("realendTime",realendTime);
-            jsonRes.put("amount",amount);
-            jsonRes.put("pennum",pennum);
-            jsonRes.put("totalfee",totalfee);
-            jsonRes.put("totreseAmt",totreseAmt);
-            jsonRes.put("cardCode",cardCode);
-
-
-            *//**
-             * 计划详情
-             * 还款笔数 、还款天数
-             * 一扣一还
-             * 二扣一还
-             * 三扣一还
-             * 一天最多扣三笔
-             *//*
-            //先随机分配每天还几笔并且小于等于3
-            List list = CommonUtils.randomplan(pennum,plandays);
-            //分别根据每天的还款笔数，制定消费和还款
-            *//**
-             * 首先确定还款时间
-             *//*
-
-
-
-
-
-
-
-
-
-            return getRestResult(ResultEnume.SUCCESS,"计划汇总",jsonRes);
-        }catch (Exception e){
-            logger.error(method+"执行出错:{}",e.getMessage());
-            e.printStackTrace();
-            return getFailRes();
-        }
-    }*/
 
 
 

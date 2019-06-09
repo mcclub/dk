@@ -3,7 +3,6 @@ package com.dk.rest.api.inter.quick;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.common.bean.RestResult;
 import com.dk.rest.api.inter.utils.DesUtil;
 import com.dk.rest.api.inter.utils.HttpUtil;
 import com.dk.rest.api.inter.utils.MD5;
@@ -33,14 +32,6 @@ public class TenfuTongReplaceApi {
     @Value("${server.ip}")
     String serverip;
 
-    /**
-     * 腾付通支付流程
-     * @param jsonObject
-     */
-    public RestResult TftquickProcess(JSONObject jsonObject) throws Exception{
-        JSONObject jsonres = TFTregister(jsonObject);
-        return null;
-    }
 
     /**
      * 1.用户注册
@@ -51,7 +42,9 @@ public class TenfuTongReplaceApi {
     public JSONObject TFTregister(JSONObject jsonObject) throws Exception {
 
         String url = "http://"+reqIp+"/api/register";
-
+        key = jsonObject.getString("key");
+        merchantNo = jsonObject.getString("merchantNo");
+        channelId = jsonObject.getString("channelId");
         /**
          * jsonObject:业务参数
          */
@@ -61,7 +54,7 @@ public class TenfuTongReplaceApi {
         jsonData.put("id_card",jsonObject.getString("id_card"));//身份证号
         jsonData.put("card_no",jsonObject.getString("card_no"));//结算银行卡号
         jsonData.put("mobile",jsonObject.getString("mobile"));//银行预留手机号
-        jsonData.put("user_ip",jsonObject.getString("user_ip"));//用户ip
+        jsonData.put("user_ip","127.0.0.1");//用户ip
         jsonData.put("timestamp",""+System.currentTimeMillis());//时间戳(13位)
         logger.info("请求参数jsonData:{}",jsonData);
 
@@ -69,28 +62,6 @@ public class TenfuTongReplaceApi {
         return jsonRes;
     }
 
-    /**
-     * 2.注册查询
-     * @param jsonObject
-     * @return
-     * @throws Exception
-     */
-    public JSONObject TFTregisterQuery(JSONObject jsonObject) throws Exception {
-
-
-        String url = "http://"+reqIp+"/api/register";
-
-        /**
-         * jsonObject:业务参数
-         */
-        HashMap<String, String> jsonData = new HashMap<String, String>();
-        jsonData.put("id_card",jsonObject.getString("id_card"));//身份证号
-        jsonData.put("timestamp",""+System.currentTimeMillis());//时间戳(13位)
-        logger.info("请求参数jsonData:{}",jsonData);
-
-        JSONObject jsonRes = requestPost(jsonData,url,"GET","des");
-        return jsonRes;
-    }
 
     /**
      * 3. 绑卡
@@ -99,10 +70,10 @@ public class TenfuTongReplaceApi {
      * @throws Exception
      */
     public JSONObject TFTbind(JSONObject jsonObject) throws Exception {
-
-
         String url = "http://"+reqIp+"/api/bind";
-
+        key = jsonObject.getString("key");
+        merchantNo = jsonObject.getString("merchantNo");
+        channelId = jsonObject.getString("channelId");
         /**
          * jsonObject:业务参数
          */
@@ -111,10 +82,10 @@ public class TenfuTongReplaceApi {
         jsonData.put("user_id",jsonObject.getString("user_id"));//平台用户ID
         jsonData.put("card_no",jsonObject.getString("card_no"));//银行卡号
         jsonData.put("mobile",jsonObject.getString("mobile"));//银行预留手机号
-        jsonData.put("user_ip",jsonObject.getString("user_ip"));//操作人IP
+        jsonData.put("user_ip","127.0.0.1");//操作人IP
         jsonData.put("expire_date",jsonObject.getString("expire_date"));//信用卡有效期,储蓄卡可不传
         jsonData.put("safe_code",jsonObject.getString("safe_code"));//信用卡安全码,储蓄卡可不传
-        jsonData.put("return_url",jsonObject.getString("return_url"));//同步返回地址
+        jsonData.put("return_url","");//同步返回地址
         jsonData.put("notice_url", "");//异步回调地址
         if(jsonObject.containsKey("sms_code")){
             jsonData.put("sms_code",jsonObject.getString("sms_code"));//短信验证码,某些通道绑卡时需要短信验证
@@ -128,28 +99,7 @@ public class TenfuTongReplaceApi {
         JSONObject jsonRes = requestPost(jsonData,url,"POST","des");
         return jsonRes;
     }
-    /**
-     * 4. 绑卡查询
-     * @param jsonObject
-     * @return
-     * @throws Exception
-     */
-    public JSONObject TFTbindquery(JSONObject jsonObject) throws Exception {
 
-
-        String url = "http://"+reqIp+"/api/bind";
-
-        /**
-         * jsonObject:业务参数
-         */
-        HashMap<String, String> jsonData = new HashMap<String, String>();
-        jsonData.put("card_no",jsonObject.getString("card_no"));//银行卡号
-        jsonData.put("timestamp",""+System.currentTimeMillis());//时间戳(13位)
-        logger.info("请求参数jsonData:{}",jsonData);
-
-        JSONObject jsonRes = requestPost(jsonData,url,"GET","des");
-        return jsonRes;
-    }
     /**
      * 5. 消费
      * @param jsonObject
@@ -159,7 +109,9 @@ public class TenfuTongReplaceApi {
     public JSONObject TFTpay(JSONObject jsonObject) throws Exception {
 
         String url = "http://"+reqIp+"/api/pay";
-
+        key = jsonObject.getString("key");
+        merchantNo = jsonObject.getString("merchantNo");
+        channelId = jsonObject.getString("channelId");
         /**
          * jsonObject:业务参数
          */
@@ -170,8 +122,8 @@ public class TenfuTongReplaceApi {
         jsonData.put("card_no",jsonObject.getString("card_no"));//银行卡号
         jsonData.put("amount",jsonObject.getString("amount"));//实际到账金额,单位分
         jsonData.put("fee",jsonObject.getString("fee"));//扣除手续费,单位分
-        jsonData.put("notice_url","");//交易回调地址
-        jsonData.put("user_ip",jsonObject.getString("user_ip"));//用户登录IP
+        jsonData.put("notice_url","http://"+serverip+"/app/quick/tftpay/notify");//交易回调地址
+        jsonData.put("user_ip","127.0.0.1");//用户登录IP
         if(jsonObject.containsKey("shop_id")){
             jsonData.put("shop_id",jsonObject.getString("shop_id"));//落地商铺ID(部份通知支持,可选)
         }
@@ -183,40 +135,16 @@ public class TenfuTongReplaceApi {
         return jsonRes;
     }
     /**
-     * 6. 消费查询
-     * @param jsonObject
-     * @return
-     * @throws Exception
-     */
-    public JSONObject TFTpayQuery(JSONObject jsonObject) throws Exception {
-
-
-        String url = "http://"+reqIp+"/api/pay";
-
-        /**
-         * jsonObject:业务参数
-         */
-        HashMap<String, String> jsonData = new HashMap<String, String>();
-        jsonData.put("order_id",jsonObject.getString("order_id"));//订单号,不可重复
-        jsonData.put("status",jsonObject.getString("status"));//状态(1待处理,2进行中,3成功,4通知中,5通知成功)
-        jsonData.put("timestamp",""+System.currentTimeMillis());//时间戳(13位)
-        logger.info("请求参数jsonData:{}",jsonData);
-
-        JSONObject jsonRes = requestPost(jsonData,url,"GET","des");
-        return jsonRes;
-    }
-
-    /**
      * 7. 代付
      * @param jsonObject
      * @return
      * @throws Exception
      */
     public JSONObject TFTproxypay(JSONObject jsonObject) throws Exception {
-
-
         String url = "http://"+reqIp+"/api/proxy_pay";
-
+        key = jsonObject.getString("key");
+        merchantNo = jsonObject.getString("merchantNo");
+        channelId = jsonObject.getString("channelId");
         /**
          * jsonObject:业务参数
          */
@@ -230,35 +158,12 @@ public class TenfuTongReplaceApi {
         }
         jsonData.put("amount",jsonObject.getString("amount"));//实际到账金额,单位分
         jsonData.put("fee",jsonObject.getString("fee"));//扣除手续费,单位分
-        jsonData.put("notice_url","");//交易回调地址
-        jsonData.put("user_ip",jsonObject.getString("user_ip"));//用户登录IP
+        jsonData.put("notice_url","http://"+serverip+"/app/quick/tftpay/notify");//交易回调地址
+        jsonData.put("user_ip","127.0.0.1");//用户登录IP
         jsonData.put("timestamp",""+System.currentTimeMillis());//时间戳(13位)
         logger.info("请求参数jsonData:{}",jsonData);
 
         JSONObject jsonRes = requestPost(jsonData,url,"POST","des");
-        return jsonRes;
-    }
-
-    /**
-     * 8. 代付查询
-     * @param jsonObject
-     * @return
-     * @throws Exception
-     */
-    public JSONObject TFTproxypayQuery(JSONObject jsonObject) throws Exception {
-
-
-        String url = "http://"+reqIp+"/api/proxy_pay";
-
-        /**
-         * jsonObject:业务参数
-         */
-        HashMap<String, String> jsonData = new HashMap<String, String>();
-        jsonData.put("order_id",jsonObject.getString("order_id"));//订单号,不可重复
-        jsonData.put("timestamp",""+System.currentTimeMillis());//时间戳(13位)
-        logger.info("请求参数jsonData:{}",jsonData);
-
-        JSONObject jsonRes = requestPost(jsonData,url,"GET","des");
         return jsonRes;
     }
 
@@ -269,8 +174,6 @@ public class TenfuTongReplaceApi {
      * @throws Exception
      */
     public JSONObject TFTbalance(JSONObject jsonObject) throws Exception {
-
-
         String url = "http://"+reqIp+"/api/balance";
 
         /**

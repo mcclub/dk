@@ -38,6 +38,9 @@
       <if test="cardCode != null and cardCode != ''">
         and card_code = #{cardCode,jdbcType=BIGINT}
       </if>
+      <if test="states != null and states != ''">
+        and states = #{states,jdbcType=BIGINT}
+      </if>
       order by create_time desc
     </where>
   </sql>
@@ -305,7 +308,7 @@
     <include refid="Base_Column_List"/>
     from
     <include refid="table_name"/>
-    where 1=1
+    where 1=1 and states != -1
     <if test="userId != null and userId != ''">
       and user_id = #{userId}
     </if>

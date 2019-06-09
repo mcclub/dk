@@ -1,6 +1,7 @@
 package com.dk.provider.repay.entity;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 public class ReceiveRecordVO implements Serializable {
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+    private DecimalFormat df = new DecimalFormat("#.00");
 
     private Long id;
 
@@ -165,6 +167,7 @@ public class ReceiveRecordVO implements Serializable {
     }
 
     public Double getFactAmt() {
+        factAmt = Double.valueOf(df.format(factAmt));
         return factAmt;
     }
 
@@ -173,6 +176,7 @@ public class ReceiveRecordVO implements Serializable {
     }
 
     public Double getFeetotal() {
+        feetotal = Double.valueOf(df.format(feetotal));
         return feetotal;
     }
 
