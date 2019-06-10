@@ -66,6 +66,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
                 UserAccount userAccount = new UserAccount();
                 userAccount.setUserId(user.getId());
                 userAccount.setStates(1l);
+                userAccount.setBalance("0");
                 userAccount.setCreateTime(new Date());
                 userAccount.setUpdateTime(new Date());
                 userAccount.setIsDelete(1l);

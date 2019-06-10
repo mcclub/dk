@@ -48,6 +48,9 @@ public class UserAccount implements Serializable {
     }
 
     public String getBalance() {
+        if (balance == null || "".equals(balance)) {
+            return "0";
+        }
         return balance;
     }
 
