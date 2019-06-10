@@ -24,6 +24,7 @@ public class QuickController extends BaseController {
     private ReceiveRecordService receiveRecordService;
 
     private String states;//订单状态
+    private String respMsg;//订单描述
     /**
      * 快捷K3异步通知
      * @param request
@@ -135,7 +136,7 @@ public class QuickController extends BaseController {
 
         Map<String ,String[]> maps = request.getParameterMap();
         Set<String> keys = maps.keySet();
-        Map<String ,String> map1 = new HashMap<>();
+        Map<String ,Object> map1 = new HashMap<>();
         for(String key : keys){
             String[] value = maps.get(key);
             for(String v : value){
@@ -152,7 +153,10 @@ public class QuickController extends BaseController {
             String fee = map1.get("fee").toString();//手续费(单位分)
             String platform_order_id = map1.get("platform_order_id").toString();//我方平台订单号
             String orderNo = map1.get("order_id").toString();//机构订单号
-            String respMsg = map1.get("error_msg").toString();//错误描述
+
+            if(map1.containsKey("error_msg")){
+                respMsg = map1.get("error_msg").toString();//错误描述
+            }
 
             states = "2";
             if(status.equals("3") || status.equals("4") || status.equals("5")){//3成功
@@ -163,9 +167,9 @@ public class QuickController extends BaseController {
                 states = "2";//失败
             }
 
-            if("DF_".contains(orderNo)){//快捷代付的订单
+            if(orderNo.contains("df_") || orderNo.contains("DF_")){//快捷代付的订单
                 orderNo = orderNo.substring(3,orderNo.length());
-
+                logger.info("订单号orderNo:{}",orderNo);
                 JSONObject json = new JSONObject();
                 json.put("orderNo",orderNo);
                 json.put("respMsg",respMsg);
@@ -180,24 +184,31 @@ public class QuickController extends BaseController {
                 }
             }
 
+            /**
+             * 如果是消费的回调，将状态改为处理中，只有代付的回调才能将状态改为1 成功
+             */
             Map<String,Object> map = new HashMap<>();
             map.put("orderNo",orderNo);
             List<ReceiveRecord> receiveRecordList = receiveRecordService.query(map);
-            if(receiveRecordList.size() >0) {
-                if (!"1".equals(receiveRecordList.get(0).getStates())) {
-                    /**
-                     * 修改订单状态和描述
-                     */
-                    ReceiveRecord updaRece = new ReceiveRecord();
-                    updaRece.setOrderNo(orderNo);
-                    updaRece.setStates(Long.valueOf(states));
-                    updaRece.setOrderDesc(respMsg);
-                    int updat = receiveRecordService.updateStates(updaRece);
+            if(receiveRecordList != null){
+                if(receiveRecordList.size() >0) {
+                    if (!"1".equals(receiveRecordList.get(0).getStates().toString())) {
+                        /**
+                         * 修改订单状态和描述
+                         */
+                        ReceiveRecord updaRece = new ReceiveRecord();
+                        updaRece.setOrderNo(orderNo);
+                        updaRece.setStates(0L);
+                        updaRece.setOrderDesc(respMsg);
+                        int updat = receiveRecordService.updateStates(updaRece);
 
-                    if(updat >0){
+                        if(updat >0){
+                            return "success";
+                        }else{
+                            return "fail";
+                        }
+                    }else if("1".equals(receiveRecordList.get(0).getStates())){
                         return "success";
-                    }else{
-                        return "fail";
                     }
                 }
             }

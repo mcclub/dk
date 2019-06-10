@@ -190,6 +190,11 @@ public class PaymentDetailServiceImpl extends BaseServiceImpl<PaymentDetail> imp
         return null;
     }
 
+    /**
+     * 修改代还订单成功之后的状态和 返佣
+     * @param jsonObject
+     * @return
+     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int updateDetailState(JSONObject jsonObject) {

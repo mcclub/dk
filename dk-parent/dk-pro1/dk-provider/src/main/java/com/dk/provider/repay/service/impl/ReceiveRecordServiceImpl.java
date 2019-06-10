@@ -148,6 +148,7 @@ public class ReceiveRecordServiceImpl extends BaseServiceImpl<ReceiveRecord> imp
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int updateReceiveOrder(JSONObject jsonObject) {
+        int updaStates = 0;
         String orderNo = jsonObject.getString("orderNo");//订单号
         String states = jsonObject.getString("states");//订单状态
         String respMsg = jsonObject.getString("respMsg");//订单描述
@@ -156,33 +157,35 @@ public class ReceiveRecordServiceImpl extends BaseServiceImpl<ReceiveRecord> imp
         Map<String,Object> map = new HashMap<>();
         map.put("orderNo",orderNo);
         List<ReceiveRecord> receiveRecordList = receiveRecordMapper.query(map);
-        if(receiveRecordList.size() >0) {
-            String amount = receiveRecordList.get(0).getAmount();//订单金额
+        if(receiveRecordList != null){
+            if(receiveRecordList.size() >0) {
+                String amount = receiveRecordList.get(0).getAmount();//订单金额
+                if (!"1".equals(receiveRecordList.get(0).getStates().toString())) {
+                    /**
+                     * 修改订单状态和描述
+                     */
+                    ReceiveRecord updaRece = new ReceiveRecord();
+                    updaRece.setOrderNo(orderNo);
+                    updaRece.setStates(Long.valueOf(states));
+                    updaRece.setOrderDesc(respMsg);
+                    updaStates = receiveRecordMapper.updateStates(updaRece);
 
-            if (!"1".equals(receiveRecordList.get(0).getStates())) {
-                /**
-                 * 修改订单状态和描述
-                 */
-                ReceiveRecord updaRece = new ReceiveRecord();
-                updaRece.setOrderNo(orderNo);
-                updaRece.setStates(Long.valueOf(states));
-                updaRece.setOrderDesc(respMsg);
-                receiveRecordMapper.updateStates(updaRece);
-
-                /**
-                 * 订单成功 计算返佣 并新增 返佣记录
-                 */
-                if ("1".equals(states)) {
-                    //查询当前人的通道费率和等级
-                    String routeId = receiveRecordList.get(0).getRouteId();//大类通道id
-                    String userId = receiveRecordList.get(0).getUserId();//用户id
-                    jsonObject.put("routeId",routeId);
-                    jsonObject.put("userId",userId);
-                    return rakeRecordService.operatRakerecod(jsonObject);
+                    /**
+                     * 订单成功 计算返佣 并新增 返佣记录
+                     */
+                    if ("1".equals(states)) {
+                        //查询当前人的通道费率和等级
+                        String routeId = receiveRecordList.get(0).getRouteId();//大类通道id
+                        String userId = receiveRecordList.get(0).getUserId();//用户id
+                        jsonObject.put("routeId",routeId);
+                        jsonObject.put("userId",userId);
+                        jsonObject.put("amount",amount);
+                        rakeRecordService.operatRakerecod(jsonObject);
+                    }
                 }
             }
         }
-     return 0;
+     return updaStates;
     }
 
 

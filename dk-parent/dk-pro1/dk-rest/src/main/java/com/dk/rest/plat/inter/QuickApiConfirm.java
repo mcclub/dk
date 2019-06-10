@@ -216,7 +216,7 @@ public class QuickApiConfirm {
             restResult = restResult.setCodeAndMsg(ResultEnume.SUCCESS,"订单确认成功,具体结果以银行扣款为准",resjson);
         }else{
             states = 2L;
-            return restResult = restResult.setCodeAndMsg(ResultEnume.FAIL,"订单确认失败",new JSONObject());
+            return restResult.setCodeAndMsg(ResultEnume.FAIL,"订单确认失败",new JSONObject());
         }
         return restResult;
     }

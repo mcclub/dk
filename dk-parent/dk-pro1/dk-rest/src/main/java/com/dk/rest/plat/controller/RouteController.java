@@ -164,52 +164,55 @@ public class RouteController extends BaseController {
             map.put("routId",jsonObject.get("routId"));//大类通道id
             map.put("subId",jsonObject.get("subId"));//小类通道id
             List<Subchannel> subchannelList = subchannelService.selectByrout(map);
-            if(subchannelList.size() >0){
-                /**
-                 * 随机取一条
-                 */
-                /*Random random = new Random();
-                int n = random.nextInt(subchannelList.size());//随机数
-                Subchannel subchannel = subchannelList.get(n);//取出的随机一条数据*/
-                String tabNo = subchannelList.get(0).getTabNo();//小类通道标记
-                Long subId = subchannelList.get(0).getId();//小类通道id
+            if(subchannelList != null){
+                if(subchannelList.size() >0){
+                    /**
+                     * 随机取一条
+                     */
+                    /*Random random = new Random();
+                    int n = random.nextInt(subchannelList.size());//随机数
+                    Subchannel subchannel = subchannelList.get(n);//取出的随机一条数据*/
+                    String tabNo = subchannelList.get(0).getTabNo();//小类通道标记
+                    Long subId = subchannelList.get(0).getId();//小类通道id
 
-                jsonObject.put("tabNo",tabNo);
-                jsonObject.put("subId",subId);
+                    jsonObject.put("tabNo",tabNo);
+                    jsonObject.put("subId",subId);
 
-                /**
-                 * 根据用户id查询用户 到账卡号，费率等等
-                 */
-                String orderNo = CommonUtils.getOrderNo(1l);
-                Map<String ,Object> maps = new HashMap<>();
-                maps.put("userId",jsonObject.getString("userId"));
-                maps.put("routId",jsonObject.getString("routId"));
-                RouteUser routeUser = routeInfoService.queryUserRout(maps);
+                    /**
+                     * 根据用户id查询用户 到账卡号，费率等等
+                     */
+                    String orderNo = CommonUtils.getOrderNo(1l);
+                    Map<String ,Object> maps = new HashMap<>();
+                    maps.put("userId",jsonObject.getString("userId"));
+                    maps.put("routId",jsonObject.getString("routId"));
+                    RouteUser routeUser = routeInfoService.queryUserRout(maps);
 
-                ReceiveRecord receiveRecord = new ReceiveRecord();
-                receiveRecord.setOrderNo(orderNo);//订单号
-                receiveRecord.setAmount(jsonObject.getString("amount"));//交易金额
-                receiveRecord.setRate(routeUser.getRate());//费率
-                receiveRecord.setFee(routeUser.getFee());//单笔手续费
-                receiveRecord.setUserId(jsonObject.getString("userId"));//用户id
-                receiveRecord.setReceCard(jsonObject.getString("receCard"));//交易卡
-                receiveRecord.setRouteId(jsonObject.getString("routId"));//大类通道id
-                receiveRecord.setSubId(subId.toString());//小类通道id
-                receiveRecord.setSettleCard(routeUser.getSettleCard());//到账储蓄卡
-                receiveRecord.setStates(4L);//订单状态(0处理中，1成功，2失败，3未知,4初始状态)
-                receiveRecord.setProvince(jsonObject.getString("province"));//省份
-                receiveRecord.setCity(jsonObject.getString("city"));//城市
-                receiveRecord.setIndustry(jsonObject.getString("industry"));//行业
-                receiveRecord.setMerchant(jsonObject.getString("merchant"));//商户
-                receiveRecordService.insert(receiveRecord);
+                    ReceiveRecord receiveRecord = new ReceiveRecord();
+                    receiveRecord.setOrderNo(orderNo);//订单号
+                    receiveRecord.setAmount(jsonObject.getString("amount"));//交易金额
+                    receiveRecord.setRate(routeUser.getRate());//费率
+                    receiveRecord.setFee(routeUser.getFee());//单笔手续费
+                    receiveRecord.setUserId(jsonObject.getString("userId"));//用户id
+                    receiveRecord.setReceCard(jsonObject.getString("receCard"));//交易卡
+                    receiveRecord.setRouteId(jsonObject.getString("routId"));//大类通道id
+                    receiveRecord.setSubId(subId.toString());//小类通道id
+                    receiveRecord.setSettleCard(routeUser.getSettleCard());//到账储蓄卡
+                    receiveRecord.setStates(4L);//订单状态(0处理中，1成功，2失败，3未知,4初始状态)
+                    receiveRecord.setProvince(jsonObject.getString("province"));//省份
+                    receiveRecord.setCity(jsonObject.getString("city"));//城市
+                    receiveRecord.setIndustry(jsonObject.getString("industry"));//行业
+                    receiveRecord.setMerchant(jsonObject.getString("merchant"));//商户
+                    receiveRecordService.insert(receiveRecord);
 
-                jsonObject.put("orderNo",orderNo);//订单号
-                jsonObject.put("rate",routeUser.getRate());
-                jsonObject.put("fee",routeUser.getFee());
-                /**
-                 * 根据小类通道id
-                 */
-                return quickApiProcess.QuickProcess(jsonObject);
+                    jsonObject.put("orderNo",orderNo);//订单号
+                    jsonObject.put("rate",routeUser.getRate());
+                    jsonObject.put("fee",routeUser.getFee());
+                    /**
+                     * 根据小类通道id
+                     */
+                    return quickApiProcess.QuickProcess(jsonObject);
+                }
+                return getRestResult(ResultEnume.FAIL,"暂无可用路由通道",new JSONObject());
             }else{
                 return getRestResult(ResultEnume.FAIL,"暂无可用路由通道",new JSONObject());
             }
