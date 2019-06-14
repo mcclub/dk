@@ -29,11 +29,11 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.dk.provider.user.entity.UserAccount">
-    insert into t_user_account (id, user_id, balance, 
+    insert into t_user_account ( user_id,
       roke_amt, `password`, states, 
       create_time, update_time, create_by, 
       update_by, is_delete)
-    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{balance,jdbcType=VARCHAR}, 
+    values ( #{userId,jdbcType=BIGINT},
       #{rokeAmt,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{states,jdbcType=BIGINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, 
       #{updateBy,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIGINT})

@@ -19,8 +19,8 @@ public class BillPaymentPlan {
 
     @Override
     public String toString() {
-        return "BillPaymentPlan{" +
-//                "paymentDetailList=" + paymentDetailList +
+        return "bill.BillPaymentPlan{" +
+                "paymentDetailList=" + paymentDetailList +
                 ", paymentTimes=" + paymentTimes +
                 ", billAmount=" + billAmount +
                 ", setPerPaymentAmount=" + setPerPaymentAmount +

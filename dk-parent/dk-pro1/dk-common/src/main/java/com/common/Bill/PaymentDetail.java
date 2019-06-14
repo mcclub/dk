@@ -1,5 +1,7 @@
 package com.common.Bill;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +28,7 @@ public class PaymentDetail {
 
     @Override
     public String toString() {
-//        return "\"PaymentDetail\":{" +
+//        return "\"bill.PaymentDetail\":{" +
 //                "\"chargeDetailList\":\"" + chargeDetailList + "\"" +
 //                ", \"paymentAmount\":\"" + this.getPaymentAmount() + "\"" +
 //                ", \"paymentAmountAfterRate\":\"" + this.getPaymentAmountAfterRate() + "\"" +
@@ -34,9 +36,11 @@ public class PaymentDetail {
         System.out.println("============charge list================");
         this.chargeDetailList.forEach(System.out::println);
         System.out.println("================================");
-        return "\"PaymentDetail\":{" +
+        return "\"bill.PaymentDetail\":{" +
                 "\"paymentAmount\":\"" + this.getPaymentAmount() + "\"" +
                 ", \"paymentAmountAfterRate\":\"" + this.getPaymentAmountAfterRate() + "\"" +
+                ", \"chargeDetailList\":\"" + chargeDetailList + "\"" +
+                ", \"paymentDate\":\"" + DateFormatUtils.format(paymentDate, "yyyy-MM-dd HH:mm:ss") + "\"" +
                 '}';
     }
 

@@ -31,14 +31,15 @@ public class BillPaymentHandler {
     private BigDecimal paymentedAmount = BigDecimal.ZERO;
     private BigDecimal billAmount;
     private boolean fullPayment = false;
+    private LinkedList<Integer> addMinuteQueue;
 
     public static void main(String[] args) throws ParseException {
-        BigDecimal setAmount = new BigDecimal(2500.22).setScale(2, BigDecimal.ROUND_CEILING);
+        BigDecimal setAmount = new BigDecimal(200).setScale(2, BigDecimal.ROUND_CEILING);
 //        Date startDate = DateUtils.parseDate("2019-06-01", DATE_FORMAT_1);
 //        Date billDate = DateUtils.parseDate("2019-06-03", DATE_FORMAT_1);
         String startDate = "2019-06-01";
         String billDate = "2019-06-05";
-        BigDecimal billAmount = new BigDecimal(10000);
+        BigDecimal billAmount = new BigDecimal(1000);
         BigDecimal chargeRate = new BigDecimal(0.0065);
         BigDecimal paymentRate = BigDecimal.ONE;
         System.out.println(chargeRate);
@@ -49,6 +50,7 @@ public class BillPaymentHandler {
 //        for (int i = 0; i < 10; i++) {
 //            test.dealData(setAmount, startDate, billDate, dateListStr, billAmount, chargeRate, paymentRate);
         BillPaymentPlan billPaymentPlan = test.getBillPaymentPlan(billPaymentParam);
+
         System.out.println(billPaymentPlan);
 //        }
         System.out.println("===================");
@@ -204,9 +206,10 @@ public class BillPaymentHandler {
 
     private BigDecimal setTotalTimes(BigDecimal totalTimes) {
         int divResult = totalTimes.divide(BigDecimal.valueOf(0.9), 0, BigDecimal.ROUND_FLOOR).intValue();
-        BigDecimal add1 = totalTimes.add(BigDecimal.valueOf(1));
+        BigDecimal add1 = totalTimes.add(BigDecimal.ONE);
+        int add2 = totalTimes.setScale(0, BigDecimal.ROUND_CEILING).intValue() + 1;
         int addResult = add1.intValue();
-        if (divResult == addResult) {
+        if (divResult == addResult || addResult == add2) {
             return add1.setScale(0, BigDecimal.ROUND_CEILING);
         }
         return totalTimes.setScale(0, BigDecimal.ROUND_CEILING);
@@ -309,22 +312,37 @@ public class BillPaymentHandler {
             chargeDetailList.sort(Comparator.comparing(ChargeDetail::getChargeTime));
             Date chargeTime = chargeDetailList.get(chargeDetailList.size() - 1).getChargeTime();
             // 还款时间为最后一次刷卡时间后的30-40分钟
-            paymentDetail.setPaymentDate(DateUtils.addMinutes(chargeTime, this.getValueFromQueue(this.threeChargeTimesQueue)));
+            this.setPaymentDate(paymentDetail, chargeTime);
             paymentDetail.setChargeDetailList(chargeDetailList);
         }
     }
 
+    private void setPaymentDate(PaymentDetail paymentDetail, Date lastChargeTime) {
+        Integer addMinute = this.getValueFromQueue(this.addMinuteQueue);
+        Date date = DateUtils.addMinutes(lastChargeTime, addMinute);
+        Calendar chargeTime = DateUtils.toCalendar(date);
+        int hour = chargeTime.get(Calendar.HOUR_OF_DAY);
+        if (hour > 19) {
+            chargeTime.set(Calendar.HOUR_OF_DAY, 19);
+            chargeTime.set(Calendar.MINUTE, 59);
+        }
+        paymentDetail.setPaymentDate(chargeTime.getTime());
+    }
+
     private BigDecimal validPaymentAmount(BigDecimal paymentAmount) {
+        BigDecimal paymentAmountAfterRate = paymentAmount.multiply(this.chargeRate).setScale(2, BigDecimal.ROUND_CEILING);
         // 账单剩余
-        BigDecimal subtractAmount = this.billAmount.add(this.paymentRate).divide(this.chargeRate, 2, BigDecimal.ROUND_CEILING).subtract(this.paymentedAmount);
+        BigDecimal subtractAmount = this.billAmount.add(this.paymentRate).subtract(this.paymentedAmount).setScale(2, BigDecimal.ROUND_CEILING);
+        System.out.println("_____________");
         System.out.println(subtractAmount);
         System.out.println(this.paymentedAmount);
+        System.out.println("__________");
         // 每次还款金额
-        if (subtractAmount.compareTo(paymentAmount) < 1) {
+        if (subtractAmount.compareTo(paymentAmountAfterRate) < 1) {
             this.fullPayment = true;
             return subtractAmount;
         }
-        return paymentAmount;
+        return paymentAmountAfterRate;
     }
 
     /**
@@ -378,7 +396,7 @@ public class BillPaymentHandler {
 //            BigDecimal chargeAmount1 = paymentAmount.multiply(BigDecimal.valueOf(this.getValueFromQueue(this.twoChargeTimesQueue).doubleValue() / 100));
 //            BigDecimal chargeAmount2 = paymentAmount.subtract(chargeAmount1);
 //            paymentAmountArr.add(chargeAmount1);
-//            paymentAmountArr.add(chargeAmount2);
+//            paymentAmountArr.add(chargeAmount2);·
             popList.add(this.getValueFromQueue(this.twoChargeTimesQueue));
             this.calcChargeAmount(paymentDetail, paymentAmountArr, paymentAmountAfterRateArr, 2, popList);
         } else if (chargeTimes == 3) {
@@ -395,60 +413,38 @@ public class BillPaymentHandler {
             return;
         }
 
+        Integer addMinute = this.getValueFromQueue(this.addMinuteQueue);
         for (int i = 0; i < chargeTimes; i++) {
             ChargeDetail chargeDetail = this.getChargeDetail(minutePop, paymentAmountArr.get(i), paymentAmountAfterRateArr.get(i), chargeDate, hourPop);
             chargeDetailList.add(chargeDetail);
-            minutePop = minutePop + threePop + 2 * i * i;
+            minutePop = minutePop + addMinute + 2 * i * i;
             hourPop = hourPop + minutePop / 60;
             minutePop = minutePop % 60;
         }
 
-//        switch (chargeTimes) {
-//            case 1:
-//                ChargeDetail chargeDetail = this.getChargeDetail(minutePop, paymentDetail, paymentAmount, chargeDate, hourPop);
-//                chargeDetailList.add(chargeDetail);
-//                break;
-//            case 2:
-//                BigDecimal chargeAmount1 = paymentAmount.multiply(BigDecimal.valueOf(twoPop.doubleValue() / 100));
-//                BigDecimal chargeAmount2 = paymentAmount.subtract(chargeAmount1);
-//                chargeDetailList.add(this.getChargeDetail(minutePop, paymentDetail, chargeAmount1, chargeDate, hourPop));
-//                int secondMinutePop = minutePop + twoPop;
-//                chargeDetailList.add(this.getChargeDetail(secondMinutePop % 60, paymentDetail, chargeAmount2, chargeDate, hourPop + secondMinutePop / 60));
-//                break;
-//            case 3:
-//                Integer threePop1 = this.getValueFromQueue(this.threeChargeTimesQueue);
-//                Integer threePop2 = this.getValueFromQueue(this.threeChargeTimesQueue);
-//                BigDecimal threeChargeAmount1 = paymentAmount.multiply(BigDecimal.valueOf(threePop1.doubleValue() / 100));
-//                BigDecimal threeChargeAmount2 = paymentAmount.multiply(BigDecimal.valueOf(threePop2.doubleValue() / 100));
-//
-//                BigDecimal threeChargeAmount3 = paymentAmount.subtract(threeChargeAmount1).subtract(threeChargeAmount2);
-//                chargeDetailList.add(this.getChargeDetail(minutePop, paymentDetail, threeChargeAmount1, chargeDate, hourPop));
-//                secondMinutePop = minutePop + twoPop;
-//                chargeDetailList.add(this.getChargeDetail(secondMinutePop % 60, paymentDetail, threeChargeAmount2, chargeDate, hourPop + secondMinutePop/60));
-//                Integer twoPop1 = this.getValueFromQueue(this.twoChargeTimesQueue);
-//                int threeMinutePop = secondMinutePop + twoPop1;
-//                chargeDetailList.add(this.getChargeDetail(threeMinutePop % 60, paymentDetail, threeChargeAmount3, chargeDate, hourPop + threeMinutePop/60));
-//
-//                break;
-//            default:
-//                break;
-//        }
     }
 
+    /**
+     * 通过还款金额设置刷卡金额
+     * @param paymentDetail
+     * @param paymentAmountArr
+     * @param paymentAmountAfterRateArr
+     * @param times
+     * @param popList
+     */
     private void calcChargeAmount(PaymentDetail paymentDetail, List<BigDecimal> paymentAmountArr, List<BigDecimal> paymentAmountAfterRateArr, int times, List<Integer> popList) {
 
         // 还款刷卡金额
         BigDecimal paymentAmount = new BigDecimal(this.getValueFromQueue(this.amountQueue));
         // 检验剩余待还额与paymentAmount大小，最后一次还款时 取两者中的小的
-        paymentAmount = this.validPaymentAmount(paymentAmount).setScale(2, BigDecimal.ROUND_CEILING);
+//         每次还款金额
+        BigDecimal paymentAfterRate = this.validPaymentAmount(paymentAmount);
 
         // 每次还款金额
-        BigDecimal paymentAfterRate = paymentAmount.multiply(this.chargeRate).setScale(2, BigDecimal.ROUND_CEILING);
-        // 已还款额
-        this.paymentedAmount = this.paymentedAmount.add(paymentAmount);
-
-        paymentDetail.setPaymentAmount(paymentAmount);
-        paymentDetail.setPaymentAmountAfterRate(paymentAfterRate);
+//        BigDecimal paymentAfterRate = paymentAmount.multiply(this.chargeRate).setScale(2, BigDecimal.ROUND_CEILING);
+        if (this.fullPayment) {
+            paymentAmount = paymentAfterRate.divide(this.chargeRate, 2, BigDecimal.ROUND_CEILING);
+        }
 
         BigDecimal chargeTotal = BigDecimal.ZERO;
         BigDecimal ratedChargeTotal = BigDecimal.ZERO;
@@ -456,24 +452,38 @@ public class BillPaymentHandler {
             BigDecimal charge = null;
             BigDecimal ratedCharge = null;
             if (i == times - 1) {
-                charge = paymentAmount.subtract(chargeTotal);
-                ratedCharge = paymentAfterRate.subtract(ratedChargeTotal);
-                // TODO 最后一次charge后  几个charge相加
+                // 最后一次的刷卡 等于预还款 减去 已刷卡
+//                ratedCharge = paymentAfterRate.subtract(ratedChargeTotal);
+                if (this.fullPayment) {
+                    ratedCharge = paymentAfterRate.subtract(ratedChargeTotal);
+                    charge = ratedCharge.divide(this.chargeRate, 2, BigDecimal.ROUND_CEILING);
+                } else {
+                    charge = paymentAmount.subtract(chargeTotal);
+                    ratedCharge = charge.multiply(this.chargeRate).setScale(2, BigDecimal.ROUND_CEILING);
+                }
             } else {
                 // 刷卡金额
                 charge = paymentAmount.multiply(BigDecimal.valueOf(popList.get(i)).divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_CEILING)).setScale(0, BigDecimal.ROUND_CEILING);
 //                charge = charge.setScale(0, BigDecimal.ROUND_CEILING);
                 // 每次刷卡占还款额的比例
-                BigDecimal rate = charge.divide(paymentAmount, 5, BigDecimal.ROUND_CEILING);
+//                BigDecimal rate = charge.divide(paymentAmount, 5, BigDecimal.ROUND_CEILING);
                 chargeTotal = chargeTotal.add(charge);
                 // 每次刷卡费率后金额
-                ratedCharge = paymentAfterRate.multiply(rate).setScale(0, 2);
-                ratedChargeTotal = ratedChargeTotal.add(ratedCharge);
+//                ratedCharge = paymentAfterRate.multiply(rate).setScale(0, 2);
+//                ratedCharge = charge.multiply(this.chargeRate).setScale(2, BigDecimal.ROUND_CEILING);
+//                ratedChargeTotal = ratedChargeTotal.add(ratedCharge);
+                ratedCharge = charge.multiply(this.chargeRate).setScale(2, BigDecimal.ROUND_CEILING);
             }
+
+            ratedChargeTotal = ratedChargeTotal.add(ratedCharge);
             paymentAmountArr.add(charge);
             paymentAmountAfterRateArr.add(ratedCharge);
-//            this.getPaymentArr(paymentAfterRate, charge, paymentAmountArr, paymentAmountAfterRateArr, paymentAmount);
+
         }
+        // 已还款额
+        this.paymentedAmount = this.paymentedAmount.add(ratedChargeTotal);
+        paymentDetail.setPaymentAmount(paymentAmount);
+        paymentDetail.setPaymentAmountAfterRate(ratedChargeTotal);
     }
 
 
@@ -556,15 +566,18 @@ public class BillPaymentHandler {
         this.threeChargeTimesQueue = BillPaymentHandler.getQueue(30, 40, 100);
         // 每笔两次，拆分比例
         this.twoChargeTimesQueue = BillPaymentHandler.getQueue(40, 50, 100);
-        LinkedList<Integer> hoursQueue8To11 = BillPaymentHandler.getQueue(8, 12, 100);
-        LinkedList<Integer> hoursQueue12To16 = BillPaymentHandler.getQueue(12, 17, 100);
-        LinkedList<Integer> hoursQueue17To20 = BillPaymentHandler.getQueue(17, 21, 100);
+        LinkedList<Integer> hoursQueue8To11 = BillPaymentHandler.getQueue(8, 11, 100);
+        LinkedList<Integer> hoursQueue12To16 = BillPaymentHandler.getQueue(12, 15, 100);
+        // 取到18点截止， 三次还款可到19点多
+        LinkedList<Integer> hoursQueue17To20 = BillPaymentHandler.getQueue(16, 19, 100);
         // 还款时间点，三个 上午 下午 晚上
         this.hoursQueues = new ArrayList<>(3);
         this.hoursQueues.add(hoursQueue8To11);
         this.hoursQueues.add(hoursQueue12To16);
         this.hoursQueues.add(hoursQueue17To20);
         this.minuteQueue = BillPaymentHandler.getQueue(0, 59, 100);
+
+        this.addMinuteQueue = BillPaymentHandler.getQueue(20, 30, 100);
 
         // 次数随机队列 0-3
         this.timesQueue = BillPaymentHandler.getQueue(0, 4, 1000);

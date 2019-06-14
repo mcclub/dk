@@ -1,7 +1,6 @@
 package com.common.Bill;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class BillPaymentParam {
 
@@ -28,7 +27,7 @@ public class BillPaymentParam {
 
     @Override
     public String toString() {
-        return "BillPaymentParam{" +
+        return "bill.BillPaymentParam{" +
                 "paymentDateStr='" + paymentDateStr + '\'' +
                 ", setPerPaymentAmount=" + setPerPaymentAmount +
                 ", billAmount=" + billAmount +

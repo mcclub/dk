@@ -22,7 +22,7 @@ public class ChargeDetail {
 
     @Override
     public String toString() {
-        return "\"ChargeDetail\":{" +
+        return "\"bill.ChargeDetail\":{" +
                 "\"chargeTime\":\"" + DateFormatUtils.format(chargeTime, "yyyy-MM-dd HH:mm:ss") + "\"" +
                 ", \"chargeAmountAfterRate\":\"" + this.getChargeAmountAfterRate() + "\"" +
                 ", \"chargeAmount:\"" + this.getChargeAmount() + "\"" +
@@ -30,10 +30,7 @@ public class ChargeDetail {
     }
 
     public BigDecimal getChargeAmount() {
-        if (this.chargeAmount == null) {
-            return null;
-        }
-        return chargeAmount.setScale(0, BigDecimal.ROUND_CEILING);
+        return this.chargeAmount;
     }
 
     public void setChargeAmount(BigDecimal chargeAmount) {
@@ -46,10 +43,7 @@ public class ChargeDetail {
     }
 
     public BigDecimal getChargeAmountAfterRate() {
-        if (this.chargeAmountAfterRate == null) {
-            return null;
-        }
-        return chargeAmountAfterRate.setScale(3, BigDecimal.ROUND_CEILING);
+        return this.chargeAmountAfterRate;
     }
 
     public void setChargeAmountAfterRate(BigDecimal chargeAmountAfterRate) {
