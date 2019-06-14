@@ -60,7 +60,7 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
         //还款计划
         RepayPlan repayPlan = new RepayPlan();
         //还款明细
-        List<PaymentDetail> paymentDetailList = new ArrayList<>();
+        List<PaymentDetail> paymentDetailList = new LinkedList<>();
 
         //还款拆分算法
         BillPaymentHandler billPaymentHandler = new BillPaymentHandler();
@@ -114,7 +114,7 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
         repayPlan.setCreateTime(new Date());//创建时间
         repayPlan.setRoutId(parm.getRoutId());//大类通道
         repayPlan.setSubId(parm.getSubId());//小类通道
-        repayPlan.setNotyetAmt(String.valueOf(billAmount));//为还金额
+        repayPlan.setNotyetAmt(String.valueOf(billAmount));//未还金额
         repayPlan.setOrderNo(CommonUtils.getOrderNo(2l));//订单号
         repayPlan.setReturnTimes(String.valueOf(billPaymentPlan.getPaymentTimes()));//还款次数
         repayPlan.setReeTime(billPaymentPlan.getPaymentDates().get(billPaymentPlan.getPaymentDates().size()-1));//实际还款结束日期
@@ -127,31 +127,29 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
             for (com.common.Bill.PaymentDetail bean : billPaymentPlan.getPaymentDetailList()) {
                 PaymentDetail paymentDetail = new PaymentDetail();
                 paymentDetail.setPlanId(repayPlan.getId());//计划id
-                paymentDetail.setAmount(String.valueOf(bean.getPaymentAmount()));//消费金额
-                paymentDetail.setActiveTime(bean.getPaymentDate());//消费时间
+                paymentDetail.setAmount(String.valueOf(bean.getPaymentAmountAfterRate().subtract(paymentRate)));//还款金额
+                paymentDetail.setActiveTime(bean.getPaymentDate());//还款时间
                 paymentDetail.setCreateTime(new Date());//创建时间
                 paymentDetail.setType(1l);//类型
                 paymentDetail.setStatus(-1l);//状态
                 paymentDetail.setUserId(parm.getUserId());//用户ID
                 paymentDetail.setCardNo(parm.getCardCode());//卡号
-                paymentDetailList.add(paymentDetail);
-            }
 
-            //新增还款明细（代扣）
-            for (ChargeDetail bean :billPaymentPlan.getChargeDetails()) {
-                PaymentDetail paymentDetail = new PaymentDetail();
-                paymentDetail.setPlanId(repayPlan.getId());//计划id
-                paymentDetail.setAmount(String.valueOf(bean.getChargeAmount()));//消费金额
-                paymentDetail.setActiveTime(bean.getChargeTime());//消费时间
-                paymentDetail.setCreateTime(new Date());//创建时间
-                paymentDetail.setType(0l);//类型
-                paymentDetail.setStatus(-1l);//状态
-                paymentDetail.setUserId(parm.getUserId());//用户ID
-                paymentDetail.setCardNo(parm.getCardCode());//卡号
+                //新增还款明细（代扣）
+                for (ChargeDetail chargeDetail : bean.getChargeDetailList()) {
+                    PaymentDetail charge = new PaymentDetail();
+                    charge.setPlanId(repayPlan.getId());//计划id
+                    charge.setAmount(String.valueOf(chargeDetail.getChargeAmount()));//消费金额
+                    charge.setActiveTime(chargeDetail.getChargeTime());//消费时间
+                    charge.setCreateTime(new Date());//创建时间
+                    charge.setType(0l);//类型
+                    charge.setStatus(-1l);//状态
+                    charge.setUserId(parm.getUserId());//用户ID
+                    charge.setCardNo(parm.getCardCode());//卡号
+                    paymentDetailList.add(charge);
+                }
                 paymentDetailList.add(paymentDetail);
             }
-            //根据时间排序
-            PaymentDetailServiceImpl.ListSort(paymentDetailList);
             //新增明细
             int insertDetailNum = paymentDetailMapper.insertList(paymentDetailList);
             if (insertDetailNum > 0) {
