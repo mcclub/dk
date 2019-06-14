@@ -119,7 +119,7 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
         repayPlan.setReturnTimes(String.valueOf(billPaymentPlan.getPaymentTimes()));//还款次数
         repayPlan.setReeTime(billPaymentPlan.getPaymentDates().get(billPaymentPlan.getPaymentDates().size()-1));//实际还款结束日期
         //手续费
-        repayPlan.setHandlingFee(String.valueOf((billPaymentPlan.getChargeAmount().subtract(billPaymentPlan.getBillAmount())).add(billPaymentPlan.getPaymentAmount().subtract(billPaymentPlan.getBillAmount()))));
+        repayPlan.setHandlingFee(String.valueOf(billPaymentPlan.getChargeAmount().subtract(billPaymentPlan.getBillAmount()).setScale(2)));
         //新增还款计划汇总
         int repayPlanNum = repayPlanMapper.insert(repayPlan);
         if (repayPlanNum > 0) {
@@ -127,7 +127,7 @@ public class RepayPlanServiceImpl extends BaseServiceImpl<RepayPlan> implements 
             for (com.common.Bill.PaymentDetail bean : billPaymentPlan.getPaymentDetailList()) {
                 PaymentDetail paymentDetail = new PaymentDetail();
                 paymentDetail.setPlanId(repayPlan.getId());//计划id
-                paymentDetail.setAmount(String.valueOf(bean.getPaymentAmountAfterRate().subtract(paymentRate)));//还款金额
+                paymentDetail.setAmount(String.valueOf(bean.getPaymentAmountAfterRate().subtract(paymentRate).setScale(2)));//还款金额
                 paymentDetail.setActiveTime(bean.getPaymentDate());//还款时间
                 paymentDetail.setCreateTime(new Date());//创建时间
                 paymentDetail.setType(1l);//类型
