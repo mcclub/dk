@@ -24,7 +24,7 @@
         <spring.boot.version>2.0.1.RELEASE</spring.boot.version>
         <mybatis.version>3.4.0</mybatis.version>
         <druid.version>1.1.6</druid.version>
-        <shiro.version>1.2.2</shiro.version>
+        <shiro.version>1.5.0</shiro.version>
         <dubbo.version>2.6.5</dubbo.version>
         <zookeeper.versoin>3.4.9</zookeeper.versoin>
         <zkclient.version>0.9</zkclient.version>
